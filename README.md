@@ -1,7 +1,7 @@
 # FariaBlog
 
 ![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)
-![Hugo](https://img.shields.io/badge/Hugo-v0.127.0-blue.svg)
+![Hugo](https://img.shields.io/badge/Hugo-v0.148.1-blue.svg)
 ![Último%20Commit](https://img.shields.io/github/last-commit/FariaDev/fariablog.svg)
 
 Um blog pessoal moderno e elegante construído com Hugo e o tema PaperMod. Aqui compartilho insights, reflexões e descobertas, documentando meus estudos, leituras e pensamentos.

@@ -49,7 +49,7 @@ defaultContentLanguageInSubdir = false
     [languages.pt-br.params]
       disqusShortname = "fariablog"  # Para comentários em pt-br
       [languages.pt-br.params.editPost]
-        URL = "https://github.com/FariaDev/fariablog/content"
+        URL = "https://github.com/FariaDev/fariablog/edit/main/content/"
         Text = "Sugira Edições"  # Texto em português
         appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
       [languages.pt-br.params.homeInfoParams]
@@ -91,7 +91,7 @@ defaultContentLanguageInSubdir = false
     [languages.en.params]
       disqusShortname = "fariablog"  # Para comentários em en (pode ajustar se quiser um shortname diferente)
       [languages.en.params.editPost]
-        URL = "https://github.com/FariaDev/fariablog/content"
+        URL = "https://github.com/FariaDev/fariablog/edit/main/content/"
         Text = "Suggest Changes"  # Texto em inglês
         appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
       [languages.en.params.homeInfoParams]
