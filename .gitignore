@@ -1,0 +1,34 @@
+# Hugo build output
+public/
+
+# Temporary files
+*.swp
+*~
+.#*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Hugo cache and resources
+resources/
+hugo_stats.json
+
+# Node.js/npm (se usar CSS personalizado via npm)
+node_modules/
+package-lock.json
+
+# Local environment files
+.env
+*.env
+
+# IDE/editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases (se aplicável)
+*.log
+*.sql
+*.sqlite
