@@ -107,18 +107,6 @@
                 href="http://localhost:1313/contact/"
                 />
   </url><url>
-    <loc>http://localhost:1313/false/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="http://localhost:1313/pt-br/false/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/false/"
-                />
-  </url><url>
     <loc>http://localhost:1313/pt-br/</loc>
     <xhtml:link
                 rel="alternate"
@@ -141,6 +129,18 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://localhost:1313/search/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/true/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="http://localhost:1313/pt-br/true/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/true/"
                 />
   </url>
 </urlset>

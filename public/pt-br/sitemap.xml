@@ -95,18 +95,6 @@
                 href="http://localhost:1313/pt-br/contact/"
                 />
   </url><url>
-    <loc>http://localhost:1313/pt-br/false/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/false/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="http://localhost:1313/pt-br/false/"
-                />
-  </url><url>
     <loc>http://localhost:1313/pt-br/books/</loc>
     <xhtml:link
                 rel="alternate"
@@ -141,6 +129,18 @@
                 rel="alternate"
                 hreflang="pt-br"
                 href="http://localhost:1313/pt-br/pt-br/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/pt-br/true/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/true/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="http://localhost:1313/pt-br/true/"
                 />
   </url>
 </urlset>
