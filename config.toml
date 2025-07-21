@@ -1,0 +1,125 @@
+baseURL = "https://fariablog.com/"  # Mude se for testar em subdomínio primeiro
+languageCode = "pt-br"  # Default: Português
+title = "FariaBlog"
+
+theme = "PaperMod"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]  # Necessário para Search
+
+[taxonomies]
+tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"])
+
+defaultContentLanguage = "pt-br"
+defaultContentLanguageInSubdir = false
+
+[languages]
+  [languages.pt-br]
+    contentDir = "content/pt-br"
+    languageName = "🇧🇷 Pt-Br"
+    weight = 1
+    title = "FariaBlog"
+    [languages.pt-br.menu]
+      [[languages.pt-br.menu.main]]
+        identifier = "search"
+        name = "Search"
+        url = "/search/"
+        weight = 10
+      [[languages.pt-br.menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags/"
+        weight = 20
+      [[languages.pt-br.menu.main]]
+        identifier = "archives"
+        name = "Archive"
+        url = "/archives/"
+        weight = 30
+      [[languages.pt-br.menu.main]]
+        identifier = "contact"
+        name = "Contato"
+        url = "/contact/"
+        weight = 40  # Ajuste o weight para ordem (maior = depois no menu)
+      [[languages.pt-br.menu.main]]
+        identifier = "books"
+        name = "Livros Lidos"
+        url = "/books/"
+        weight = 50
+
+    [languages.pt-br.params]
+      disqusShortname = "fariablog"  # Para comentários em pt-br
+      [languages.pt-br.params.editPost]
+        URL = "https://github.com/FariaDev/fariablog/content"
+        Text = "Sugira Edições"  # Texto em português
+        appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
+      [languages.pt-br.params.homeInfoParams]
+        Title = "Bem-vindo ao meu universo de ideias"
+        Content = "Um jovem de 17 anos compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
+
+  [languages.en]
+    contentDir = "content/en"
+    languageName = "🇺🇸 En"
+    weight = 2
+    title = "FariaBlog"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "search"
+        name = "Search"
+        url = "/search/"
+        weight = 10
+      [[languages.en.menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags/"
+        weight = 20
+      [[languages.en.menu.main]]
+        identifier = "archives"
+        name = "Archive"
+        url = "/archives/"
+        weight = 30
+      [[languages.en.menu.main]]
+        identifier = "contact"
+        name = "Contact"
+        url = "/contact/"
+        weight = 40
+      [[languages.en.menu.main]]
+        identifier = "books"
+        name = "Books Read"
+        url = "/books/"
+        weight = 50
+
+    [languages.en.params]
+      disqusShortname = "fariablog"  # Para comentários em en (pode ajustar se quiser um shortname diferente)
+      [languages.en.params.editPost]
+        URL = "https://github.com/FariaDev/fariablog/content"
+        Text = "Suggest Changes"  # Texto em inglês
+        appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
+      [languages.en.params.homeInfoParams]
+        Title = "Welcome to my universe of ideas"
+        Content = "A 17-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."  # Tradução sugerida; ajuste se quiser
+
+[params]
+  displayFullLangName = true
+  ShowShareButtons = true  # Ativado conforme sua preferência anterior
+  ShowReadingTime = true
+  ShowToc = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  customCSS = ["extended/overrides.css"]  # Para CSS personalizado
+
+  # Search config (global, aplica a todos os idiomas)
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
+
+  # Assets (global)
+  [params.assets]
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"

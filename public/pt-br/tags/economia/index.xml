@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Economia on FariaBlog</title>
+    <link>http://localhost:1313/pt-br/tags/economia/</link>
+    <description>Recent content in Economia on FariaBlog</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sun, 20 Jul 2025 00:36:00 -0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/pt-br/tags/economia/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Como se Beneficiar do Caos: Anotações sobre &#39;Antifrágil&#39; de Taleb</title>
+      <link>http://localhost:1313/pt-br/posts/como-se-beneficiar-do-caos-anotacoes-sobre-antifragil-de-taleb/</link>
+      <pubDate>Sun, 20 Jul 2025 00:36:00 -0300</pubDate>
+      <guid>http://localhost:1313/pt-br/posts/como-se-beneficiar-do-caos-anotacoes-sobre-antifragil-de-taleb/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;Aqui estão minhas anotações, feitas após a leitura de cada livro (aqui intitulado como capítulo) e das seções contidas nesses livros. Essas anotações não tem o intuito de substituir a leitura do livro, a qual é essencial para melhor compreensão dos conceitos, mas sim busca ajudar os leitores a revisar e complementar sua leitura.&lt;/p&gt;
+&lt;p&gt;Algumas anotações foram complementadas por observações e ideias minhas. Assim como o próprio autor do livro sugeriu, algumas seções e livros são destinados ao público não-leigo, tais seções e livros foram pulados dessas anotações, que visam principalmente ao leitor leigo.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

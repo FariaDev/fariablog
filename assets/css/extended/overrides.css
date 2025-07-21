@@ -1,0 +1,68 @@
+/* Ajuste geral para conteúdo e tabelas (como discutimos) */
+.post-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    border-collapse: collapse; /* Para bordas unidas */
+}
+
+/* Estilos para tabelas como na segunda imagem: bordas e linhas alternadas */
+th, td {
+    border: 1px solid #ddd; /* Bordas cinza claro */
+    padding: 8px; /* Espaçamento interno */
+    text-align: left; /* Alinhamento padrão */
+}
+
+th {
+    background-color: #f2f2f2; /* Cabeçalho com fundo cinza claro */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas pares com fundo cinza muito claro, como na demo */
+}
+
+/* Esconder covers na lista de posts (só aparece no post completo) */
+.post-entry .entry-cover {
+    display: none;
+}
+
+/* Padroniza imagens de capa no post completo: largura 100%, altura máxima fixa, com corte responsivo */
+.post-single .entry-cover img,
+.post-single .figure.entry-cover img { /* Target exato baseado no Dev Tools */
+    width: 100% !important; /* Força largura total do container */
+    max-width: 800px !important; /* Limita largura máxima para evitar expansão excessiva */
+    height: auto !important; /* Mantém proporção original */
+    max-height: 400px !important; /* Altura máxima padronizada */
+    object-fit: cover !important; /* Corta proporcionalmente sem distorcer */
+    display: block !important; /* Evita espaços extras */
+    margin: 0 auto !important; /* Centraliza a imagem */
+    border-radius: 8px; /* Opcional: Arredonda bordas para estética */
+}
+
+/* Responsividade para telas menores (mobile) */
+@media (max-width: 768px) {
+    .post-single .entry-cover img,
+    .post-single .figure.entry-cover img {
+        max-height: 250px !important; /* Reduz altura em mobile */
+        max-width: 100% !important; /* Garante fit em telas pequenas */
+    }
+}
+
+/* Estiliza o container do Disqus para responsividade */
+#disqus_thread {
+    max-width: 1000px; /* Alinha com o post-content */
+    margin: 0 auto; /* Centraliza */
+    padding: 20px; /* Espaçamento interno */
+}
+
+@media (max-width: 768px) {
+    #disqus_thread {
+        padding: 10px; /* Reduz padding em mobile */
+        max-width: 100%; /* Ocupa toda largura em telas pequenas */
+    }
+}
