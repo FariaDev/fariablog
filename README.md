@@ -7,7 +7,7 @@
 Um blog pessoal moderno e elegante construído com Hugo e o tema PaperMod. Aqui compartilho insights, reflexões e descobertas, documentando meus estudos, leituras e pensamentos.
 
 <p align="center">
-  <img src="fariablog.webp" alt="FariaBlog" width="400"/>
+  <img src="https://fariablog.com/fariablog.webp" alt="FariaBlog" width="400"/>
 </p>
 
 ## ✨ Destaques
