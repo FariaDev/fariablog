@@ -145,7 +145,7 @@ O que podemos concluir depois de tudo isso? Que não podemos nem valorizar muito
 Se rejeitarmos tanto o racionalismo extremo quanto a entrega irrestrita aos instintos, como podemos encontrar equilíbrio na sociedade contemporânea?
 
 Agora, um meme para descontrair 😂
-![A imagem mostra a capa do livro Notes from Underground de Dostoiévski ao lado de um Wojak melancólico. Acima dele, um balão de pensamento diz "he is literally me", indicando uma identificação profunda e irônica com o protagonista da obra.](/images/meme1.webp)
+![A imagem mostra a capa do livro Notes from Underground de Dostoiévski ao lado de um Wojak melancólico. Acima dele, um balão de pensamento diz "ele é literalmente eu", indicando uma identificação profunda e irônica com o protagonista da obra.](/images/meme1-ptbr.webp)
 
 ---
 
