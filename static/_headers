@@ -1,0 +1,37 @@
+# Headers de cache para melhorar performance
+# Compatível com Netlify, Cloudflare Pages e outros
+
+# Cache para assets estáticos (CSS, JS, imagens, fonts)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache para imagens
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache para favicons e manifestos
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webmanifest
+  Cache-Control: public, max-age=86400
+
+# Cache para HTML (mais curto para permitir atualizações)
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Cache para JSON (index de busca)
+/*.json
+  Cache-Control: public, max-age=3600
+
+# Preload de recursos críticos
+# Adicionar preconnect para domínios externos
+Link: <https://www.googletagmanager.com>; rel=preconnect; crossorigin
+Link: <https://fonts.googleapis.com>; rel=preconnect; crossorigin
+Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
