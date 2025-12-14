@@ -38,9 +38,9 @@ $description = printf "Bem-vindo ao %s - Um blog sobre filosofia, literatura,
 neurociência e reflexões sobre educação." site.Title }} {{- end }}
 <meta name="description" content="{{ $description }}" />
 
-<meta name="author" content="{{ (partial "author.html" . ) }}"> <link
+<meta name="author" content="{{ (partial "author.html" . ) }}" /> <link
 rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim
-.Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}"> {{- if
+.Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}" /> {{- if
 site.Params.analytics.google.SiteVerificationTag }}
 <meta
   name="google-site-verification"
@@ -117,17 +117,17 @@ $search := (slice $fusejs $license_js $fastsearch ) | resources.Concat
 "assets/js/search.js" }}
 <script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}"></script>
 {{- end }} {{- end -}} {{- /* Favicons */}} <link rel="icon" href="{{
-site.Params.assets.favicon | default "favicon.ico" | absURL }}"> <link
+site.Params.assets.favicon | default "favicon.ico" | absURL }}" /> <link
 rel="icon" type="image/png" sizes="16x16" href="{{
-site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
+site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}" />
 <link rel="icon" type="image/png" sizes="32x32" href="{{
-site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
+site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}" />
 <link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon |
-default "apple-touch-icon.png" | absURL }}"> <link rel="mask-icon" href="{{
+default "apple-touch-icon.png" | absURL }}" /> <link rel="mask-icon" href="{{
 site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL
-}}"> <meta name="theme-color" content="{{ site.Params.assets.theme_color |
-default "#2e2e33" }}"> <meta name="msapplication-TileColor" content="{{
-site.Params.assets.msapplication_TileColor | default "#2e2e33" }}"> {{- /* RSS
+}}" /> <meta name="theme-color" content="{{ site.Params.assets.theme_color |
+default "#2e2e33" }}" /> <meta name="msapplication-TileColor" content="{{
+site.Params.assets.msapplication_TileColor | default "#2e2e33" }}" /> {{- /* RSS
 */}} {{ range .AlternativeOutputFormats -}}
 <link
   rel="{{ .Rel }}"
