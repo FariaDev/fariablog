@@ -9,7 +9,7 @@ comments = true
 [cover]
   image = "/images/imagem-post5.webp"
   alt = "Pintura a óleo 'A Tempestade' de Giorgione. A obra retrata uma paisagem serena com uma mulher amamentando e um soldado, que contrastam com o céu escuro e um raio ao fundo, simbolizando a calma e a vida que persistem diante da iminente volatilidade do caos."
-  caption = "📢 **Crédito da imagem:** Pintura 'A Tempestade' (c. 1508) de **Giorgione**. Imagem de domínio público via **Wikipedia**, a enciclopédia livre."
+  caption = "📢 **Crédito da imagem:** Imagem criada utilizando ferramentas de inteligência artificial, especificamente o **Midjourney**."
 +++
 
 ---

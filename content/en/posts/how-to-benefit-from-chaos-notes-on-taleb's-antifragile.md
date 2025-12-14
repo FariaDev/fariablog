@@ -9,7 +9,7 @@ comments = true
 [cover]
   image = "/images/imagem-post5.webp"
   alt = "Oil painting 'The Tempest' by Giorgione. The artwork depicts a serene landscape with a breastfeeding woman and a soldier, contrasting with a dark sky and a lightning bolt in the background, symbolizing the calm and life that persist in the face of impending chaotic volatility."
-  caption = "📢 **Image credit:** Painting 'The Tempest' (c. 1508) by **Giorgione**. Public domain image via **Wikipedia**, the free encyclopedia."
+  caption = "📢 **Image Credit:** Image created using artificial intelligence tools, specifically **Midjourney**."
 +++
 
 ---
