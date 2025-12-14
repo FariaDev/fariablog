@@ -2,6 +2,12 @@ baseURL = "https://fariablog.com/"  # Mude se for testar em subdomínio primeiro
 languageCode = "pt-br"  # Default: Português
 title = "FariaBlog"
 
+# Descrição global do site (SEO)
+description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
+
+# Keywords globais (SEO)
+keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
+
 theme = "PaperMod"
 
 [outputs]
@@ -54,7 +60,7 @@ defaultContentLanguageInSubdir = true
         appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
       [languages.pt-br.params.homeInfoParams]
         Title = "Bem-vindo ao meu universo de ideias"
-        Content = "Um jovem de 17 anos compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
+        Content = "Um jovem de 18 anos compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
 
   [languages.en]
     contentDir = "content/en"
@@ -96,7 +102,7 @@ defaultContentLanguageInSubdir = true
         appendFilePath = true  # Adiciona o caminho do arquivo do post ao link
       [languages.en.params.homeInfoParams]
         Title = "Welcome to my universe of ideas"
-        Content = "A 17-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."  # Tradução sugerida; ajuste se quiser
+        Content = "A 18-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."  # Tradução sugerida; ajuste se quiser
 
 [params]
   displayFullLangName = true
@@ -118,10 +124,19 @@ defaultContentLanguageInSubdir = true
     keys = ["title", "permalink", "summary", "content"]
 
   # Assets (global)
+  # Nota: Favicons são gerenciados via layouts/partials/extend_head.html
+  # Desabilitando favicons do tema para evitar duplicação
   [params.assets]
-    favicon = "/favicon.ico"
-    favicon16x16 = "/favicon-16x16.png"
-    favicon32x32 = "/favicon-32x32.png"
-    apple_touch_icon = "/apple-touch-icon.png"
+    # favicon = "/favicon.ico"  # Desabilitado - usando extend_head.html
+    # favicon16x16 = "/favicon-16x16.png"  # Arquivo não existe
+    # favicon32x32 = "/favicon-32x32.png"  # Arquivo não existe
+    # apple_touch_icon = "/apple-touch-icon.png"  # Desabilitado - usando extend_head.html
+    # safari_pinned_tab = "/safari-pinned-tab.svg"  # Arquivo não existe
+
+  # Analytics
+  [params.analytics]
+    [params.analytics.google]
+      id = "G-94QLBQXH33"
+      # SiteVerificationTag = ""  # Adicione se tiver tag de verificação do Google Search Console
 
 mainSections = ["posts"]

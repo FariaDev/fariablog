@@ -1,0 +1,24 @@
+{
+  "name": "FariaBlog",
+  "short_name": "FariaBlog",
+  "description": "Um jovem de 18 anos compartilhando insights, reflexões e descobertas",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#2e2e33",
+  "background_color": "#2e2e33",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

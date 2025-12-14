@@ -1,0 +1,25 @@
+{{- /* Favicon e ícones do site */}}
+<link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | absURL }}">
+<link rel="icon" type="image/svg+xml" href="{{ "/favicon.svg" | absURL }}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ "/favicon-96x96.png" | absURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | absURL }}">
+
+{{- /* Web App Manifest */}}
+<link rel="manifest" href="{{ "/site.webmanifest" | absURL }}">
+
+{{- /* Meta tags para tema e cores */}}
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+
+{{- /* Meta tags adicionais de SEO e otimização */}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+{{- end }}
+
+{{- /* Preconnect para melhor performance */}}
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+

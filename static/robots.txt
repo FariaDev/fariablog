@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fariablog.com/sitemap.xml
+
+# Bloquear arquivos desnecessários
+Disallow: /404.html
+Disallow: /true/
+
