@@ -1,5 +1,6 @@
 +++
 title = "Is Reading Any Book Better Than Reading None?"
+description = "Discover what neuroscience reveals about the benefits of reading and why varying between fiction and non-fiction is essential for brain health."
 date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Neuroscience"]

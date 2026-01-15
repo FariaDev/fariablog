@@ -1,5 +1,6 @@
 +++
 title = "Ler qualquer livro é melhor que não ler nenhum?"
+description = "Descubra o que a neurociência revela sobre os benefícios da leitura e por que variar entre ficção e não-ficção é essencial para a saúde cerebral."
 date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Neurociência"]

@@ -1,5 +1,6 @@
 +++
 title = "Why Are We Always Tired: Han's Diagnosis"
+description = "Why are we always exhausted? Philosopher Byung-Chul Han explains how the achievement society has turned us into slaves of ourselves."
 date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
 tags = ["Neuroscience", "Philosophy"]

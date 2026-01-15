@@ -1,5 +1,6 @@
 +++
 title = "A Parallel Between Nietzsche and Dostoevsky"
+description = "Nietzsche and Dostoevsky question excessive rationality. Discover what Twilight of the Idols and Notes from Underground have in common."
 date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Philosophy"]

@@ -1,5 +1,6 @@
 +++
 title = "Por que sempre estamos cansados: o diagnóstico de Han"
+description = "Por que estamos sempre exaustos? O filósofo Byung-Chul Han explica como a sociedade do desempenho nos transformou em escravos de nós mesmos."
 date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
 tags = ["Neurociência", "Filosofia"]

@@ -1,5 +1,6 @@
 +++
 title = "How to Benefit from Chaos: Notes on Taleb's 'Antifragile'"
+description = "Detailed notes on Nassim Taleb's Antifragile: learn how to benefit from chaos and understand the difference between fragile, robust, and antifragile."
 date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Philosophy", "Economics"]

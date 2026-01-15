@@ -1,5 +1,6 @@
 +++
 title = "Reflexões sobre o Prefácio de Napoleão Mendes de Almeida: Latim, Raciocínio e a Crise na Educação"
+description = "O estudo do latim desenvolve raciocínio e inteligência. Reflexões sobre a crise educacional brasileira inspiradas na Gramática Latina."
 date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
 tags = ["Educação", "Leitura"]
