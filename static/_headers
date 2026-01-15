@@ -32,6 +32,5 @@
 
 # Preload de recursos críticos
 # Adicionar preconnect para domínios externos
-Link: <https://www.googletagmanager.com>; rel=preconnect; crossorigin
 Link: <https://fonts.googleapis.com>; rel=preconnect; crossorigin
 Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin

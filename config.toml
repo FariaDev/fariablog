@@ -133,10 +133,4 @@ defaultContentLanguageInSubdir = true
     # apple_touch_icon = "/apple-touch-icon.png"  # Desabilitado - usando extend_head.html
     # safari_pinned_tab = "/safari-pinned-tab.svg"  # Arquivo não existe
 
-  # Analytics
-  [params.analytics]
-    [params.analytics.google]
-      id = "G-94QLBQXH33"
-      # SiteVerificationTag = ""  # Adicione se tiver tag de verificação do Google Search Console
-
 mainSections = ["posts"]
