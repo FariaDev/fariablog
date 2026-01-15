@@ -20,4 +20,7 @@ or (eq site.Params.env "production") }}
 <meta name="apple-mobile-web-app-title" content="{{ site.Title }}" />
 {{- end }} {{- /* Preconnect para melhor performance */}}
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+{{- if hugo.IsProduction -}}
 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<script defer src="https://cloud.umami.is/script.js" data-website-id="0055c26e-b668-4c34-a6af-86142c1cead5"></script>
+{{- end -}}
