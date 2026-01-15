@@ -10,14 +10,14 @@ keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura",
 
 theme = "PaperMod"
 
+defaultContentLanguage = "pt-br"
+defaultContentLanguageInSubdir = true
+
 [outputs]
 home = ["HTML", "RSS", "JSON"]  # Necessário para Search
 
 [taxonomies]
 tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"])
-
-defaultContentLanguage = "pt-br"
-defaultContentLanguageInSubdir = true
 
 [languages]
   [languages.pt-br]
