@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Neurociência", "Filosofia"]
 language = "pt-br"
 comments = true
+translationKey = "han-tiredness"
 
 [cover]
   image = "/images/imagem-post3.webp"

@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Educação", "Leitura"]
 language = "pt-br"
 comments = true
+translationKey = "latin-education"
 
 [cover]
   image = "/images/imagem-post4.webp"

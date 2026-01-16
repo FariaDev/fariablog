@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Leitura", "Filosofia"]
 language = "pt-br"
 comments = true
+translationKey = "nietzsche-dostoevsky"
 
 [cover]
   image = "/images/imagem-post2.webp"

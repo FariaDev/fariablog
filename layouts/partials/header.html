@@ -98,7 +98,8 @@
 
                 {{- $lang := .Lang}}
                 {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
-                {{- with site.Home.Translations }}
+                {{- $translations := .Translations | default site.Home.Translations }}
+                {{- with $translations }}
                 <ul class="lang-switch">
                     {{- if $separator }}<li>|</li>{{ end }}
                     {{- range . -}}

@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Leitura", "Neurociência"]
 language = "pt-br"
 comments = true
+translationKey = "reading-any-book"
 
 [cover]
   image = "/images/capa-post.webp"

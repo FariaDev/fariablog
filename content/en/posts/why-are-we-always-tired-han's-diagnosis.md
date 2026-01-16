@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Neuroscience", "Philosophy"]
 language = "en"
 comments = true
+translationKey = "han-tiredness"
 
 [cover]
   image = "/images/imagem-post3.webp"

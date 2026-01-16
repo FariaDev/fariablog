@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Leitura", "Filosofia", "Economia"]
 language = "pt-br"
 comments = true
+translationKey = "antifragile"
 
 [cover]
   image = "/images/imagem-post5.webp"

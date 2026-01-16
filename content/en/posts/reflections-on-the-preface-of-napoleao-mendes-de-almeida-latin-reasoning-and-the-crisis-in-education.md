@@ -6,6 +6,7 @@ author = "Lucas"
 tags = ["Education", "Reading"]
 language = "en"
 comments = true
+translationKey = "latin-education"
 
 [cover]
   image = "/images/imagem-post4.webp"
