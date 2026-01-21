@@ -14,10 +14,9 @@
     }
 
     // Se o usuário já escolheu um idioma manualmente, não redireciona
-    var savedLang = localStorage.getItem(STORAGE_KEY);
-    if (savedLang) {
-        return;
-    }
+    try {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+    } catch (e) {}
 
     // Só redireciona na primeira visita (home pages)
     // Não redireciona se o usuário veio de um link direto para um artigo
