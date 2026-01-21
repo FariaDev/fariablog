@@ -1,3 +1,61 @@
+{{- /* Script de detecção automática de idioma */}}
+{{- /* Roda apenas na home ou quando não há preferência salva */}}
+<script>
+(function() {
+    var STORAGE_KEY = 'pref-lang';
+    var currentPath = window.location.pathname;
+
+    // Detecta o idioma atual da página
+    var currentLang = null;
+    if (currentPath.startsWith('/pt-br')) {
+        currentLang = 'pt-br';
+    } else if (currentPath.startsWith('/en')) {
+        currentLang = 'en';
+    }
+
+    // Se o usuário já escolheu um idioma manualmente, não redireciona
+    try {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+    } catch (e) {}
+
+    // Só redireciona na primeira visita (home pages)
+    // Não redireciona se o usuário veio de um link direto para um artigo
+    var isHomePage = currentPath === '/' ||
+                     currentPath === '/pt-br/' ||
+                     currentPath === '/pt-br' ||
+                     currentPath === '/en/' ||
+                     currentPath === '/en';
+
+    if (!isHomePage) {
+        return;
+    }
+
+    // Detecta o idioma preferido do navegador
+    var browserLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+    var prefersPt = false;
+
+    for (var i = 0; i < browserLangs.length; i++) {
+        var lang = browserLangs[i].toLowerCase();
+        if (lang.startsWith('pt')) {
+            prefersPt = true;
+            break;
+        }
+        // Se encontrar inglês antes de português, prefere inglês
+        if (lang.startsWith('en')) {
+            break;
+        }
+    }
+
+    // Redireciona se necessário
+    var targetLang = prefersPt ? 'pt-br' : 'en';
+
+    if (currentLang !== targetLang) {
+        var newPath = '/' + targetLang + '/';
+        window.location.replace(newPath);
+    }
+})();
+</script>
+
 {{- /* Favicon e ícones do site */}} <link rel="icon" type="image/x-icon"
 href="{{ "/favicon.ico" | absURL }}"> <link rel="icon" type="image/svg+xml"
 href="{{ "/favicon.svg" | absURL }}"> <link rel="icon" type="image/png"

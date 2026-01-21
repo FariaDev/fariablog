@@ -106,7 +106,8 @@
                     {{- if ne $lang .Lang }}
                     <li>
                         <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
-                            aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
+                            aria-label="{{ .Language.LanguageName | default (.Lang | title) }}"
+                            onclick="localStorage.setItem('pref-lang', '{{ .Lang }}')">
                             {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
                             {{- .Language.LanguageName | emojify -}}
                             {{- else }}
