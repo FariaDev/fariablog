@@ -105,6 +105,12 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
         Content = "A 18-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."  # Tradução sugerida; ajuste se quiser
 
 [params]
+  # Fallback de produção para evitar meta robots "noindex" em builds sem flag explícita
+  env = "production"
+  # SEO global (consumido por layouts/partials/head.html e schema)
+  description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
+  keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
+  author = "Lucas"
   displayFullLangName = true
   ShowShareButtons = true  # Ativado conforme sua preferência anterior
   ShowReadingTime = true

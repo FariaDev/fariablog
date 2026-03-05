@@ -1,0 +1,24 @@
+# FariaBlog
+
+FariaBlog is a bilingual (pt-br and en) blog focused on philosophy, literature, education, and neuroscience.
+
+## Canonical domain
+- https://fariablog.com
+
+## Main sections
+- https://fariablog.com/pt-br/posts/
+- https://fariablog.com/en/posts/
+- https://fariablog.com/pt-br/books/
+- https://fariablog.com/en/books/
+- https://fariablog.com/pt-br/archives/
+- https://fariablog.com/en/archives/
+
+## Sitemaps
+- https://fariablog.com/sitemap.xml
+- https://fariablog.com/pt-br/sitemap.xml
+- https://fariablog.com/en/sitemap.xml
+
+## Contact
+- https://fariablog.com/pt-br/contact/
+- https://fariablog.com/en/contact/
+- mailto:fariablog1@gmail.com
