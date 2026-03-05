@@ -1,11 +1,9 @@
-{{- /* Script de detecção automática de idioma */}}
-{{- /* Roda apenas na home ou quando não há preferência salva */}}
+{{- /* Automatic language redirect for first-time visitors on home URLs only */ -}}
 <script>
 (function() {
     var STORAGE_KEY = 'pref-lang';
     var currentPath = window.location.pathname;
 
-    // Detecta o idioma atual da página
     var currentLang = null;
     if (currentPath.startsWith('/pt-br')) {
         currentLang = 'pt-br';
@@ -13,13 +11,10 @@
         currentLang = 'en';
     }
 
-    // Se o usuário já escolheu um idioma manualmente, não redireciona
     try {
         if (localStorage.getItem(STORAGE_KEY)) return;
     } catch (e) {}
 
-    // Só redireciona na primeira visita (home pages)
-    // Não redireciona se o usuário veio de um link direto para um artigo
     var isHomePage = currentPath === '/' ||
                      currentPath === '/pt-br/' ||
                      currentPath === '/pt-br' ||
@@ -30,7 +25,6 @@
         return;
     }
 
-    // Detecta o idioma preferido do navegador
     var browserLangs = navigator.languages || [navigator.language || navigator.userLanguage];
     var prefersPt = false;
 
@@ -40,45 +34,42 @@
             prefersPt = true;
             break;
         }
-        // Se encontrar inglês antes de português, prefere inglês
         if (lang.startsWith('en')) {
             break;
         }
     }
 
-    // Redireciona se necessário
     var targetLang = prefersPt ? 'pt-br' : 'en';
-
     if (currentLang !== targetLang) {
-        var newPath = '/' + targetLang + '/';
-        window.location.replace(newPath);
+        window.location.replace('/' + targetLang + '/');
     }
 })();
 </script>
 
-{{- /* Favicon e ícones do site */}} <link rel="icon" type="image/x-icon"
-href="{{ "/favicon.ico" | absURL }}"> <link rel="icon" type="image/svg+xml"
-href="{{ "/favicon.svg" | absURL }}"> <link rel="icon" type="image/png"
-sizes="96x96" href="{{ "/favicon-96x96.png" | absURL }}"> <link
-rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | absURL
-}}"> {{- /* Web App Manifest */}} <link rel="manifest" href="{{
-"/site.webmanifest" | absURL }}"> {{- /* Meta tags para tema e cores */}}
-<meta name="theme-color" content="#2e2e33" />
-<meta name="msapplication-TileColor" content="#2e2e33" />
+{{- /* Site icons and manifest */ -}}
+<link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | absURL }}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ "/favicon-96x96.png" | absURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | absURL }}">
+<link rel="manifest" href="{{ "/site.webmanifest" | absURL }}">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
 
-{{- /* Meta tags adicionais de SEO e otimização */}} {{- if hugo.IsProduction |
-or (eq site.Params.env "production") }}
-<meta name="format-detection" content="telephone=no" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black-translucent"
-/>
-<meta name="apple-mobile-web-app-title" content="{{ site.Title }}" />
-{{- end }} {{- /* Preconnect para melhor performance */}}
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-{{- if hugo.IsProduction -}}
-<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+{{- /* Extra mobile/PWA metadata only in production */ -}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="{{ site.Title }}">
+{{- end }}
+
+{{- /* Third-party preconnects only when actually used */ -}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+<link rel="dns-prefetch" href="https://cloud.umami.is">
+{{- if and .IsPage (.Param "comments") site.Params.disqusShortname }}
+<link rel="preconnect" href="https://{{ site.Params.disqusShortname }}.disqus.com" crossorigin>
+<link rel="dns-prefetch" href="https://{{ site.Params.disqusShortname }}.disqus.com">
+{{- end }}
 <script defer src="https://cloud.umami.is/script.js" data-website-id="0055c26e-b668-4c34-a6af-86142c1cead5"></script>
 {{- end -}}

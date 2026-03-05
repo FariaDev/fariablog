@@ -1,68 +1,78 @@
-/* Ajuste geral para conteúdo e tabelas (como discutimos) */
+/* Improve readability while keeping PaperMod visual language */
 .post-content {
-    max-width: 1000px;
-    margin: 0 auto;
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
-table {
-    width: 100%;
-    overflow-x: auto;
-    display: block;
-    border-collapse: collapse; /* Para bordas unidas */
+.post-content > p,
+.post-content > ul,
+.post-content > ol,
+.post-content > blockquote {
+  max-width: 72ch;
 }
 
-/* Estilos para tabelas como na segunda imagem: bordas e linhas alternadas */
-th, td {
-    border: 1px solid #ddd; /* Bordas cinza claro */
-    padding: 8px; /* Espaçamento interno */
-    text-align: left; /* Alinhamento padrão */
+/* Table styles must stay scoped to post content */
+.post-content table {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
 }
 
-th {
-    background-color: #f2f2f2; /* Cabeçalho com fundo cinza claro */
+.post-content th,
+.post-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9; /* Linhas pares com fundo cinza muito claro, como na demo */
+.post-content th {
+  background-color: #f2f2f2;
 }
 
-/* Esconder covers na lista de posts (só aparece no post completo) */
+.post-content tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hide cover images only in post listings */
 .post-entry .entry-cover {
-    display: none;
+  display: none;
 }
 
-/* Padroniza imagens de capa no post completo: largura 100%, altura máxima fixa, com corte responsivo */
+/* Standardize single-post cover dimensions */
 .post-single .entry-cover img,
-.post-single .figure.entry-cover img { /* Target exato baseado no Dev Tools */
-    width: 100% !important; /* Força largura total do container */
-    max-width: 800px !important; /* Limita largura máxima para evitar expansão excessiva */
-    height: auto !important; /* Mantém proporção original */
-    max-height: 400px !important; /* Altura máxima padronizada */
-    object-fit: cover !important; /* Corta proporcionalmente sem distorcer */
-    display: block !important; /* Evita espaços extras */
-    margin: 0 auto !important; /* Centraliza a imagem */
-    border-radius: 8px; /* Opcional: Arredonda bordas para estética */
+.post-single .figure.entry-cover img {
+  width: 100% !important;
+  max-width: 860px !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: cover !important;
+  display: block !important;
+  margin: 0 auto !important;
+  border-radius: 8px;
 }
 
-/* Responsividade para telas menores (mobile) */
-@media (max-width: 768px) {
-    .post-single .entry-cover img,
-    .post-single .figure.entry-cover img {
-        max-height: 250px !important; /* Reduz altura em mobile */
-        max-width: 100% !important; /* Garante fit em telas pequenas */
-    }
-}
-
-/* Estiliza o container do Disqus para responsividade */
+/* Keep comments width aligned with content */
 #disqus_thread {
-    max-width: 1000px; /* Alinha com o post-content */
-    margin: 0 auto; /* Centraliza */
-    padding: 20px; /* Espaçamento interno */
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 
 @media (max-width: 768px) {
-    #disqus_thread {
-        padding: 10px; /* Reduz padding em mobile */
-        max-width: 100%; /* Ocupa toda largura em telas pequenas */
-    }
+  .post-content {
+    max-width: 100%;
+  }
+
+  .post-single .entry-cover img,
+  .post-single .figure.entry-cover img {
+    max-height: 250px !important;
+    max-width: 100% !important;
+  }
+
+  #disqus_thread {
+    padding: 12px 0;
+  }
 }

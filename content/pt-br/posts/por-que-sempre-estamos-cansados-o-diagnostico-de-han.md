@@ -75,7 +75,7 @@ Isso, por si só, já implica uma falha lógica, pois nosso corpo necessita de e
 
 Passamos a enxergar a produtividade como sentido de vida, a valorizar mais a quantidade de trabalho do que a qualidade(outra falha lógica). Assim como Nietzsche aponta, essa negação dos instintos e do corpo em favor de uma razão focada apenas na produção, manifesta-se de forma gritante na maneira como o homem contemporâneo lida(ou melhor, não lida) com necessidades humanas fundamentais. Perdemos a capacidade para o descanso genuíno e até mesmo para o tédio contemplativo. 
 
-Se estiver interessado no tema, tenho um outro artigo escrito especificamente sobre esse livro do Nietzsche, nele faço um paralelo existencialista entre Nietzsche e Dostoiévski. [Clique aqui para ler](https://fariablog.com/posts/um-paralelo-entre-nietzsche-e-dostoievski/).
+Se estiver interessado no tema, tenho um outro artigo escrito especificamente sobre esse livro do Nietzsche, nele faço um paralelo existencialista entre Nietzsche e Dostoiévski. [Clique aqui para ler](https://fariablog.com/pt-br/posts/um-paralelo-entre-nietzsche-e-dostoievski/).
 
 ### **A Sociedade do Desempenho na Educação**
 Finalmente, analisaremos os impactos em escolas e universidades antes de partirmos para as possíveis soluções. Antes de começarmos, quero apresentar algumas frases de dois cientistas e gênios que muito admiro, Albert Einstein e Richard Feynman:

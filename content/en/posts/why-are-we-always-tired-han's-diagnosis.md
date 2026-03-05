@@ -77,7 +77,7 @@ This, in itself, already implies a logical flaw, as our body requires balance, e
 
 We start to see productivity as the meaning of life, valuing quantity of work over quality (another logical flaw). As Nietzsche points out, this denial of instincts and the body in favor of reason focused solely on production manifests starkly in how modern humans deal (or rather, fail to deal) with fundamental human needs. We’ve lost the capacity for genuine rest and even contemplative boredom.
 
-If you’re interested in this topic, I have another article written specifically about this book by Nietzsche, where I draw an existentialist parallel between Nietzsche and Dostoevsky. [Click here to read](https://fariablog.com/posts/a-parallel-between-nietzsche-and-dostoevsky/).
+If you’re interested in this topic, I have another article written specifically about this book by Nietzsche, where I draw an existentialist parallel between Nietzsche and Dostoevsky. [Click here to read](https://fariablog.com/en/posts/a-parallel-between-nietzsche-and-dostoevsky/).
 
 ### **The Performance Society in Education**
 Finally, we’ll analyze the impacts on schools and universities before moving to possible solutions. First, I’d like to share some quotes from two scientists and geniuses I greatly admire, Albert Einstein and Richard Feynman:

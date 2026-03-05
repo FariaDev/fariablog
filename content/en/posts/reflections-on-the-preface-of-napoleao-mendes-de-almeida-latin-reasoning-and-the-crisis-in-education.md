@@ -62,7 +62,7 @@ I will write an article specifically on this topic in the future.
 
 Here, we see another point I often discuss: students’ preoccupation with things other than studies and the death of intellectualism ingrained in today’s world. I’m not saying students should only think about studies; they **must** engage in other activities besides studying, as these are also fundamental for intellectual excellence. However, these should not take the place of study. It’s important that study is neither neglected nor overshadowed by any of these other activities, such as magazines, balls, cell phones, and the overrated grades.
 
-Students focus solely on grades because, with them, they obtain a “certificate” that they supposedly “understood” a subject and no longer need to study it. Their purpose in studying is to achieve good grades, not full understanding. I touched on this a bit in my most recent article on the burnout society, where this culture of valuing quantitative results is preached by performance subjects. [Click here to read](https://fariablog.com/posts/why-are-we-always-tired-hans-diagnosis/)
+Students focus solely on grades because, with them, they obtain a “certificate” that they supposedly “understood” a subject and no longer need to study it. Their purpose in studying is to achieve good grades, not full understanding. I touched on this a bit in my most recent article on the burnout society, where this culture of valuing quantitative results is preached by performance subjects. [Click here to read](https://fariablog.com/en/posts/why-are-we-always-tired-hans-diagnosis/)
 
 ## 5. Educating vs. Teaching: The Role of the Teacher
 
