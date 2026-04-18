@@ -17,3 +17,6 @@ Thumbs.db
 # Logs
 *.log
 
+.claude/
+.codex
+video/
