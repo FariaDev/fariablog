@@ -29,8 +29,3 @@
 # Cache para JSON (index de busca)
 /*.json
   Cache-Control: public, max-age=3600
-
-# Preload de recursos críticos
-# Adicionar preconnect para domínios externos
-Link: <https://fonts.googleapis.com>; rel=preconnect; crossorigin
-Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin

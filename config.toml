@@ -28,7 +28,7 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
     [languages.pt-br.menu]
       [[languages.pt-br.menu.main]]
         identifier = "search"
-        name = "Search"
+        name = "Busca"
         url = "/search/"
         weight = 10
       [[languages.pt-br.menu.main]]
@@ -38,7 +38,7 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
         weight = 20
       [[languages.pt-br.menu.main]]
         identifier = "archives"
-        name = "Archive"
+        name = "Arquivo"
         url = "/archives/"
         weight = 30
       [[languages.pt-br.menu.main]]
@@ -110,6 +110,7 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
   # SEO global (consumido por layouts/partials/head.html e schema)
   description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
   keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
+  images = ["/fariablog.webp"]
   author = "Lucas"
   displayFullLangName = true
   ShowShareButtons = true  # Ativado conforme sua preferência anterior

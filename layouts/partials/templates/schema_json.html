@@ -60,6 +60,8 @@
 }
 </script>
 {{- if .IsPage }}
+{{- $isPost := in site.Params.mainSections .Section }}
+{{- if $isPost }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,6 +126,27 @@
   }
 }
 </script>
+{{- else }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ .Title | plainify }},
+  "description": {{ with .Description | plainify }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }},
+  "url": {{ .Permalink | safeHTML }},
+  "inLanguage": {{ .Language.Lang | default "en-us" }}{{ if gt .Lastmod.Year 1 }},
+  "dateModified": {{ .Lastmod }}{{ end }},
+  "publisher": {
+    "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
+    "name": {{ site.Title }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }}
+    }
+  }
+}
+</script>
+{{- end }}
 {{- end }}{{/* .IsPage end */}}
 
 {{- end -}}

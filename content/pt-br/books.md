@@ -1,10 +1,29 @@
 +++
 title = "Meus Livros Lidos"
 description = "Aqui está a lista de livros que li (em ordem alfabética), exportada do Skoob."
+date = "2026-04-17T00:00:00-03:00"
+lastmod = "2026-04-17T00:00:00-03:00"
 language = "pt-br"
 +++
 
 Lista atualizada a partir do meu backup do Skoob, com 67 livros lidos.
+
+## Livros que viraram posts
+
+- **Sociedade do Cansaço — Byung-Chul Han**: a base principal do artigo [Por que sempre estamos cansados: o diagnóstico de Han](/pt-br/posts/por-que-sempre-estamos-cansados-o-diagnostico-de-han/).
+- **Antifrágil — Nassim Nicholas Taleb**: virou minhas anotações em [Como se Beneficiar do Caos: Anotações sobre 'Antifrágil' de Taleb](/pt-br/posts/como-se-beneficiar-do-caos-anotacoes-sobre-antifragil-de-taleb/).
+- **Crepúsculo dos ídolos — Friedrich Nietzsche** e **Memórias do subsolo — Fiódor Dostoiévski**: aparecem no ensaio [Um paralelo entre Nietzsche e Dostoiévski](/pt-br/posts/um-paralelo-entre-nietzsche-e-dostoievski/).
+- **Por que nós dormimos — Matthew Walker**: leitura complementar citada no artigo sobre Han.
+
+## Leituras recentes
+
+- Code — Charles Petzold
+- Sobre a Brevidade da Vida — Sêneca
+- Meditações — Marco Aurélio
+- Manual de Epicteto — Epicteto
+- Memórias do subsolo — Fiódor Dostoiévski
+
+## Lista completa
 
 - 1984 — George Orwell
 - A Arte da Guerra — Sun Tzu
