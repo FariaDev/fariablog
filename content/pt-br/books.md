@@ -13,15 +13,7 @@ Lista atualizada a partir do meu backup do Skoob, com 67 livros lidos.
 - **Sociedade do Cansaço — Byung-Chul Han**: a base principal do artigo [Por que sempre estamos cansados: o diagnóstico de Han](/pt-br/posts/por-que-sempre-estamos-cansados-o-diagnostico-de-han/).
 - **Antifrágil — Nassim Nicholas Taleb**: virou minhas anotações em [Como se Beneficiar do Caos: Anotações sobre 'Antifrágil' de Taleb](/pt-br/posts/como-se-beneficiar-do-caos-anotacoes-sobre-antifragil-de-taleb/).
 - **Crepúsculo dos ídolos — Friedrich Nietzsche** e **Memórias do subsolo — Fiódor Dostoiévski**: aparecem no ensaio [Um paralelo entre Nietzsche e Dostoiévski](/pt-br/posts/um-paralelo-entre-nietzsche-e-dostoievski/).
-- **Por que nós dormimos — Matthew Walker**: leitura complementar citada no artigo sobre Han.
-
-## Leituras recentes
-
-- Code — Charles Petzold
-- Sobre a Brevidade da Vida — Sêneca
-- Meditações — Marco Aurélio
-- Manual de Epicteto — Epicteto
-- Memórias do subsolo — Fiódor Dostoiévski
+- **Por que nós dormimos — Matthew Walker**: leitura complementar citada em [Por que sempre estamos cansados: o diagnóstico de Han](/pt-br/posts/por-que-sempre-estamos-cansados-o-diagnostico-de-han/).
 
 ## Lista completa
 

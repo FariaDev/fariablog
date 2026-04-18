@@ -13,15 +13,7 @@ List updated from my Skoob backup, with 67 books read.
 - **Sociedade do Cansaço — Byung-Chul Han**: the main book behind [Why Are We Always Tired: Han's Diagnosis](/en/posts/why-are-we-always-tired-hans-diagnosis/).
 - **Antifrágil — Nassim Nicholas Taleb**: became my notes in [How to Benefit from Chaos: Notes on Taleb's 'Antifragile'](/en/posts/how-to-benefit-from-chaos-notes-on-talebs-antifragile/).
 - **Crepúsculo dos ídolos — Friedrich Nietzsche** and **Memórias do subsolo — Fiódor Dostoiévski**: appear in [A Parallel Between Nietzsche and Dostoevsky](/en/posts/a-parallel-between-nietzsche-and-dostoevsky/).
-- **Por que nós dormimos — Matthew Walker**: a complementary book cited in the article on Han.
-
-## Recent Reads
-
-- Code — Charles Petzold
-- Sobre a Brevidade da Vida — Sêneca
-- Meditações — Marco Aurélio
-- Manual de Epicteto — Epicteto
-- Memórias do subsolo — Fiódor Dostoiévski
+- **Por que nós dormimos — Matthew Walker**: a complementary book cited in [Why Are We Always Tired: Han's Diagnosis](/en/posts/why-are-we-always-tired-hans-diagnosis/).
 
 ## Complete List
 
