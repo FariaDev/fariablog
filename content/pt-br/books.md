@@ -78,7 +78,7 @@ Lista atualizada a partir do meu backup do Skoob, com 67 livros lidos.
 - Romeu e Julieta — William Shakespeare
 - Sobre a Brevidade da Vida — Sêneca
 - Sociedade do Cansaço — Byung-Chul Han
-- Sonho de uma noite de verão (Clássicos da Literatura) — William Shakespeare
+- Sonho de uma noite de verão — William Shakespeare
 - Só Pode Ser Brincadeira, Sr. Feynman! — Richard Feynman
 - Teoria Quântica (Encyclopaedia) — John Polkinghorne
 - Tuesdays With Morrie — Mitch Albom
