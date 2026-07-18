@@ -1,0 +1,55 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- $resource := false -}}
+{{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp" -}}
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "/" $u.Path -}}
+  {{- $pageResource := .PageInner.Resources.Get $path -}}
+  {{- if and $pageResource (in $processableFormats $pageResource.MediaType.SubType) -}}
+    {{- $resource = $pageResource -}}
+  {{- else -}}
+    {{- range resources.Match "images/*" -}}
+      {{- if eq .Name (printf "/%s" $path) -}}
+        {{- $resource = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $resource -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+  {{- with $u.RawQuery -}}
+    {{- $src = printf "%s?%s" $src . -}}
+  {{- end -}}
+  {{- with $u.Fragment -}}
+    {{- $src = printf "%s#%s" $src . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $alt := .Text | plainify | htmlUnescape -}}
+{{- $attributes := merge .Attributes (dict "alt" $alt "src" $src "loading" "lazy") -}}
+{{- if and $resource hugo.IsExtended (in $processableFormats $resource.MediaType.SubType) -}}
+  {{- $sizes := slice "360" "480" "720" "1080" "1500" -}}
+  {{- $srcset := slice -}}
+  {{- range $size := $sizes -}}
+    {{- if ge $resource.Width (int $size) -}}
+      {{- $variant := $resource.Resize (printf "%sx webp" $size) -}}
+      {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink $size) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $resource.RelPermalink $resource.Width) -}}
+  {{- $attributes = merge $attributes (dict
+    "srcset" (delimit $srcset ", ")
+    "sizes" "(min-width: 768px) 720px, 100vw"
+    "width" $resource.Width
+    "height" $resource.Height
+  ) -}}
+{{- end -}}
+
+<img
+  {{- range $key, $value := $attributes -}}
+    {{- if ne $value false -}}
+      {{- $escapedValue := $value | transform.HTMLEscape -}}
+      {{- printf " %s=%q" $key $escapedValue | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}>
+{{- /**/ -}}

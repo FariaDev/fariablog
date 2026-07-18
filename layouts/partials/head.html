@@ -4,8 +4,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 />
-{{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne
-.Params.robotsNoIndex true) }}
+{{- if and hugo.IsProduction (ne .Params.robotsNoIndex true) }}
 <meta name="robots" content="index, follow" />
 {{- else }}
 <meta name="robots" content="noindex, nofollow" />
@@ -173,7 +172,7 @@ $search := (slice $fusejs $license_js $fastsearch ) | resources.Concat
 {{- partial "extend_head.html" . }}
 
 {{- /* OpenGraph, Twitter Cards, Schema */}}
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- if hugo.IsProduction }}
   {{- partial "templates/opengraph.html" . }}
   {{- partial "templates/twitter_cards.html" . }}
   {{- partial "templates/schema_json.html" . }}

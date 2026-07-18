@@ -2,12 +2,6 @@ baseURL = "https://fariablog.com/"  # Mude se for testar em subdomínio primeiro
 languageCode = "pt-br"  # Default: Português
 title = "FariaBlog"
 
-# Descrição global do site (SEO)
-description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
-
-# Keywords globais (SEO)
-keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
-
 theme = "PaperMod"
 
 defaultContentLanguage = "pt-br"
@@ -53,6 +47,8 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
         weight = 50
 
     [languages.pt-br.params]
+      description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
+      keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
       disqusShortname = "fariablog"  # Para comentários em pt-br
       [languages.pt-br.params.editPost]
         URL = "https://github.com/FariaDev/fariablog/edit/main/content/pt-br"
@@ -95,6 +91,8 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
         weight = 50
 
     [languages.en.params]
+      description = "A blog about philosophy, literature, neuroscience, and reflections on education. Sharing insights and discoveries through reading and critical thinking."
+      keywords = ["philosophy", "literature", "neuroscience", "education", "reading", "reflections", "blog", "critical thinking"]
       disqusShortname = "fariablog"  # Para comentários em en (pode ajustar se quiser um shortname diferente)
       [languages.en.params.editPost]
         URL = "https://github.com/FariaDev/fariablog/edit/main/content/en"
@@ -105,11 +103,6 @@ tag = "tags"  # Ativa Tags (use em front matter de posts: tags = ["tag1", "tag2"
         Content = "A 18-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."  # Tradução sugerida; ajuste se quiser
 
 [params]
-  # Fallback de produção para evitar meta robots "noindex" em builds sem flag explícita
-  env = "production"
-  # SEO global (consumido por layouts/partials/head.html e schema)
-  description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
-  keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
   images = ["/fariablog.webp"]
   author = "Lucas"
   displayFullLangName = true

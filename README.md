@@ -1,7 +1,7 @@
 # FariaBlog
 
 ![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)
-![Hugo](https://img.shields.io/badge/Hugo-v0.148.1-blue.svg)
+![Hugo](https://img.shields.io/badge/Hugo-v0.164.0-blue.svg)
 ![Último Commit](https://img.shields.io/github/last-commit/FariaDev/fariablog.svg)
 
 Blog pessoal estático construído com Hugo e o tema PaperMod. O projeto serve como repositório para documentação de estudos, insights e reflexões sobre tecnologia, filosofia e literatura.
@@ -29,7 +29,7 @@ Blog pessoal estático construído com Hugo e o tema PaperMod. O projeto serve c
 ### Pré-requisitos
 
 - [Git](https://git-scm.com/)
-- [Hugo Extended](https://gohugo.io/getting-started/installing/)
+- [Hugo Extended v0.164.0](https://gohugo.io/getting-started/installing/)
 
 ### Passos
 
@@ -54,6 +54,14 @@ Blog pessoal estático construído com Hugo e o tema PaperMod. O projeto serve c
     ```
 
 5. Acesse `http://localhost:1313`.
+
+### Verificação
+
+Com o Hugo Extended v0.164.0 instalado, execute a validação completa:
+
+```bash
+./scripts/verify.sh
+```
 
 ## Estrutura do Projeto
 

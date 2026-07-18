@@ -146,7 +146,7 @@ What can we conclude from all this? That we should neither overvalue reason nor 
 If we reject both extreme rationalism and unrestrained surrender to instincts, how can we find balance in contemporary society?
 
 Now, a meme to lighten the mood 😂  
-![The image shows the cover of Dostoevsky’s *Notes from Underground* next to a melancholic Wojak. Above him, a thought bubble says “he is literally me,” indicating a deep and ironic identification with the work’s protagonist.](/images/meme1.webp)
+![The image shows the cover of Dostoevsky’s Notes from Underground next to a melancholic Wojak. Above him, a thought bubble says “he is literally me,” indicating a deep and ironic identification with the work’s protagonist.](/images/meme1.webp)
 
 ---
 

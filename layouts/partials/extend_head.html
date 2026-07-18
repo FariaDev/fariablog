@@ -55,7 +55,7 @@
 <meta name="msapplication-TileColor" content="#2e2e33">
 
 {{- /* Extra mobile/PWA metadata only in production */ -}}
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- if hugo.IsProduction }}
 <meta name="format-detection" content="telephone=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -64,7 +64,7 @@
 {{- end }}
 
 {{- /* Third-party preconnects only when actually used */ -}}
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- if hugo.IsProduction }}
 <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
 <link rel="dns-prefetch" href="https://cloud.umami.is">
 {{- if and .IsPage (.Param "comments") site.Params.disqusShortname }}
