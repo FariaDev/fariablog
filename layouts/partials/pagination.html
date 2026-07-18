@@ -1,0 +1,11 @@
+{{- if gt .TotalPages 1 -}}
+<nav class="pagination" aria-label="{{ i18n "pagination" }}">
+  {{- with .Prev }}<a class="pagination-previous" href="{{ .URL }}" rel="prev">← {{ i18n "page_previous" }}</a>{{ end -}}
+  <span class="pagination-pages">
+    {{- range .Pagers }}
+      {{- if eq .PageNumber $.PageNumber }}<span aria-current="page">{{ .PageNumber }}</span>{{ else }}<a href="{{ .URL }}" aria-label="{{ i18n "page_number" }} {{ .PageNumber }}">{{ .PageNumber }}</a>{{ end -}}
+    {{- end }}
+  </span>
+  {{- with .Next }}<a class="pagination-next" href="{{ .URL }}" rel="next">{{ i18n "page_next" }} →</a>{{ end -}}
+</nav>
+{{- end -}}

@@ -1,0 +1,19 @@
+{{- $search := .Site.GetPage "search" -}}
+{{- $tags := .Site.GetPage "tags" -}}
+{{- $archive := .Site.GetPage "archives" -}}
+{{- $books := .Site.GetPage "books" -}}
+{{- $contact := .Site.GetPage "contact" -}}
+{{- $translations := .Translations -}}
+{{- if .IsHome }}{{ $translations = .Site.Home.Translations }}{{ end -}}
+<header class="site-header">
+  <a class="site-mark" href="{{ .Site.Home.RelPermalink }}" aria-label="FariaBlog — {{ i18n "index_label" }}">FariaBlog</a>
+  <nav class="site-nav" aria-label="{{ i18n "primary_navigation" }}">
+    {{ with $search }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "nav_search" }}</a>{{ end }}
+    {{ with $tags }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "nav_subjects" }}</a>{{ end }}
+    {{ with $archive }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "nav_archive" }}</a>{{ end }}
+    {{ with $books }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "nav_books" }}</a>{{ end }}
+    {{ with $contact }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "nav_about" }}</a>{{ end }}
+    {{ range $translations }}<a class="language-link" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}
+    <button class="theme-toggle" type="button" data-theme-toggle data-light-label="{{ i18n "theme_light" }}" aria-label="{{ i18n "theme_dark" }}" title="{{ i18n "theme_dark" }}"><span aria-hidden="true" class="theme-glyph">☾</span><span class="sr-only">{{ i18n "theme_dark" }}</span></button>
+  </nav>
+</header>

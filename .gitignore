@@ -1,6 +1,6 @@
 # Hugo
 /public/
-/resources/_gen/
+/resources/
 .hugo_build.lock
 
 # OS
@@ -14,8 +14,10 @@ Thumbs.db
 *.swo
 *~
 
-# Logs
+# Logs and Python caches
 *.log
+__pycache__/
+*.py[cod]
 
 .claude/
 .codex

@@ -1,0 +1,76 @@
+{{ define "main" }}
+{{- $posts := sort .CurrentSection.RegularPages "Date" "asc" -}}
+{{- $documentNumber := 0 -}}
+{{- range $index, $post := $posts }}{{ if eq $post.RelPermalink $.RelPermalink }}{{ $documentNumber = add $index 1 }}{{ end }}{{ end -}}
+<article class="document article-sheet">
+  <header class="document-header">
+    <p class="document-id">FB:{{ .Date.Format "06" }}-{{ printf "%03d" $documentNumber }} · {{ i18n "article" | upper }}</p>
+    <h1>{{ .Title }}</h1>
+    <p class="paper-author">{{ .Params.author | default site.Params.authorName }}</p>
+    <p class="paper-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Site.Params.dateFormat | default "02 Jan 2006") }}</time> · {{ .ReadingTime }} {{ i18n "reading_time" }}</p>
+    {{- with .Translations }}
+    <p class="paper-translation">{{ range . }}<a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}</p>
+    {{- end }}
+  </header>
+
+  {{- with .Params.cover }}
+  {{- $cover := partial "image-resource.html" (dict "page" $ "path" .image) -}}
+  <figure class="article-cover">
+    {{- partial "responsive-image.html" (dict
+      "resource" $cover
+      "src" (.image | absURL)
+      "alt" (.alt | default $.Title)
+      "loading" "eager"
+    ) }}
+    {{- with .caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+  </figure>
+  {{- end }}
+
+  <section class="article-abstract reading-section" id="abstract" aria-labelledby="abstract-title">
+    <h2 id="abstract-title">{{ i18n "summary_label" }}</h2>
+    <p>{{ .Description | default .Summary | plainify }}</p>
+    {{- with .Params.tags }}
+    <p class="keywords"><strong>{{ i18n "keywords" }}:</strong> {{ delimit . "; " }}.</p>
+    {{- end }}
+  </section>
+
+  {{- if and site.Params.showToc .TableOfContents }}
+  <nav class="article-toc reading-section" id="contents" aria-labelledby="toc-title">
+    <h2 id="toc-title">{{ i18n "toc" }}</h2>
+    {{ .TableOfContents }}
+  </nav>
+  {{- end }}
+
+  <div class="article-content" data-anchor-label="{{ i18n "heading_anchor" }}">
+    {{ .Content }}
+  </div>
+
+  <footer class="document-end">
+    {{- with .Params.tags }}
+    <ul class="document-tags" aria-label="{{ i18n "subject_index" }}">
+      {{- range . }}{{- with $.Site.GetPage (printf "/tags/%s" (. | urlize)) }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}{{- end }}
+    </ul>
+    {{- end }}
+
+    {{- if site.Params.showShareButtons }}
+    <div class="document-actions">
+      <span>{{ i18n "share" }}:</span>
+      <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button>
+      <a href="https://wa.me/?text={{ printf "%s %s" .Title .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span class="action-separator" aria-hidden="true"></span>
+      {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
+      {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
+      <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
+    </div>
+    {{- end }}
+
+    <nav class="document-nav" aria-label="{{ i18n "publications" }}">
+      {{- with .NextInSection }}<a class="document-nav-previous" href="{{ .RelPermalink }}"><small>← {{ i18n "previous" }}</small><span>{{ .Title }}</span></a>{{ end -}}
+      {{- with .PrevInSection }}<a class="document-nav-next" href="{{ .RelPermalink }}"><small>{{ i18n "next" }} →</small><span>{{ .Title }}</span></a>{{ end -}}
+    </nav>
+  </footer>
+</article>
+{{- if .Params.comments }}{{ partial "comments.html" . }}{{ end }}
+{{ partial "reading-rail.html" . }}
+{{ end }}

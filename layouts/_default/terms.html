@@ -1,27 +1,15 @@
-{{- define "main" }}
-
-{{- if .Title }}
-<header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- if .Description }}
-    <div class="post-description">
-        {{ .Description }}
-    </div>
+{{ define "main" }}
+<article class="aux-document aux-sheet terms-document">
+  {{ partial "aux-header.html" (dict "kicker" (i18n "thematic_index") "title" (i18n "nav_subjects") "subtitle" (printf "%d %s · %d %s" (len .Data.Terms) (i18n "terms") (len .Site.RegularPages) (i18n "documents"))) }}
+  <section class="subject-index" aria-label="{{ i18n "nav_subjects" }}">
+    {{- range $term := .Data.Terms.Alphabetical }}
+    <article class="subject-term" id="{{ $term.Page.Title | urlize }}">
+      <h2><a href="{{ $term.Page.RelPermalink }}">{{ $term.Page.Title }}</a> <sup>{{ $term.Count }}</sup></h2>
+      <ul>
+        {{- range sort $term.Pages "Date" "desc" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006" }}</time></li>{{ end }}
+      </ul>
+    </article>
     {{- end }}
-</header>
-{{- end }}
-
-<ul class="terms-tags">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-    {{- $name := .Name }}
-    {{- $count := .Count }}
-    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
-    <li>
-        <a href="{{ .Permalink }}">{{ .Title | default .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
-    </li>
-    {{- end }}
-    {{- end }}
-</ul>
-
-{{- end }}{{/* end main */ -}}
+  </section>
+</article>
+{{ end }}

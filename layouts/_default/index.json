@@ -1,0 +1,7 @@
+{{- $records := slice -}}
+{{- range where .Site.RegularPages "Section" "in" site.MainSections -}}
+  {{- $tags := .Params.tags | default (slice) -}}
+  {{- $record := dict "title" .Title "url" .RelPermalink "summary" (.Description | default .Summary | plainify) "content" .Plain "tags" $tags "date" (.Date.Format "2006-01-02") "section" .Section -}}
+  {{- $records = $records | append $record -}}
+{{- end -}}
+{{- $records | jsonify -}}

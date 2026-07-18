@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{- $posts := sort (where .Site.RegularPages "Section" "in" site.MainSections) "Date" "desc" -}}
+<article class="aux-document aux-sheet archive-document">
+  {{ partial "aux-header.html" (dict "kicker" (i18n "chronological_index") "title" .Title "subtitle" (printf "%d %s" (len $posts) (i18n "documents"))) }}
+  <section class="archive-list" aria-label="{{ .Title }}">
+    {{- range $year := $posts.GroupByDate "2006" }}
+    <section class="archive-year">
+      <h2>{{ $year.Key }} <sup>{{ len $year.Pages }}</sup></h2>
+      {{- range $month := $year.Pages.GroupByDate "2006-01" }}
+      {{- $first := index $month.Pages 0 }}
+      <div class="archive-month">
+        <h3>{{ i18n (printf "month_%d" $first.Date.Month) }}</h3>
+        <div class="archive-items">
+          {{- range sort $month.Pages "Date" "desc" }}
+          <a href="{{ .RelPermalink }}">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02" }}</time>
+            <span>{{ .Title }}<small>{{ .ReadingTime }} {{ i18n "reading_time" }}</small></span>
+          </a>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+    </section>
+    {{- end }}
+  </section>
+</article>
+{{ end }}

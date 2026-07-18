@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{- $pages := sort .Pages "Date" "desc" -}}
+{{- $paginator := .Paginate $pages -}}
+{{- $pageOffset := partial "pagination-offset.html" $paginator -}}
+<article class="aux-document aux-sheet term-document">
+  {{ partial "aux-header.html" (dict "kicker" (i18n "thematic_index") "title" .Title "subtitle" (printf "%d %s" (len $pages) (i18n "documents"))) }}
+  <section class="contents publication-list" aria-label="{{ .Title }}">
+    {{- range $index, $post := $paginator.Pages }}
+      {{- $globalIndex := add $pageOffset $index -}}
+      {{- partial "publication-entry.html" (dict "page" $post "number" (add $globalIndex 1) "showSummary" true) -}}
+    {{- end }}
+    {{ partial "pagination.html" $paginator }}
+  </section>
+</article>
+{{ end }}

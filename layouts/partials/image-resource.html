@@ -1,0 +1,10 @@
+{{- $resource := false -}}
+{{- $path := strings.TrimPrefix "/" .path -}}
+{{- with .page.Resources.Get $path -}}
+  {{- $resource = . -}}
+{{- else -}}
+  {{- with resources.Get $path -}}
+    {{- $resource = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $resource -}}

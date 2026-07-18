@@ -1,5 +1,6 @@
 +++
 title = "Books Read"
+layout = "books"
 description = "Here is a list of books I have read (in alphabetical order), exported from Skoob."
 date = "2026-04-17T00:00:00-03:00"
 lastmod = "2026-04-17T00:00:00-03:00"

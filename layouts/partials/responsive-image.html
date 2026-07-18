@@ -1,0 +1,33 @@
+{{- $resource := .resource -}}
+{{- $src := .src -}}
+{{- with $resource }}{{ $src = .RelPermalink }}{{ end -}}
+{{- $attributes := merge (.attributes | default dict) (dict
+  "alt" (.alt | plainify | htmlUnescape)
+  "src" $src
+  "loading" (.loading | default "lazy")
+  "decoding" "async"
+) -}}
+{{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp" -}}
+{{- if and $resource hugo.IsExtended (in $processableFormats $resource.MediaType.SubType) -}}
+  {{- $srcset := slice -}}
+  {{- range slice "360" "480" "720" "1080" "1500" -}}
+    {{- if ge $resource.Width (int .) -}}
+      {{- $variant := $resource.Resize (printf "%sx webp" .) -}}
+      {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink .) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $resource.RelPermalink $resource.Width) -}}
+  {{- $attributes = merge $attributes (dict
+    "srcset" (delimit $srcset ", ")
+    "sizes" (.sizes | default "(min-width: 768px) 720px, 100vw")
+    "width" $resource.Width
+    "height" $resource.Height
+  ) -}}
+{{- end -}}
+<img
+  {{- range $key, $value := $attributes -}}
+    {{- if ne $value false -}}
+      {{- printf " %s=%q" $key ($value | transform.HTMLEscape) | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}>
+{{- /**/ -}}

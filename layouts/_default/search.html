@@ -1,0 +1,24 @@
+{{ define "main" }}
+{{- $posts := sort (where .Site.RegularPages "Section" "in" site.MainSections) "Date" "desc" -}}
+<article class="aux-document aux-sheet search-document site-search" data-search-endpoint="{{ "index.json" | relLangURL }}" data-search-empty="{{ i18n "search_empty" }}" data-search-one="{{ i18n "search_one" }}" data-search-many="{{ i18n "search_many" }}" data-search-none="{{ i18n "search_no_results" }}" data-search-error="{{ i18n "search_error" }}">
+  {{ partial "aux-header.html" (dict "title" .Title "subtitle" (i18n "search_label")) }}
+  <section class="search-page-controls">
+    <form class="search-form" role="search" action="{{ .RelPermalink }}" method="get">
+      <label for="archive-search">{{ i18n "search_label" }}</label>
+      <div class="search-field"><input id="archive-search" name="q" type="search" autocomplete="off" placeholder="{{ .Params.placeholder | default (i18n "search_placeholder") }}" data-search-input><button type="button" data-clear-search hidden>{{ i18n "clear" }}</button></div>
+    </form>
+    <p class="search-status" data-search-status aria-live="polite">{{ i18n "search_empty" }}</p>
+  </section>
+  <section class="contents publication-list search-publications" aria-labelledby="search-results-title">
+    <h2 id="search-results-title">{{ i18n "publications" }}</h2>
+    <div class="search-results" data-search-results hidden></div>
+    {{ partial "search-result-template.html" . }}
+    <div class="home-entries" data-search-entries>
+      {{- range $index, $post := $posts }}
+        {{- partial "publication-entry.html" (dict "page" $post "number" (add $index 1) "showSummary" true) -}}
+      {{- end }}
+    </div>
+    <noscript><p>{{ i18n "search_no_script" }}</p></noscript>
+  </section>
+</article>
+{{ end }}

@@ -1,0 +1,46 @@
+{{- if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ site.Params.authorName | jsonify | safeJS }},
+  "url": {{ site.Home.Permalink | jsonify | safeJS }},
+  "description": {{ site.Params.description | jsonify | safeJS }},
+  "sameAs": ["https://github.com/FariaDev"]
+}
+</script>
+{{- else if and .IsPage (in site.MainSections .Section) }}
+{{- $author := .Params.author | default site.Params.authorName -}}
+{{- $image := "" -}}
+{{- with .Params.cover.image }}{{ $image = . | absURL }}{{ end -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title | plainify | jsonify | safeJS }},
+  "description": {{ (.Description | default .Summary | plainify) | jsonify | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": {{ .Permalink | jsonify | safeJS }}},
+  "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify | safeJS }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify | safeJS }},
+  "wordCount": {{ .WordCount }},
+  "inLanguage": {{ .Language.Lang | jsonify | safeJS }},
+  "author": {"@type": "Person", "name": {{ $author | jsonify | safeJS }}},
+  "publisher": {"@type": "Person", "name": {{ site.Params.authorName | jsonify | safeJS }}}{{ with $image }},
+  "image": {{ . | jsonify | safeJS }}{{ end }}{{ with .Params.tags }},
+  "keywords": {{ . | jsonify | safeJS }}{{ end }}
+}
+</script>
+{{- else }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ .Title | plainify | jsonify | safeJS }},
+  "description": {{ .Description | default .Summary | default site.Params.description | plainify | jsonify | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "inLanguage": {{ .Language.Lang | jsonify | safeJS }},
+  "isPartOf": {"@type": "WebSite", "name": {{ site.Title | jsonify | safeJS }}, "url": {{ site.Home.Permalink | jsonify | safeJS }}}
+}
+</script>
+{{- end }}

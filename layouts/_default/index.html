@@ -1,0 +1,44 @@
+{{ define "main" }}
+{{- $posts := where .Site.RegularPages "Section" "in" site.MainSections -}}
+{{- $posts = sort $posts "Date" "desc" -}}
+{{- $paginator := .Paginate $posts -}}
+{{- $pageOffset := partial "pagination-offset.html" $paginator -}}
+{{- $searchPage := .Site.GetPage "search" -}}
+<section class="title-page">
+  <h1>FariaBlog</h1>
+  <p class="home-author">{{ site.Params.authorName }}</p>
+  <p class="home-affiliation">{{ i18n "home_subjects" }}</p>
+</section>
+
+<section class="abstract home-abstract" aria-labelledby="home-summary-title">
+  <h2 id="home-summary-title">{{ i18n "summary_label" }}</h2>
+  <p>{{ site.Params.homeInfoContent | default (i18n "site_description") }}</p>
+</section>
+
+<section class="search-block" aria-labelledby="home-search-title">
+  <h2 id="home-search-title">{{ i18n "nav_search" }}</h2>
+  <form class="search-form" role="search" action="{{ $searchPage.RelPermalink }}" method="get">
+    <label for="publication-search">{{ i18n "search_label" }}</label>
+    <div class="search-field">
+      <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
+      <button type="submit">{{ i18n "nav_search" }}</button>
+    </div>
+  </form>
+</section>
+
+<section class="contents publication-list" aria-labelledby="publications-title">
+  <h2 id="publications-title">{{ i18n "publications" }}</h2>
+  <div class="home-entries">
+    {{- range $index, $post := $paginator.Pages }}
+      {{- $globalIndex := add $pageOffset $index -}}
+      {{- partial "publication-entry.html" (dict "page" $post "number" (sub (len $posts) $globalIndex)) -}}
+    {{- end }}
+  </div>
+  {{ partial "pagination.html" $paginator }}
+</section>
+
+<section class="subject-summary" aria-labelledby="subjects-title">
+  <h2 id="subjects-title">{{ i18n "subject_index" }}</h2>
+  <p>{{- range $index, $term := .Site.Taxonomies.tags.Alphabetical -}}{{ if $index }} · {{ end }}<a href="{{ $term.Page.RelPermalink }}">{{ $term.Page.Title }}</a> [{{ $term.Count }}]{{- end }}</p>
+</section>
+{{ end }}

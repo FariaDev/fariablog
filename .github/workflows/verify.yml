@@ -11,10 +11,8 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository and theme submodule
+      - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Install Hugo Extended
         uses: peaceiris/actions-hugo@v3

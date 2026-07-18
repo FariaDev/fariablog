@@ -1,0 +1,9 @@
+{{ define "main" }}
+<article class="aux-document aux-sheet not-found-document">
+  {{ partial "aux-header.html" (dict "kicker" "404" "title" (i18n "not_found_title") "subtitle" (i18n "not_found_text")) }}
+  <div class="not-found-actions">
+    <a class="text-action" href="{{ .Site.Home.RelPermalink }}">{{ i18n "return_home" }}</a>
+    {{ with .Site.GetPage "search" }}<a class="text-action" href="{{ .RelPermalink }}">{{ i18n "open_search" }}</a>{{ end }}
+  </div>
+</article>
+{{ end }}
