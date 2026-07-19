@@ -9,7 +9,7 @@
     <p class="paper-author">{{ .Params.author | default site.Params.authorName }}</p>
     <p class="paper-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Site.Params.dateFormat | default "02 Jan 2006") }}</time> · {{ .ReadingTime }} {{ i18n "reading_time" }}</p>
     {{- with .Translations }}
-    <p class="paper-translation">{{ range . }}<a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}</p>
+    <p class="paper-translation">{{ range . }}<a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Params.languageLabel }}</a>{{ end }}</p>
     {{- end }}
   </header>
 

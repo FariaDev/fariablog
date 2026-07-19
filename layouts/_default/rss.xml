@@ -3,10 +3,10 @@
 {{- printf "<?xml version=%q encoding=%q?>" "1.0" "utf-8" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{{ printf "%s — %s" .Site.Title .Language.Label | transform.XMLEscape | safeHTML }}</title>
+    <title>{{ printf "%s — %s" .Site.Title .Site.Params.languageLabel | transform.XMLEscape | safeHTML }}</title>
     <link>{{ .Site.Home.Permalink }}</link>
     <description>{{ .Site.Params.description | plainify | transform.XMLEscape | safeHTML }}</description>
-    <language>{{ .Language.Locale }}</language>
+    <language>{{ .Site.Params.locale }}</language>
     <atom:link href="{{ $rss.Permalink }}" rel="self" type="application/rss+xml" />
     {{- range first site.Params.rssLimit (sort $pages "Date" "desc") }}
     <item>

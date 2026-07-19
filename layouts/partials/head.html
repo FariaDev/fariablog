@@ -14,7 +14,7 @@
 <meta name="robots" content="{{ if and $isProduction (not $is404) }}index, follow{{ else }}noindex, nofollow{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
 {{- if .IsHome }}
-<link rel="alternate" hreflang="x-default" href="{{ hugo.Sites.Default.Home.Permalink }}">
+<link rel="alternate" hreflang="x-default" href="{{ (index site.Home.AllTranslations 0).Permalink }}">
 {{- end }}
 <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
 {{- range .Translations }}

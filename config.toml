@@ -37,11 +37,11 @@ defaultContentLanguageInSubdir = true
 [languages]
   [languages.pt-br]
     contentDir = "content/pt-br"
-    locale = "pt-BR"
-    label = "Português"
     weight = 1
     title = "FariaBlog"
     [languages.pt-br.params]
+      locale = "pt-BR"
+      languageLabel = "Português"
       description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
       keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
       dateFormat = "02/01/2006"
@@ -51,11 +51,11 @@ defaultContentLanguageInSubdir = true
 
   [languages.en]
     contentDir = "content/en"
-    locale = "en-US"
-    label = "English"
     weight = 2
     title = "FariaBlog"
     [languages.en.params]
+      locale = "en-US"
+      languageLabel = "English"
       description = "A blog about philosophy, literature, neuroscience, and reflections on education. Sharing insights and discoveries through reading and critical thinking."
       keywords = ["philosophy", "literature", "neuroscience", "education", "reading", "reflections", "blog", "critical thinking"]
       dateFormat = "Jan 02, 2006"
