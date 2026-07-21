@@ -5,7 +5,6 @@ date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
 tags = ["Educacao", "Leitura"]
 language = "pt-br"
-comments = true
 translationKey = "latin-education"
 
 [cover]

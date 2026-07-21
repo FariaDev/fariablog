@@ -4,7 +4,7 @@
 ![Hugo](https://img.shields.io/badge/Hugo-v0.164.0-blue.svg)
 ![Último Commit](https://img.shields.io/github/last-commit/FariaDev/fariablog.svg)
 
-Blog pessoal estático construído com Hugo, com uma interface documental própria inspirada em papers e tipografia acadêmica. O projeto serve como arquivo de estudos, leituras e reflexões sobre filosofia, literatura, neurociência e educação.
+Blog pessoal estático construído com Hugo e uma interface mínima inspirada em [bestmotherfucking.website](https://bestmotherfucking.website/). O projeto serve como arquivo de estudos, leituras e reflexões sobre filosofia, literatura, neurociência e educação.
 
 <p align="center">
   <img src="https://fariablog.com/fariablog.webp" alt="FariaBlog" width="400"/>
@@ -12,32 +12,21 @@ Blog pessoal estático construído com Hugo, com uma interface documental própr
 
 ## Funcionalidades Principais
 
-- **Interface:** Design minimalista e responsivo com suporte nativo a modo claro/escuro.
+- **Interface:** HTML direto, tipografia nativa, uma coluna legível e modo claro/escuro.
 - **Internacionalização:** Suporte multilíngue (Português/Inglês).
 - **Navegação:** Busca indexada via Fuse.js, sumário interno, arquivo cronológico e taxonomia por assuntos.
-- **Social:** Integração com Disqus para comentários e links de compartilhamento.
 - **Performance:** SEO estruturado, assets fingerprintados e imagens WebP responsivas.
 
 ## Tecnologias
 
 - **[Hugo](https://gohugo.io/):** Static Site Generator.
-- **STIX Two Text:** tipografia principal hospedada localmente.
 - **Fuse.js:** busca local tolerante a erros.
-- **[Disqus](https://disqus.com/):** comentários carregados mediante ação do leitor.
 
-## Versões visuais
+## Interface
 
-O redesign A1 é a apresentação principal. A versão PaperMod anterior está preservada de forma imutável na tag Git `pre-redesign`.
+A apresentação usa os padrões de `bestmotherfucking.website`: CSS mínimo, fonte do sistema, largura de leitura de `40em` e elementos nativos do navegador. Busca, taxonomias, imagens responsivas, SEO e internacionalização continuam integrados ao Hugo.
 
-Para comparar lado a lado, execute o redesign nesta pasta e abra o legado em um worktree temporário:
-
-```bash
-hugo server -D --port 1313
-git worktree add ../fariablog-legacy pre-redesign
-(cd ../fariablog-legacy && git submodule update --init --recursive && hugo server -D --port 1414)
-```
-
-O rollback consiste em publicar a tag, sem manter uma segunda aplicação dentro da branch principal. Consulte `docs/REDESIGN.md` e `docs/REDESIGN-ROLLOUT.md`.
+A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Instalação e Execução
 
@@ -65,16 +54,22 @@ O rollback consiste em publicar a tag, sem manter uma segunda aplicação dentro
 
 4. Acesse `http://localhost:1313/pt-br/`.
 
+## Verificação
+
+```bash
+./scripts/verify.sh
+```
+
 ## Estrutura do Projeto
 
 ```text
 .
 ├── assets/         # CSS e JavaScript processados pelo Hugo
 ├── content/        # Posts e páginas em português e inglês
-├── docs/           # Arquitetura do redesign e protocolo de rollout
+├── docs/           # Arquitetura e publicação
 ├── i18n/           # Textos da interface
 ├── layouts/        # Templates Hugo da apresentação principal
 ├── scripts/        # Gate de verificação
-├── static/         # Imagens, fontes, ícones e políticas HTTP
+├── static/         # Imagens e políticas HTTP
 ├── config.toml     # Configuração principal
 └── README.md

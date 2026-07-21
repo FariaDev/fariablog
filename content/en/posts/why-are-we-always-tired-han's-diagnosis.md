@@ -5,7 +5,6 @@ date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
 tags = ["Neuroscience", "Philosophy"]
 language = "en"
-comments = true
 translationKey = "han-tiredness"
 
 [cover]
@@ -162,7 +161,3 @@ Throughout history, many philosophers faced extreme torment, such as imprisonmen
 * NHAT HANH, Thich. *Silence: The Power of Quiet in a Noisy World*. Translated by Mirtes Frange de Oliveira Pinheiro. Petrópolis: Vozes, 2015.
 * DALAI LAMA; CUTLER, Howard C. *The Art of Happiness: A Handbook for Living*. Translated by Beth Vieira, Aulyde Soares Rodrigues. São Paulo: Martins Fontes, 2000.
 * WATTS, Alan W. *The Wisdom of Insecurity: A Message for an Age of Anxiety*. Translated by Waldéa Barcellos. Rio de Janeiro: Record, 1973.
-
----
-
-💬 *Enjoyed the article? Leave a comment and share your opinion!*

@@ -7,7 +7,9 @@
 {{- if $is404 }}{{ $pageTitle = printf "%s | %s" (i18n "not_found_title") site.Title }}{{ end -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#e7e8e6">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="description" content="{{ $description }}">
 <meta name="author" content="{{ $author }}">
 <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ delimit site.Params.keywords ", " }}{{ end }}">
@@ -34,20 +36,39 @@
 <meta name="twitter:title" content="{{ $pageTitle }}">
 <meta name="twitter:description" content="{{ $description }}">
 {{- with $ogImage }}<meta name="twitter:image" content="{{ . }}">{{ end }}
-<link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="any">
-<link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | absURL }}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{ "favicon-96x96.png" | absURL }}">
-<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | absURL }}">
-<link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
+<link rel="icon" type="image/png" href="data:image/png;base64,">
 {{ with .Site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
 <script>
 (function () {
+  var root = document.documentElement;
+  var key = 'fariablog-theme';
+  var theme;
   try {
-    var saved = localStorage.getItem('fariablog-theme');
-    document.documentElement.dataset.theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  } catch (error) {
-    document.documentElement.dataset.theme = 'light';
-  }
+    theme = localStorage.getItem(key);
+  } catch (error) {}
+  theme = theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.dataset.theme = theme;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
+      var darkLabel = button.getAttribute('aria-label') || 'Switch to dark mode';
+      var lightLabel = button.dataset.lightLabel || 'Switch to light mode';
+      var glyph = button.querySelector('.theme-glyph');
+      function render() {
+        var nextIsDark = root.dataset.theme !== 'dark';
+        var label = nextIsDark ? darkLabel : lightLabel;
+        if (glyph) glyph.textContent = nextIsDark ? '☾' : '☀';
+        button.setAttribute('aria-label', label);
+        button.title = label;
+      }
+      button.addEventListener('click', function () {
+        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem(key, root.dataset.theme); } catch (error) {}
+        render();
+      });
+      render();
+    });
+  });
 }());
 </script>
 {{- $css := resources.Get "css/site.css" | resources.Minify | resources.Fingerprint "sha256" -}}
@@ -56,11 +77,11 @@
 {{- $fuse := resources.Get "js/fuse.basic.min.js" | resources.Fingerprint "sha256" -}}
 <script defer src="{{ $fuse.RelPermalink }}" integrity="{{ $fuse.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
-{{- $js := resources.Get "js/site.js" | resources.Minify | resources.Fingerprint "sha256" -}}
-<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
-{{- if $isProduction }}
-<link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-<link rel="dns-prefetch" href="https://cloud.umami.is">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.Params.umamiWebsiteId }}"></script>
+{{- if eq .Layout "search" }}
+{{- $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else if and .IsPage (in site.MainSections .Section) }}
+{{- $articleJS := resources.Get "js/article.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $articleJS.RelPermalink }}" integrity="{{ $articleJS.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
 {{ partial "seo-schema.html" . }}

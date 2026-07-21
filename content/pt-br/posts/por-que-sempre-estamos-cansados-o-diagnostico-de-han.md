@@ -5,7 +5,6 @@ date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
 tags = ["Neurociencia", "Filosofia"]
 language = "pt-br"
-comments = true
 translationKey = "han-tiredness"
 
 [cover]

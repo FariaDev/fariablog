@@ -1,5 +1,5 @@
-<header class="aux-title">
-  {{ with .kicker }}<p>{{ . }}</p>{{ end }}
+<header>
+  {{ with .kicker }}<aside>{{ . }}</aside>{{ end }}
   <h1>{{ .title }}</h1>
-  {{ with .subtitle }}<span>{{ . }}</span>{{ end }}
+  {{ with .subtitle }}<aside>{{ . }}</aside>{{ end }}
 </header>

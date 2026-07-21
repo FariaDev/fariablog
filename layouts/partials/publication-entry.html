@@ -1,12 +1,10 @@
 {{- $page := .page -}}
-<article class="publication-entry">
-  <span class="publication-number">[{{ printf "%03d" .number }}]</span>
-  <div class="publication-main">
-    <h2><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
-    {{- if .showSummary }}{{ with $page.Description }}<p>{{ . | plainify | truncate 150 }}</p>{{ end }}{{ end }}
-  </div>
-  <div class="publication-meta">
-    <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format ($page.Site.Params.dateFormat | default "02 Jan 2006") }}</time>
-    <span>{{ $page.ReadingTime }} {{ i18n "reading_time" }}{{ with $page.Translations }} · <a href="{{ (index . 0).RelPermalink }}" lang="{{ (index . 0).Language.Lang }}">{{ (index . 0).Language.Params.languageLabel }}</a>{{ end }}</span>
-  </div>
+<article>
+  <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+  <aside>
+    <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format ($page.Site.Params.dateFormat | default "02 Jan 2006") }}</time> ·
+    {{ $page.ReadingTime }} {{ i18n "reading_time" }}
+    {{- with $page.Translations }} · <a href="{{ (index . 0).RelPermalink }}" lang="{{ (index . 0).Language.Lang }}">{{ (index . 0).Language.Params.languageLabel }}</a>{{ end }}
+  </aside>
+  {{- if .showSummary }}{{ with $page.Description }}<p>{{ . | plainify }}</p>{{ end }}{{ end }}
 </article>

@@ -240,7 +240,7 @@ require(dev_files, "development build emitted no HTML")
 prod_docs = {path: parse_document(path) for path in prod_files}
 dev_docs = {path: parse_document(path) for path in dev_files}
 
-# Every JSON-LD block is parsed above; both modes keep structured data, while robots and analytics remain environment-specific.
+# Every JSON-LD block is parsed above; both modes keep structured data, while robots remain environment-specific.
 prod_jsonld_count = sum(len(jsonld) for _, jsonld in prod_docs.values())
 require(prod_jsonld_count > 0, "production build emitted no JSON-LD blocks")
 
@@ -265,8 +265,9 @@ for path in (development_home_en, development_home_pt):
 
 production_text = "\n".join(path.read_text(encoding="utf-8") for path in prod_files)
 development_text = "\n".join(path.read_text(encoding="utf-8") for path in dev_files)
-require("https://cloud.umami.is/script.js" in production_text, "production output is missing analytics")
-require("https://cloud.umami.is/script.js" not in development_text, "development output contains analytics")
+for tracker in ("cloud.umami.is", "googletagmanager.com", "google-analytics.com", "plausible.io", "disqus.com"):
+    require(tracker not in production_text, f"production output contains tracker {tracker}")
+    require(tracker not in development_text, f"development output contains tracker {tracker}")
 
 english_home_text = production_home_en.read_text(encoding="utf-8")
 portuguese_home_text = production_home_pt.read_text(encoding="utf-8")
@@ -278,7 +279,13 @@ require(
     "English home has the wrong x-default URL",
 )
 require("fuse.basic" not in english_home_text, "Fuse is loaded outside the search page")
+require("/js/" not in english_home_text, "home loads an external JavaScript asset")
 require("fuse.basic" in english_search_text, "search page is missing Fuse")
+require("/js/search.min." in english_search_text, "search page is missing its scoped script")
+english_article = next((production / "en" / "posts").glob("*/index.html"))
+english_article_text = english_article.read_text(encoding="utf-8")
+require("/js/article.min." in english_article_text, "article page is missing its scoped script")
+require("fuse.basic" not in english_article_text, "Fuse is loaded on an article page")
 
 for language in ("en", "pt-br"):
     records = json.loads((production / language / "index.json").read_text(encoding="utf-8"))
@@ -325,8 +332,7 @@ for path, (parser, _) in prod_docs.items():
     editorial_images = [image for image in parser.images if "/images/" in urlparse(image.get("src", "")).path]
     if not editorial_images:
         continue
-    if "article-sheet" in path.read_text(encoding="utf-8"):
-        require(editorial_images[0].get("loading") == "eager", f"first editorial image is lazy-loaded in {path}")
+    require(editorial_images[0].get("loading") == "eager", f"first editorial image is lazy-loaded in {path}")
     for image in editorial_images:
         require(image.get("alt") is not None and "<" not in image["alt"] and ">" not in image["alt"], f"editorial image has malformed alt text in {path}")
         require(image.get("loading") in {"lazy", "eager"}, f"editorial image has no loading policy in {path}")

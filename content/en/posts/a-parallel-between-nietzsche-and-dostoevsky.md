@@ -5,7 +5,6 @@ date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Philosophy"]
 language = "en"
-comments = true
 translationKey = "nietzsche-dostoevsky"
 
 [cover]
@@ -157,7 +156,3 @@ Now, a meme to lighten the mood 😂
 4. **VILLAÇA, Davi Lopes**. *Notes from Underground: Interpretive Problems*. Revista Universidade de São Paulo, São Paulo, v. 12, n. 20, p. 1-42, Dec. 2021.
 5. **VASSOLER, Flávio Ricardo**. *Vassoler’s Review: Notes from Underground | Dostoevsky | Part I*. YouTube, 2023. Available at: <https://www.youtube.com/watch?v=EgnDyBEu4X0>. Accessed on: 29 Jan. 2025.
 6. **CHERNYSHEVSKY, Nikolai**. *What Is to Be Done?* Translated by Angelo Segrillo. São Paulo: Prismas, 2015.
-
----
-
-💬 *Enjoyed the article? Leave a comment and share your opinion!*

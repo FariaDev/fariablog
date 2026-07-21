@@ -3,14 +3,12 @@
   <head>
     {{ partial "head.html" . }}
   </head>
-  <body class="{{ if .IsPage }}is-page{{ end }} {{ if eq .Kind "home" }}is-home{{ end }}" data-copy-code="{{ i18n "copy_code" }}" data-code-copied="{{ i18n "code_copied" }}" data-code-copy-failed="{{ i18n "code_copy_failed" }}">
+  <body data-copy-code="{{ i18n "copy_code" }}" data-code-copied="{{ i18n "code_copied" }}" data-code-copy-failed="{{ i18n "code_copy_failed" }}">
     <a class="skip-link" href="#main-content">{{ i18n "skip_to_content" }}</a>
-    <div class="site-frame">
-      {{ partial "site-header.html" . }}
-      <main id="main-content" tabindex="-1">
-        {{ block "main" . }}{{ end }}
-      </main>
-      {{ partial "site-footer.html" . }}
-    </div>
+    {{ partial "site-header.html" . }}
+    <main id="main-content" tabindex="-1">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "site-footer.html" . }}
   </body>
 </html>

@@ -5,7 +5,6 @@ date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
 tags = ["Education", "Reading"]
 language = "en"
-comments = true
 translationKey = "latin-education"
 
 [cover]
@@ -111,7 +110,3 @@ _Sapere aude._
 - Feynman, R. P. (1985). _Surely You’re Joking, Mr. Feynman!_ (R. Leighton, Ed.). Editora da Universidade de Brasília.
 - GATTO, John Taylor. _Dumbing Us Down: The Hidden Curriculum of Compulsory Schooling_. Translated by Leonardo Araujo. Campinas, SP: Kírion, 2019. 136 p. ISBN 978-85-94090-30-0.
 - ALMEIDA, Napoleão Mendes de. _Latin Grammar: A Complete and Unique Course_. 29th ed., 4th printing. São Paulo: Saraiva, 2004.
-
----
-
-💬 _Enjoyed the article? Leave a comment and share your opinion!_

@@ -1,5 +1,4 @@
-# Configuração principal do FariaBlog — redesign A1 aprovado.
-# A versão PaperMod anterior está preservada na tag Git pre-redesign.
+# Configuração principal do FariaBlog — interface mínima.
 baseURL = "https://fariablog.com/"
 title = "FariaBlog"
 defaultContentLanguage = "pt-br"
@@ -25,9 +24,6 @@ defaultContentLanguageInSubdir = true
   authorName = "Lucas Faria"
   description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
   keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
-  disqusShortname = "fariablog"
-  umamiWebsiteId = "0055c26e-b668-4c34-a6af-86142c1cead5"
-  showShareButtons = true
   showToc = true
   mainSections = ["posts"]
   rssLimit = 20
@@ -45,7 +41,7 @@ defaultContentLanguageInSubdir = true
       description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
       keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
       dateFormat = "02/01/2006"
-      homeInfoContent = "Um jovem de 18 anos compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
+      homeInfoContent = "Compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
       [languages.pt-br.params.editPost]
         contentDir = "content/pt-br"
 
@@ -59,13 +55,9 @@ defaultContentLanguageInSubdir = true
       description = "A blog about philosophy, literature, neuroscience, and reflections on education. Sharing insights and discoveries through reading and critical thinking."
       keywords = ["philosophy", "literature", "neuroscience", "education", "reading", "reflections", "blog", "critical thinking"]
       dateFormat = "Jan 02, 2006"
-      homeInfoContent = "A 18-year-old sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."
+      homeInfoContent = "Sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."
       [languages.en.params.editPost]
         contentDir = "content/en"
-
-[privacy]
-  [privacy.disqus]
-    disable = false
 
 enableRobotsTXT = true
 

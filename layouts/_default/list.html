@@ -1,13 +1,11 @@
 {{ define "main" }}
 {{- $posts := sort .Pages "Date" "desc" -}}
 {{- $paginator := .Paginate $posts -}}
-{{- $pageOffset := partial "pagination-offset.html" $paginator -}}
-<article class="aux-document aux-sheet archive-document">
+<article>
   {{ partial "aux-header.html" (dict "title" .Title "subtitle" (printf "%d %s" (len $posts) (i18n "documents"))) }}
-  <section class="contents publication-list">
-    {{- range $index, $post := $paginator.Pages }}
-      {{- $globalIndex := add $pageOffset $index -}}
-      {{- partial "publication-entry.html" (dict "page" $post "number" (sub (len $posts) $globalIndex) "showSummary" true) -}}
+  <section>
+    {{- range $paginator.Pages }}
+      {{- partial "publication-entry.html" (dict "page" . "showSummary" true) -}}
     {{- end }}
     {{ partial "pagination.html" $paginator }}
   </section>

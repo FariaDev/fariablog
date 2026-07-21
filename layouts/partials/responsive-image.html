@@ -1,13 +1,18 @@
 {{- $resource := .resource -}}
 {{- $src := .src -}}
-{{- with $resource }}{{ $src = .RelPermalink }}{{ end -}}
+{{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp" -}}
+{{- with $resource -}}
+  {{- $src = .RelPermalink -}}
+  {{- if and hugo.IsExtended (in $processableFormats .MediaType.SubType) (ge .Width 720) -}}
+    {{- $src = (.Resize "720x webp").RelPermalink -}}
+  {{- end -}}
+{{- end -}}
 {{- $attributes := merge (.attributes | default dict) (dict
   "alt" (.alt | plainify | htmlUnescape)
   "src" $src
   "loading" (.loading | default "lazy")
   "decoding" "async"
 ) -}}
-{{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp" -}}
 {{- if and $resource hugo.IsExtended (in $processableFormats $resource.MediaType.SubType) -}}
   {{- $srcset := slice -}}
   {{- range slice "360" "480" "720" "1080" "1500" -}}

@@ -1,7 +1,7 @@
 {{ define "main" }}
-<article class="aux-document aux-sheet books-document">
+<article>
   {{ partial "aux-header.html" (dict "kicker" (i18n "personal_bibliography") "title" .Title "subtitle" .Description) }}
-  <section class="book-content">
+  <section>
     {{ .Content }}
   </section>
 </article>

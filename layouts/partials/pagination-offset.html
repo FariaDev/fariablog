@@ -1,5 +1,0 @@
-{{- $offset := 0 -}}
-{{- range first (sub .PageNumber 1) .Pagers -}}
-  {{- $offset = add $offset (len .Pages) -}}
-{{- end -}}
-{{- return $offset -}}

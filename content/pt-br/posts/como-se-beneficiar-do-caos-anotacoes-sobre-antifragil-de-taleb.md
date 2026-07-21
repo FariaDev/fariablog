@@ -5,7 +5,6 @@ date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Filosofia", "Economia"]
 language = "pt-br"
-comments = true
 translationKey = "antifragile"
 
 [cover]
@@ -337,7 +336,3 @@ Crítica o "Big Data" pelo excesso de ruído e escassez de sinais. Além disso, 
 > E a Tríade nos dá alguma pista do que deveria ser feito para vivermos em um mundo cujo encanto vem de nossa incapacidade de compreendê-lo verdadeiramente"
 >
 > Pág 488, Livro VII
-
----
-
-💬 *Gostou do artigo? Deixe um comentário e compartilhe sua opinião!*

@@ -1,9 +1,9 @@
 {{ define "main" }}
-<article class="aux-document aux-sheet terms-document">
+<article>
   {{ partial "aux-header.html" (dict "kicker" (i18n "thematic_index") "title" (i18n "nav_subjects") "subtitle" (printf "%d %s · %d %s" (len .Data.Terms) (i18n "terms") (len .Site.RegularPages) (i18n "documents"))) }}
-  <section class="subject-index" aria-label="{{ i18n "nav_subjects" }}">
+  <section aria-label="{{ i18n "nav_subjects" }}">
     {{- range $term := .Data.Terms.Alphabetical }}
-    <article class="subject-term" id="{{ $term.Page.Title | urlize }}">
+    <article id="{{ $term.Page.Title | urlize }}">
       <h2><a href="{{ $term.Page.RelPermalink }}">{{ $term.Page.Title }}</a> <sup>{{ $term.Count }}</sup></h2>
       <ul>
         {{- range sort $term.Pages "Date" "desc" }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006" }}</time></li>{{ end }}

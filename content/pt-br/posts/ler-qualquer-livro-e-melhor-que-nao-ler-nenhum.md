@@ -5,7 +5,6 @@ date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Neurociencia"]
 language = "pt-br"
-comments = true
 translationKey = "reading-any-book"
 
 [cover]
@@ -75,5 +74,3 @@ A resposta, portanto, reside no equilíbrio. A combinação de ficção (para a 
 11. **Shafto, M. A., et al. (2014).** The Cambridge Centre for Ageing and Neuroscience (Cam-CAN). *BMC Neurology, 14(1), 204*.
 12. **Wilson, R. S., et al. (2013).** Life-span cognitive activity, neuropathologic burden, and cognitive aging. *Neurology, 81(4), 314–321*.
 13. **Wolf, M. (2018).** Reader, come home: The reading brain in a digital world. *HarperCollins*.
-
-💬 *Gostou do artigo? Deixe um comentário e compartilhe sua opinião!*

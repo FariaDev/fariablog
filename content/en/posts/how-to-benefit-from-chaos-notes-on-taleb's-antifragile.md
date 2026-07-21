@@ -5,7 +5,6 @@ date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Philosophy", "Economics"]
 language = "en"
-comments = true
 translationKey = "antifragile"
 
 [cover]
@@ -337,7 +336,3 @@ Criticizes “Big Data” for its excess noise and scarcity of signals. Above al
 > And the Triad gives us some clue about what should be done to live in a world whose charm comes from our inability to truly understand it.”
 >
 > P. 488, Book VII
-
----
-
-💬 *Enjoyed the article? Leave a comment and share your opinion!*

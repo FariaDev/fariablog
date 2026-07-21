@@ -1,7 +1,7 @@
 {{ define "main" }}
-<article class="aux-document aux-sheet about-document">
+<article>
   {{ partial "aux-header.html" (dict "kicker" (i18n "author_note") "title" .Title "subtitle" (site.Params.authorName | printf "%s · FariaBlog")) }}
-  <section class="about-content">
+  <section>
     {{ .Content }}
   </section>
 </article>

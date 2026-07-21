@@ -5,7 +5,6 @@ date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Neuroscience"]
 language = "en"
-comments = true
 translationKey = "reading-any-book"
 
 [cover]
@@ -75,5 +74,3 @@ The answer, therefore, lies in balance. Combining fiction (for empathy) and dens
 11. **Shafto, M. A., et al. (2014).** The Cambridge Centre for Ageing and Neuroscience (Cam-CAN). *BMC Neurology, 14(1), 204*.
 12. **Wilson, R. S., et al. (2013).** Life-span cognitive activity, neuropathologic burden, and cognitive aging. *Neurology, 81(4), 314–321*.
 13. **Wolf, M. (2018).** Reader, come home: The reading brain in a digital world. *HarperCollins*.
-
-💬 *Enjoyed the article? Leave a comment and share your opinion!* 

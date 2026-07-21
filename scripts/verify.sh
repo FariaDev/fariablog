@@ -18,7 +18,7 @@ hugo version 2>&1 | grep -Eiq '\+extended([+ ]|$)' || {
 
 verify_tmp="$(mktemp -d "${TMPDIR:-/tmp}/fariablog-verify.XXXXXX")"
 trap 'rm -rf "$verify_tmp"' EXIT
-export HUGO_CACHEDIR="$repo_root/resources/verify-cache"
+export HUGO_CACHEDIR="$verify_tmp/cache"
 
 production_dir="$verify_tmp/production"
 development_dir="$verify_tmp/development"
@@ -26,7 +26,8 @@ hugo --gc --minify --environment production --destination "$production_dir"
 hugo --gc --minify --environment development --destination "$development_dir"
 
 python3 scripts/verify.py "$repo_root" "$production_dir" "$development_dir"
-node --check assets/js/site.js
+node --check assets/js/search.js
+node --check assets/js/article.js
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   git diff --check

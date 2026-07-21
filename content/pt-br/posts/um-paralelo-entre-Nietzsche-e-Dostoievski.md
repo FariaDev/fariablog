@@ -5,7 +5,6 @@ date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Filosofia"]
 language = "pt-br"
-comments = true
 translationKey = "nietzsche-dostoevsky"
 
 [cover]
@@ -158,7 +157,3 @@ Agora, um meme para descontrair 😂
 4. **VILLAÇA, Davi Lopes**. Memórias do subsolo: problemas interpretativos. Revista Universidade de São Paulo, São Paulo, v. 12, n. 20, p. 1-42, dez. 2021.
 5. **VASSOLER, Flávio Ricardo**. Resenha de Vassoler: Memórias do subsolo | Dostoiévski | Parte I. YouTube, 2023. Disponível em: https://www.youtube.com/watch?v=EgnDyBEu4X0. Acesso em: 29 jan. 2025.
 6. **TCHERNICHEVSKI, Nikolai**. O que Fazer? Tradução de Angelo Segrillo. São Paulo: Prismas, 2015.
-
----
-
-💬 *Gostou do artigo? Deixe um comentário e compartilhe sua opinião!*
