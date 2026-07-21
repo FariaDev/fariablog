@@ -28,6 +28,16 @@ h3 {
   line-height: 1.2;
 }
 
+a {
+  color: inherit;
+  text-decoration-thickness: .07em;
+  text-underline-offset: .12em;
+}
+
+a:hover {
+  text-decoration-thickness: .12em;
+}
+
 img {
   max-width: 100%;
   height: auto;
