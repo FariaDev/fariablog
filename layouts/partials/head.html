@@ -85,8 +85,8 @@
       function render() {
         var nextIsDark = root.dataset.theme !== 'dark';
         var label = nextIsDark ? darkLabel : lightLabel;
-        if (moonIcon) moonIcon.hidden = !nextIsDark;
-        if (sunIcon) sunIcon.hidden = nextIsDark;
+        if (moonIcon) moonIcon.toggleAttribute('hidden', !nextIsDark);
+        if (sunIcon) sunIcon.toggleAttribute('hidden', nextIsDark);
         button.setAttribute('aria-label', label);
         button.title = label;
       }
