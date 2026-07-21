@@ -13,7 +13,7 @@ O servidor local abre em `http://localhost:1313/pt-br/`.
 
 ## Regras visuais
 
-A base visual usa uma coluna de `42rem`, Georgia com fallback serifado, fundo marfim no tema claro e contraste suave no escuro. O cabeçalho contém apenas a identidade e o controle de tema; a navegação completa fica no rodapé.
+A base visual usa uma coluna de `42rem`, Georgia com fallback serifado, fundo marfim no tema claro e contraste suave no escuro. O cabeçalho reúne a identidade em sans-serif, o controle de tema e a navegação principal; títulos e textos permanecem serifados.
 
 As extensões restantes são funcionais: imagens responsivas, rolagem de código e tabelas, divisões claras entre células, foco de teclado, tema manual e impressão.
 
@@ -22,7 +22,7 @@ As extensões restantes são funcionais: imagens responsivas, rolagem de código
 - `layouts/_default/index.html`: home, publicações, busca e assuntos;
 - `layouts/posts/single.html`: artigos completos;
 - `layouts/_default/`: busca, listas, taxonomias e páginas auxiliares;
-- `layouts/partials/site-header.html`: identidade do site e controle de tema;
+- `layouts/partials/site-header.html`: identidade, controle de tema e navegação principal;
 - `layouts/partials/publication-entry.html`: representação simples de um texto;
 - `assets/css/site.css`: toda a apresentação;
 - `assets/js/search.js`: busca local, carregada apenas na rota de busca;

@@ -23,8 +23,10 @@
     <h2>{{ i18n "nav_search" }}</h2>
     <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
       <label for="publication-search">{{ i18n "search_label" }}</label>
-      <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
-      <button type="submit">{{ i18n "nav_search" }}</button>
+      <div class="search-controls">
+        <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
+        <button type="submit">{{ i18n "nav_search" }}</button>
+      </div>
     </form>
   </section>
 

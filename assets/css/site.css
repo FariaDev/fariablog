@@ -5,6 +5,8 @@
   --foreground: #242321;
   --muted: #706d66;
   --rule: #cbc7bc;
+  --accent: #7a342e;
+  --accent-hover: #5f2723;
 }
 
 html[data-theme="light"] {
@@ -17,6 +19,8 @@ html[data-theme="dark"] {
   --foreground: #efede6;
   --muted: #aaa69d;
   --rule: #4b4944;
+  --accent: #d59a91;
+  --accent-hover: #efb2aa;
 }
 
 body {
@@ -47,10 +51,17 @@ main,
 
 .site-title {
   margin: 0;
-  font-size: 2rem;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.1;
+  letter-spacing: .025em;
+  color: var(--foreground);
   text-decoration: none;
+}
+
+.site-title:hover {
+  color: var(--foreground);
 }
 
 .site-nav {
@@ -93,12 +104,13 @@ figure {
 }
 
 a {
-  color: inherit;
+  color: var(--accent);
   text-decoration-thickness: .06em;
   text-underline-offset: .14em;
 }
 
 a:hover {
+  color: var(--accent-hover);
   text-decoration-thickness: .11em;
 }
 
@@ -166,6 +178,44 @@ input {
 
 input {
   max-width: 100%;
+}
+
+form[role="search"] label {
+  display: block;
+  margin-bottom: .45rem;
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.search-controls {
+  display: flex;
+  align-items: stretch;
+  gap: .5rem;
+}
+
+input[type="search"] {
+  box-sizing: border-box;
+  width: min(100%, 29rem);
+  padding: .6rem .72rem;
+  border: 1px solid var(--rule);
+  border-radius: .25rem;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+
+input[type="search"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+form[role="search"] button {
+  padding: .55rem .8rem;
+  border: 1px solid var(--foreground);
+  border-radius: .25rem;
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
 }
 
 img {
@@ -259,7 +309,7 @@ hr {
 }
 
 :focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -273,7 +323,11 @@ hr {
   }
 
   .site-title {
-    font-size: 1.75rem;
+    font-size: 1.15rem;
+  }
+
+  .search-controls {
+    align-items: stretch;
   }
 }
 
