@@ -9,8 +9,8 @@
     {{- end }}
     <div class="header-actions">
       {{- range $translations }}
-        {{- $flag := cond (eq .Language.Lang "pt-br") "🇧🇷" "🇺🇸" -}}
-        <a class="language-switch" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" aria-label="{{ .Language.Params.languageLabel }}" title="{{ .Language.Params.languageLabel }}"><span aria-hidden="true">{{ $flag }}</span></a>
+        {{- $languageCode := cond (eq .Language.Lang "pt-br") "PT-BR" "EN" -}}
+        <a class="language-switch" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" aria-label="{{ .Language.Params.languageLabel }}" title="{{ .Language.Params.languageLabel }}"><span aria-hidden="true">{{ $languageCode }}</span></a>
       {{- end }}
       <button class="theme-toggle" type="button" data-theme-toggle data-light-label="{{ i18n "theme_light" }}" aria-label="{{ i18n "theme_dark" }}" title="{{ i18n "theme_dark" }}"><span class="theme-glyph" aria-hidden="true">🌙</span></button>
     </div>
