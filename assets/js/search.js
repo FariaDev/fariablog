@@ -17,7 +17,7 @@ export function initSearch({
   if (!input || !clear || !results || !entries || !template || !endpoint) return null;
 
   const labels = {
-    empty: search.dataset.searchEmpty || 'Type a term to search the archive.',
+    empty: search.dataset.searchEmpty || '',
     one: search.dataset.searchOne || 'publication found',
     many: search.dataset.searchMany || 'publications found',
     none: search.dataset.searchNone || 'No document found.',

@@ -41,7 +41,7 @@
   {{- end -}}
   {{- $attributes = merge $attributes (dict
     "srcset" (delimit $srcset ", ")
-    "sizes" (.sizes | default "(min-width: 768px) 720px, 100vw")
+    "sizes" (.sizes | default "(min-width: 45rem) 42rem, calc(100vw - 2rem)")
     "width" $resource.Width
     "height" $resource.Height
   ) -}}

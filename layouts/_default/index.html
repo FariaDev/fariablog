@@ -10,16 +10,6 @@
   </div>
 
   <section>
-    <h2>{{ i18n "publications" }}</h2>
-    <ul class="publication-list">
-      {{- range $paginator.Pages }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-      {{- end }}
-    </ul>
-    {{ partial "pagination.html" $paginator }}
-  </section>
-
-  <section>
     <h2>{{ i18n "nav_search" }}</h2>
     <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
       <label for="publication-search">{{ i18n "search_label" }}</label>
@@ -32,12 +22,13 @@
   </section>
 
   <section>
-    <h2>{{ i18n "subject_index" }}</h2>
-    <ul>
-      {{- range .Site.Taxonomies.tags.Alphabetical }}
-      <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> ({{ .Count }})</li>
+    <h2>{{ i18n "publications" }}</h2>
+    <ul class="publication-list">
+      {{- range $paginator.Pages }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
       {{- end }}
     </ul>
+    {{ partial "pagination.html" $paginator }}
   </section>
 </article>
 {{ end }}

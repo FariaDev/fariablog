@@ -310,6 +310,8 @@ development_text = "\n".join(path.read_text(encoding="utf-8") for path in dev_fi
 for tracker in ("cloud.umami.is", "googletagmanager.com", "google-analytics.com", "plausible.io", "disqus.com"):
     require(tracker not in production_text, f"production output contains tracker {tracker}")
     require(tracker not in development_text, f"development output contains tracker {tracker}")
+for credit_label in ("Crédito da imagem:", "Image credit:", "Image Credit:"):
+    require(credit_label not in production_text, f"production articles expose a cover credit: {credit_label}")
 
 english_home_text = production_home_en.read_text(encoding="utf-8")
 portuguese_home_text = production_home_pt.read_text(encoding="utf-8")
@@ -336,6 +338,8 @@ english_article = next((production / "en" / "posts").glob("*/index.html"))
 english_article_text = english_article.read_text(encoding="utf-8")
 require("/js/article.min." in english_article_text, "article page is missing its scoped script")
 require("fuse.basic" not in english_article_text, "Fuse is loaded on an article page")
+require("<details class=article-toc>" in english_article_text, "article page is missing its collapsible contents navigation")
+require("<details class=article-toc open" not in english_article_text, "article contents must be collapsed by default")
 
 for language in ("en", "pt-br"):
     records = json.loads((production / language / "index.json").read_text(encoding="utf-8"))
@@ -385,7 +389,6 @@ for path, (parser, _) in prod_docs.items():
     ]
     if not editorial_images:
         continue
-    require(editorial_images[0].get("loading") == "eager", f"first editorial image is lazy-loaded in {path}")
     for image in editorial_images:
         src_path = urlparse(image.get("src", "")).path
         require(re.search(r"\.[0-9a-f]{64}\.webp$", src_path), f"editorial image fallback is not content-addressed in {path}")

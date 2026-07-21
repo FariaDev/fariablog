@@ -13,16 +13,16 @@ O servidor local abre em `http://localhost:1313/pt-br/`.
 
 ## Regras visuais
 
-A base visual usa uma coluna de `42rem`, Georgia com fallback serifado e uma paleta quase branca ou quase preta, evitando os extremos puros. O cabeçalho reúne a identidade em sans-serif, o controle de tema e a navegação principal; títulos e textos permanecem serifados.
+A base visual usa uma coluna de `42rem`, Georgia com fallback serifado e uma paleta quase branca ou quase preta, evitando os extremos puros. O cabeçalho reúne a identidade serifada, o idioma e o controle de tema; a navegação principal fica no rodapé.
 
-As extensões restantes são funcionais: imagens responsivas, rolagem de código e tabelas, divisões claras entre células, foco de teclado, tema manual e impressão.
+As extensões restantes são funcionais: sumário fixo no canto esquerdo em telas largas, limitado aos capítulos de segundo nível e recolhível no mobile; imagens responsivas, rolagem de código e tabelas, divisões claras entre células, foco de teclado, tema manual e impressão.
 
 ## Organização
 
-- `layouts/_default/index.html`: home, publicações, busca e assuntos;
+- `layouts/_default/index.html`: introdução, busca e publicações da home;
 - `layouts/posts/single.html`: artigos completos;
 - `layouts/_default/`: busca, listas, taxonomias e páginas auxiliares;
-- `layouts/partials/site-header.html`: identidade, controle de tema e navegação principal;
+- `layouts/partials/site-header.html`: identidade serifada, idioma e controle de tema;
 - `layouts/partials/publication-entry.html`: representação simples de um texto;
 - `assets/css/site.css`: toda a apresentação;
 - `assets/js/search.js`: busca local, carregada apenas na rota de busca;
@@ -36,6 +36,6 @@ As extensões restantes são funcionais: imagens responsivas, rolagem de código
 - nenhum card, sombra, moldura ou animação decorativa;
 - JavaScript somente como melhoria progressiva;
 - nenhuma fonte remota, ferramenta de analytics ou script de terceiros;
-- imagens mantidas quando fazem parte do conteúdo; originais estáveis usam `/images/` e variantes responsivas fingerprintadas usam `/processed-images/`;
+- imagens de capa não são exibidas nos artigos; imagens que fazem parte do corpo continuam responsivas e usam variantes fingerprintadas em `/processed-images/`;
 - sugestões nativas de busca na home e no arquivo; Fuse carregado apenas na rota de busca;
 - versão impressa sem navegação nem elementos interativos.

@@ -1,72 +1,52 @@
 {{ define "main" }}
-<article>
-  <header>
-    <h1>{{ .Title }}</h1>
-    <aside>
-      {{ .Params.author | default site.Params.authorName }} ·
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Site.Params.dateFormat | default "02 Jan 2006") }}</time> ·
-      {{ .ReadingTime }} {{ i18n "reading_time" }}
-    </aside>
-  </header>
+<article class="article-layout">
+  <div class="article-main">
+    <header>
+      <h1>{{ .Title }}</h1>
+      <aside>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ i18n (printf "month_%d" (int .Date.Month)) }} {{ .Date.Year }}</time>
+      </aside>
+    </header>
 
-  {{- with .Translations }}
-  <p>{{ range . }}<a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Params.languageLabel }}</a>{{ end }}</p>
-  {{- end }}
-
-  {{- with .Params.cover }}
-  {{- $cover := partial "image-resource.html" (dict "page" $ "path" .image) -}}
-  <figure>
-    {{- partial "responsive-image.html" (dict
-      "resource" $cover
-      "src" (.image | absURL)
-      "alt" (.alt | default $.Title)
-      "loading" "eager"
-    ) }}
-    {{- with .caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
-  </figure>
-  {{- end }}
-
-  {{- with (.Description | default .Summary) }}
-  <p><strong>{{ i18n "summary_label" }}:</strong> {{ . | plainify }}</p>
-  {{- end }}
-
-  {{- if and site.Params.showToc .TableOfContents }}
-  <h2>{{ i18n "toc" }}</h2>
-  {{ .TableOfContents }}
-  {{- end }}
-
-  <div class="article-content" data-anchor-label="{{ i18n "heading_anchor" }}">
-    {{ .Content }}
-  </div>
-
-  {{- with .Params.tags }}
-  <h2>{{ i18n "subject_index" }}</h2>
-  <ul>
-    {{- range . }}
-      {{- with $.Site.GetPage (printf "/tags/%s" (. | urlize)) }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+    {{- if and site.Params.showToc .TableOfContents }}
+    <details class="article-toc">
+      <summary>{{ i18n "toc" }}</summary>
+      {{ .TableOfContents }}
+    </details>
     {{- end }}
-  </ul>
-  {{- end }}
 
-  <div class="document-actions">
-    <h2>{{ i18n "more" }}</h2>
-    <p>
-      <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button> ·
-      {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
-      {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
-      <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
-    </p>
-  </div>
+    <div class="article-content" data-anchor-label="{{ i18n "heading_anchor" }}">
+      {{ .Content }}
+    </div>
 
-  {{- if or .NextInSection .PrevInSection }}
-  <nav aria-label="{{ i18n "publications" }}">
-    <h2>{{ i18n "publications" }}</h2>
+    {{- with .Params.tags }}
+    <h2>{{ i18n "subject_index" }}</h2>
     <ul>
-      {{- with .NextInSection }}<li>← <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
-      {{- with .PrevInSection }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a> →</li>{{ end }}
+      {{- range . }}
+        {{- with $.Site.GetPage (printf "/tags/%s" (. | urlize)) }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+      {{- end }}
     </ul>
-  </nav>
-  {{- end }}
-</article>
+    {{- end }}
 
+    <div class="document-actions">
+      <h2>{{ i18n "more" }}</h2>
+      <p>
+        <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button> ·
+        {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
+        {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
+        <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
+      </p>
+    </div>
+
+    {{- if or .NextInSection .PrevInSection }}
+    <nav aria-label="{{ i18n "publications" }}">
+      <h2>{{ i18n "publications" }}</h2>
+      <ul>
+        {{- with .NextInSection }}<li>← <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{- with .PrevInSection }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a> →</li>{{ end }}
+      </ul>
+    </nav>
+    {{- end }}
+  </div>
+</article>
 {{ end }}

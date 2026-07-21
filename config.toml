@@ -13,6 +13,10 @@ defaultContentLanguageInSubdir = true
   tag = "tags"
 
 [markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 2
+    ordered = false
   [markup.highlight]
     noClasses = false
     codeFences = true
@@ -28,7 +32,7 @@ defaultContentLanguageInSubdir = true
   mainSections = ["posts"]
   rssLimit = 20
   editBaseURL = "https://github.com/FariaDev/fariablog/edit/main"
-  images = ["/fariablog.webp"]
+  images = ["/og/fariablog.jpg"]
 
 [languages]
   [languages.pt-br]

@@ -4,7 +4,6 @@
   <aside>
     <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format ($page.Site.Params.dateFormat | default "02 Jan 2006") }}</time> ·
     {{ $page.ReadingTime }} {{ i18n "reading_time" }}
-    {{- with $page.Translations }} · <a href="{{ (index . 0).RelPermalink }}" lang="{{ (index . 0).Language.Lang }}">{{ (index . 0).Language.Params.languageLabel }}</a>{{ end }}
   </aside>
   {{- if .showSummary }}{{ with $page.Description }}<p>{{ . | plainify }}</p>{{ end }}{{ end }}
 </article>

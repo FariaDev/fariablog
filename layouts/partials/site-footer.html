@@ -1,3 +1,11 @@
+{{- $search := .Site.GetPage "search" -}}
+{{- $books := .Site.GetPage "books" -}}
+{{- $contact := .Site.GetPage "contact" -}}
 <footer class="site-footer">
+  <nav class="site-nav" aria-label="{{ i18n "primary_navigation" }}">
+    {{ with $search }}<a href="{{ .RelPermalink }}">{{ i18n "nav_search" }}</a>{{ end }}
+    {{ with $books }}<a href="{{ .RelPermalink }}">{{ i18n "nav_books" }}</a>{{ end }}
+    {{ with $contact }}<a href="{{ .RelPermalink }}">{{ i18n "nav_contact" }}</a>{{ end }}
+  </nav>
   <p>© {{ now.Year }} {{ site.Title }} · {{ i18n "inspired_by" }} <a href="https://darioamodei.com/">darioamodei.com</a></p>
 </footer>

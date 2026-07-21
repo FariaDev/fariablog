@@ -40,12 +40,12 @@ class FakeFuse {
 function fixture({ url = 'https://fariablog.com/en/search/', fetchImpl } = {}) {
   const { window, document } = parseHTML(`<html><body>
     <article class="site-search" data-search-endpoint="/en/index.json"
-      data-search-empty="Type a term." data-search-one="publication found"
+      data-search-one="publication found"
       data-search-many="publications found" data-search-none="No document found."
       data-search-error="The search index could not be loaded.">
       <input data-search-input>
       <button type="button" data-clear-search hidden>Clear</button>
-      <p data-search-status>Type a term.</p>
+      <p data-search-status></p>
       <div data-search-results hidden></div>
       <template data-search-result-template>
         <article><h3><a data-result-link></a></h3><time data-result-date></time><p data-result-summary hidden></p></article>
@@ -88,7 +88,7 @@ test('empty input preserves progressive-enhancement entries', async () => {
   assert.equal(page.clear.hidden, true);
   assert.equal(page.results.hidden, true);
   assert.equal(page.entries.hidden, false);
-  assert.equal(page.status.textContent, 'Type a term.');
+  assert.equal(page.status.textContent, '');
   assert.equal(page.calls.length, 0);
 });
 
