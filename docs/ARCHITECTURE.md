@@ -49,7 +49,6 @@ As únicas extensões relevantes são funcionais: imagens responsivas, rolagem d
 - nenhum card, sombra, moldura ou animação decorativa;
 - JavaScript somente como melhoria progressiva;
 - nenhuma fonte remota, ferramenta de analytics ou script de terceiros;
-- imagens mantidas quando fazem parte do conteúdo;
+- imagens mantidas quando fazem parte do conteúdo; originais estáveis usam `/images/` e variantes responsivas fingerprintadas usam `/processed-images/`;
 - busca Fuse carregada apenas na rota de busca;
-- comentários carregados apenas após consentimento;
 - versão impressa sem navegação nem elementos interativos.

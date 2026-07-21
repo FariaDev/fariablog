@@ -3,8 +3,24 @@
 {{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp" -}}
 {{- with $resource -}}
   {{- $src = .RelPermalink -}}
-  {{- if and hugo.IsExtended (in $processableFormats .MediaType.SubType) (ge .Width 720) -}}
-    {{- $src = (.Resize "720x webp").RelPermalink -}}
+  {{- if and hugo.IsExtended (in $processableFormats .MediaType.SubType) -}}
+    {{- $fallback := false -}}
+    {{- $fallbackWidth := 0 -}}
+    {{- if ge .Width 720 -}}
+      {{- $fallback = .Resize "720x webp" -}}
+      {{- $fallbackWidth = 720 -}}
+    {{- else if ge .Width 480 -}}
+      {{- $fallback = .Resize "480x webp" -}}
+      {{- $fallbackWidth = 480 -}}
+    {{- else if ge .Width 360 -}}
+      {{- $fallback = .Resize "360x webp" -}}
+      {{- $fallbackWidth = 360 -}}
+    {{- end -}}
+    {{- with $fallback -}}
+      {{- $copied := resources.Copy (printf "processed-images/%s-%d.webp" (path.BaseName $resource.Name) $fallbackWidth) . -}}
+      {{- $published := $copied | fingerprint "sha256" -}}
+      {{- $src = $published.RelPermalink -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $attributes := merge (.attributes | default dict) (dict
@@ -17,11 +33,12 @@
   {{- $srcset := slice -}}
   {{- range slice "360" "480" "720" "1080" "1500" -}}
     {{- if ge $resource.Width (int .) -}}
-      {{- $variant := $resource.Resize (printf "%sx webp" .) -}}
+      {{- $resized := $resource.Resize (printf "%sx webp" .) -}}
+      {{- $copied := resources.Copy (printf "processed-images/%s-%s.webp" (path.BaseName $resource.Name) .) $resized -}}
+      {{- $variant := $copied | fingerprint "sha256" -}}
       {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink .) -}}
     {{- end -}}
   {{- end -}}
-  {{- $srcset = $srcset | append (printf "%s %dw" $resource.RelPermalink $resource.Width) -}}
   {{- $attributes = merge $attributes (dict
     "srcset" (delimit $srcset ", ")
     "sizes" (.sizes | default "(min-width: 768px) 720px, 100vw")

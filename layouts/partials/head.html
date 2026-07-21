@@ -22,7 +22,7 @@
 {{- range .Translations }}
 <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
 {{- end }}
-<meta property="og:locale" content="{{ .Language.Lang }}">
+<meta property="og:locale" content="{{ site.Params.locale | replaceRE "-" "_" }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ $pageTitle }}">
 <meta property="og:description" content="{{ $description }}">
@@ -78,7 +78,7 @@
 <script defer src="{{ $fuse.RelPermalink }}" integrity="{{ $fuse.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
 {{- if eq .Layout "search" }}
-{{- $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+{{- $searchJS := resources.Get "js/search.js" | js.Build (dict "targetPath" "js/search.min.js" "minify" true) | resources.Fingerprint "sha256" -}}
 <script defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- else if and .IsPage (in site.MainSections .Section) }}
 {{- $articleJS := resources.Get "js/article.js" | resources.Minify | resources.Fingerprint "sha256" -}}

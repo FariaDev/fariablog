@@ -149,6 +149,18 @@ def validate_attribute_syntax(raw, path):
                 fail(f"missing unquoted attribute value in {path}: {raw[:160]!r}")
 
 
+def parse_front_matter(path):
+    text = path.read_text(encoding="utf-8")
+    require(text.startswith("+++\n"), f"post has no TOML front matter: {path}")
+    _, separator, remainder = text.partition("+++\n")
+    front_matter, separator, _ = remainder.partition("\n+++\n")
+    require(separator, f"post has unterminated TOML front matter: {path}")
+    try:
+        return tomllib.loads(front_matter)
+    except tomllib.TOMLDecodeError as error:
+        fail(f"invalid TOML front matter in {path}: {error}")
+
+
 def parse_document(path):
     parser = DocumentParser()
     try:
@@ -256,8 +268,38 @@ for path, language in ((production_home_en, "en"), (production_home_pt, "pt-br")
     expected = language_descriptions[language]
     for key in ("description", "og:description", "twitter:description"):
         require(meta_value(parser, key, expected), f"{key} is not language-specific in {path}")
+    expected_og_locale = config["languages"][language]["params"]["locale"].replace("-", "_")
+    require(meta_value(parser, "og:locale", expected_og_locale), f"og:locale is wrong in {path}")
     require(any(isinstance(item, dict) and item.get("description") == expected for item in jsonld), f"JSON-LD description is not language-specific in {path}")
     require(meta_value(parser, "robots", "index, follow"), f"production robots metadata is wrong in {path}")
+
+# Every published post must have exactly one counterpart in each language.
+translation_paths = {}
+for language in ("en", "pt-br"):
+    keyed_paths = {}
+    for path in sorted((repo / "content" / language / "posts").glob("*.md")):
+        front_matter = parse_front_matter(path)
+        key = front_matter.get("translationKey")
+        require(isinstance(key, str) and key.strip(), f"post has no translationKey: {path}")
+        require(key not in keyed_paths, f"duplicate translationKey {key!r} in {language}: {keyed_paths.get(key)} and {path}")
+        keyed_paths[key] = path
+    translation_paths[language] = keyed_paths
+require(
+    set(translation_paths["en"]) == set(translation_paths["pt-br"]),
+    "post translationKey sets differ: "
+    f"missing in en={sorted(set(translation_paths['pt-br']) - set(translation_paths['en']))}, "
+    f"missing in pt-br={sorted(set(translation_paths['en']) - set(translation_paths['pt-br']))}",
+)
+
+for path, (parser, _) in prod_docs.items():
+    relative = path.relative_to(production).as_posix()
+    if not re.match(r"^(en|pt-br)/posts/.+/index\.html$", relative) or not meta_value(parser, "og:type", "article"):
+        continue
+    alternates = {link.get("hreflang") for link in parser.links if link.get("rel") == "alternate"}
+    require({"en", "pt-br"}.issubset(alternates), f"post has incomplete language alternates in {path}")
+    language = relative.split("/", 1)[0]
+    expected_og_locale = config["languages"][language]["params"]["locale"].replace("-", "_")
+    require(meta_value(parser, "og:locale", expected_og_locale), f"og:locale is wrong in {path}")
 
 for path in (development_home_en, development_home_pt):
     parser, jsonld = dev_docs[path]
@@ -329,11 +371,16 @@ for root, docs in ((production, prod_docs), (development, dev_docs)):
 for path, (parser, _) in prod_docs.items():
     if "/posts/" not in path.relative_to(production).as_posix():
         continue
-    editorial_images = [image for image in parser.images if "/images/" in urlparse(image.get("src", "")).path]
+    editorial_images = [
+        image for image in parser.images
+        if "/processed-images/" in urlparse(image.get("src", "")).path
+    ]
     if not editorial_images:
         continue
     require(editorial_images[0].get("loading") == "eager", f"first editorial image is lazy-loaded in {path}")
     for image in editorial_images:
+        src_path = urlparse(image.get("src", "")).path
+        require(re.search(r"\.[0-9a-f]{64}\.webp$", src_path), f"editorial image fallback is not content-addressed in {path}")
         require(image.get("alt") is not None and "<" not in image["alt"] and ">" not in image["alt"], f"editorial image has malformed alt text in {path}")
         require(image.get("loading") in {"lazy", "eager"}, f"editorial image has no loading policy in {path}")
         require(image.get("width", "").isdigit() and int(image["width"]) > 0, f"editorial image has no intrinsic width in {path}")
@@ -341,21 +388,56 @@ for path, (parser, _) in prod_docs.items():
         require(image.get("srcset") and ".webp" in image["srcset"], f"editorial image has no responsive WebP source in {path}")
         for candidate in image["srcset"].split(","):
             candidate_url = candidate.strip().split()[0]
+            candidate_path = urlparse(candidate_url).path
+            require(candidate_path.startswith("/processed-images/") and re.search(r"\.[0-9a-f]{64}\.webp$", candidate_path), f"responsive image is not content-addressed: {candidate_url!r} in {path}")
             require(local_target(production, path, candidate_url) is not None, f"broken responsive image source {candidate_url!r} in {path}")
 
-# Cache policy: immutable is reserved for fingerprinted Hugo resource namespaces.
+processed_images = sorted((production / "processed-images").glob("*.webp"))
+require(processed_images, "production build emitted no processed image variants")
+for path in processed_images:
+    require(re.search(r"\.[0-9a-f]{64}\.webp$", path.name), f"processed image is not fingerprinted: {path}")
+
+# Cache policy: localized resources get one policy, and immutable is reserved for
+# fingerprinted Hugo resource namespaces.
 headers = (repo / "static" / "_headers").read_text(encoding="utf-8")
-immutable_routes = {"/assets/*", "/css/*", "/js/*"}
+immutable_routes = {"/assets/*", "/css/*", "/js/*", "/processed-images/*"}
+header_policies = {}
 current_route = None
 for line in headers.splitlines():
     stripped = line.strip()
     if not stripped or stripped.startswith("#"):
         continue
     if line[0].isspace():
-        if "immutable" in stripped:
+        require(current_route is not None, "header is defined before its route")
+        name, separator, value = stripped.partition(":")
+        require(separator, f"malformed header policy for {current_route}")
+        header_policies[current_route].append((name.lower(), value.strip()))
+        if "immutable" in value:
             require(current_route in immutable_routes, f"immutable cache policy is attached to {current_route}")
     else:
         current_route = stripped
+        header_policies.setdefault(current_route, [])
+
+localized_cache = "public, max-age=3600, must-revalidate"
+for route in ("/pt-br/*", "/en/*"):
+    cache_values = [value for name, value in header_policies.get(route, []) if name == "cache-control"]
+    require(cache_values == [localized_cache], f"{route} must define exactly one hourly cache policy")
+for route, policies in header_policies.items():
+    if ".json" in route.lower():
+        require(
+            not any(name == "cache-control" for name, _ in policies),
+            f"JSON cache route {route} overlaps the localized cache policy",
+        )
+immutable_cache = "public, max-age=31536000, immutable"
+require(
+    [value for name, value in header_policies.get("/processed-images/*", []) if name == "cache-control"] == [immutable_cache],
+    "processed images must have exactly one immutable cache policy",
+)
+require(
+    [value for name, value in header_policies.get("/images/*", []) if name == "cache-control"]
+    == ["public, max-age=86400, must-revalidate"],
+    "stable editorial images must remain revalidated",
+)
 require("must-revalidate" in headers, "stable asset cache policy does not require revalidation")
 
 print(

@@ -1,8 +1,11 @@
-(() => {
-  'use strict';
-
-  const search = document.querySelector('.site-search');
-  if (!search || typeof window.Fuse !== 'function') return;
+export function initSearch({
+  root = document,
+  fetchImpl = window.fetch.bind(window),
+  Fuse = window.Fuse,
+  location = window.location,
+} = {}) {
+  const search = root.querySelector('.site-search');
+  if (!search || typeof Fuse !== 'function') return null;
 
   const input = search.querySelector('[data-search-input]');
   const clear = search.querySelector('[data-clear-search]');
@@ -11,7 +14,7 @@
   const entries = search.querySelector('[data-search-entries]');
   const template = search.querySelector('[data-search-result-template]');
   const endpoint = search.dataset.searchEndpoint;
-  if (!input || !clear || !results || !entries || !template || !endpoint) return;
+  if (!input || !clear || !results || !entries || !template || !endpoint) return null;
 
   const labels = {
     empty: search.dataset.searchEmpty || 'Type a term to search the archive.',
@@ -30,7 +33,7 @@
 
   const loadIndex = () => {
     if (!indexPromise) {
-      indexPromise = fetch(endpoint, { headers: { Accept: 'application/json' } })
+      indexPromise = fetchImpl(endpoint, { headers: { Accept: 'application/json' } })
         .then((response) => {
           if (!response.ok) throw new Error(`Search index returned ${response.status}`);
           return response.json();
@@ -39,7 +42,7 @@
     return indexPromise;
   };
 
-  const createEngine = (records) => new window.Fuse(records.map((record) => ({
+  const createEngine = (records) => new Fuse(records.map((record) => ({
     ...record,
     _title: normalize(record.title),
     _summary: normalize(record.summary),
@@ -96,29 +99,34 @@
       results.replaceChildren();
       entries.hidden = false;
       if (status) status.textContent = labels.empty;
-      return;
+      return Promise.resolve();
     }
-    loadIndex()
+    return loadIndex()
       .then((records) => {
         if (input.value.trim() === query) render(records, query);
       })
       .catch(() => {
+        if (input.value.trim() !== query) return;
         if (status) status.textContent = labels.error;
         entries.hidden = false;
         results.hidden = true;
       });
   };
 
-  input.addEventListener('input', run);
+  input.addEventListener('input', () => { void run(); });
   clear.addEventListener('click', () => {
     input.value = '';
-    run();
+    void run();
     input.focus();
   });
 
-  const query = new URLSearchParams(window.location.search).get('q');
+  const query = new URLSearchParams(location.search).get('q');
   if (query) {
     input.value = query;
-    run();
+    void run();
   }
-})();
+
+  return { run };
+}
+
+if (typeof document !== 'undefined') initSearch();

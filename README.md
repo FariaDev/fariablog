@@ -26,14 +26,16 @@ Blog pessoal estático construído com Hugo e uma interface mínima inspirada em
 
 A apresentação usa os padrões de `bestmotherfucking.website`: CSS mínimo, fonte do sistema, largura de leitura de `40em` e elementos nativos do navegador. Busca, taxonomias, imagens responsivas, SEO e internacionalização continuam integrados ao Hugo.
 
-A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) e o contrato do Cloudflare Pages em [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Instalação e Execução
 
 ### Pré-requisitos
 
 - [Git](https://git-scm.com/)
-- [Hugo Extended](https://gohugo.io/getting-started/installing/)
+- [Hugo Extended](https://gohugo.io/getting-started/installing/) 0.148.1 ou superior; 0.164.0 é a versão recomendada e testada;
+- [Python](https://www.python.org/) 3.11 ou superior, usado pelo gate de verificação;
+- [Node.js](https://nodejs.org/) 18 ou superior, com npm, usado para validar e testar o JavaScript.
 
 ### Passos
 
@@ -56,9 +58,14 @@ A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md
 
 ## Verificação
 
+Instale as dependências usadas apenas pelos testes e execute o gate:
+
 ```bash
+npm ci
 ./scripts/verify.sh
 ```
+
+O CI executa esse gate com Hugo Extended 0.148.1 e 0.164.0. As versões representam os limites testados; versões intermediárias não são verificadas individualmente.
 
 ## Estrutura do Projeto
 

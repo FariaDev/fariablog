@@ -11,11 +11,15 @@
 /js/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Hugo-generated responsive variants are content-addressed.
+/processed-images/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Stable editorial images must be revalidated.
 /images/*
   Cache-Control: public, max-age=86400, must-revalidate
 
-# Localized pages use extensionless URLs, so cover their public routes explicitly.
+# Localized HTML, RSS, and search indexes share one unambiguous hourly policy.
 /
   Cache-Control: public, max-age=3600, must-revalidate
 
@@ -27,7 +31,3 @@
 
 /*.html
   Cache-Control: public, max-age=3600, must-revalidate
-
-# Cache para JSON (index de busca)
-/*.json
-  Cache-Control: public, max-age=300, must-revalidate
