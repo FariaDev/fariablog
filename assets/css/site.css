@@ -1,10 +1,10 @@
 /* FariaBlog — a quiet, text-first personal site. */
 :root {
   color-scheme: light dark;
-  --background: #e9eef0;
-  --foreground: #20282b;
-  --muted: #687377;
-  --rule: #c5cfd2;
+  --background: #f7f7f5;
+  --foreground: #20201e;
+  --muted: #6f6f6a;
+  --rule: #cecec8;
 }
 
 html[data-theme="light"] {
@@ -13,10 +13,10 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --background: #151b1d;
-  --foreground: #edf2f3;
-  --muted: #a3afb2;
-  --rule: #3d494d;
+  --background: #181817;
+  --foreground: #eeeeeb;
+  --muted: #aaa9a3;
+  --rule: #484844;
 }
 
 body {
@@ -140,30 +140,22 @@ figcaption,
 }
 
 .theme-toggle {
-  display: flex;
+  display: grid;
   flex: 0 0 auto;
-  align-items: center;
-  width: 2.7rem;
-  height: 1.45rem;
-  padding: .15rem;
-  border: 1px solid currentColor;
-  border-radius: 999px;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
   background: transparent;
   color: inherit;
-  font-size: 0;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 
 .theme-glyph {
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-html[data-theme="dark"] .theme-toggle {
-  justify-content: flex-end;
+  line-height: 1;
 }
 
 button,
@@ -182,6 +174,13 @@ form[role="search"] label {
   color: var(--muted);
 }
 
+form[role="search"] input,
+form[role="search"] button {
+  font-family: inherit;
+  font-size: .9rem;
+  line-height: 1.2;
+}
+
 .search-controls {
   display: flex;
   align-items: stretch;
@@ -191,7 +190,7 @@ form[role="search"] label {
 input[type="search"] {
   box-sizing: border-box;
   width: min(100%, 29rem);
-  padding: .4rem .65rem;
+  padding: .35rem .65rem;
   border: 1px solid var(--rule);
   border-radius: .25rem;
   background: transparent;

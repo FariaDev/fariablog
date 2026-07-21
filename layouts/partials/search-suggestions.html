@@ -1,0 +1,9 @@
+{{- $id := .id -}}
+<datalist id="{{ $id }}">
+  {{- range sort (where .site.RegularPages "Section" "in" .site.MainSections) "Title" }}
+  <option value="{{ .Title }}"></option>
+  {{- end }}
+  {{- range .site.Taxonomies.tags.Alphabetical }}
+  <option value="{{ .Page.Title }}"></option>
+  {{- end }}
+</datalist>

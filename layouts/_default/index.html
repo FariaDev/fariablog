@@ -24,9 +24,10 @@
     <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
       <label for="publication-search">{{ i18n "search_label" }}</label>
       <div class="search-controls">
-        <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
+        <input id="publication-search" name="q" type="search" list="home-search-suggestions" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
         <button type="submit">{{ i18n "nav_search" }}</button>
       </div>
+      {{ partial "search-suggestions.html" (dict "id" "home-search-suggestions" "site" .Site) }}
     </form>
   </section>
 

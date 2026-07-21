@@ -314,7 +314,15 @@ for tracker in ("cloud.umami.is", "googletagmanager.com", "google-analytics.com"
 english_home_text = production_home_en.read_text(encoding="utf-8")
 portuguese_home_text = production_home_pt.read_text(encoding="utf-8")
 english_search_text = (production / "en" / "search" / "index.html").read_text(encoding="utf-8")
+portuguese_search_text = (production / "pt-br" / "search" / "index.html").read_text(encoding="utf-8")
 require("Philosophy · Literature · Neuroscience · Education" in english_home_text, "English home contains the wrong subject labels")
+for language, home_text, search_text in (
+    ("en", english_home_text, english_search_text),
+    ("pt-br", portuguese_home_text, portuguese_search_text),
+):
+    require(home_text.count("home-search-suggestions") >= 2, f"{language} home is missing native search suggestions")
+    require(search_text.count("archive-search-suggestions") >= 2, f"{language} search page is missing native search suggestions")
+    require("<option" in home_text and "<option" in search_text, f"{language} search suggestions are empty")
 default_home = urljoin(base_url, f'{config["defaultContentLanguage"]}/')
 require(
     any(link.get("hreflang") == "x-default" and link.get("href") == default_home for link in prod_docs[production_home_en][0].links),
