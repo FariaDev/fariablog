@@ -5,6 +5,7 @@
   --foreground: #20201e;
   --muted: #6f6f6a;
   --rule: #cecec8;
+  --suggestion-hover: #e9e9e5;
   --content-width: 42rem;
   --page-gutter: clamp(1rem, 4vw, 1.5rem);
 }
@@ -19,6 +20,7 @@ html[data-theme="dark"] {
   --foreground: #eeeeeb;
   --muted: #aaa9a3;
   --rule: #484844;
+  --suggestion-hover: #292927;
 }
 
 html {
@@ -256,9 +258,13 @@ figcaption,
   cursor: pointer;
 }
 
-.theme-glyph {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  line-height: 1;
+.theme-glyph,
+.theme-icon {
+  display: block;
+}
+
+.theme-icon {
+  pointer-events: none;
 }
 
 button,
@@ -291,11 +297,18 @@ form[role="search"] button {
   min-width: 0;
 }
 
-input[type="search"] {
-  box-sizing: border-box;
+.search-input-wrap {
+  position: relative;
   flex: 1 1 20rem;
   min-width: 0;
   width: min(100%, 29rem);
+  max-width: 29rem;
+}
+
+input[type="search"] {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
   min-height: 2.25rem;
   padding: .32rem .65rem;
   border: 1px solid var(--rule);
@@ -308,6 +321,44 @@ input[type="search"] {
 input[type="search"]:focus {
   border-color: currentColor;
   box-shadow: 0 0 0 1px currentColor;
+}
+
+.search-suggestions {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + .3rem);
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  max-height: min(20rem, 50vh);
+  padding: .25rem;
+  overflow-y: auto;
+  border: 1px solid var(--rule);
+  border-radius: .25rem;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 .5rem 1.25rem rgb(0 0 0 / 10%);
+}
+
+form[role="search"] .search-suggestions button {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: .5rem .55rem;
+  border: 0;
+  border-radius: .15rem;
+  background: transparent;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: .9rem;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+form[role="search"] .search-suggestions button:hover,
+form[role="search"] .search-suggestions button[aria-selected="true"] {
+  background: var(--suggestion-hover);
 }
 
 form[role="search"] button {
@@ -461,12 +512,14 @@ hr {
     flex-direction: column;
   }
 
+  .search-input-wrap,
   .search-controls input,
-  .search-controls button {
+  .search-controls > button {
     width: 100%;
+    max-width: none;
   }
 
-  input[type="search"] {
+  .search-input-wrap {
     flex-basis: auto;
   }
 

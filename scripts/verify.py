@@ -322,16 +322,17 @@ for language, home_text, search_text in (
     ("en", english_home_text, english_search_text),
     ("pt-br", portuguese_home_text, portuguese_search_text),
 ):
-    require(home_text.count("home-search-suggestions") >= 2, f"{language} home is missing native search suggestions")
-    require(search_text.count("archive-search-suggestions") >= 2, f"{language} search page is missing native search suggestions")
-    require("<option" in home_text and "<option" in search_text, f"{language} search suggestions are empty")
+    require(home_text.count("home-search-suggestions") >= 2, f"{language} home is missing search suggestions")
+    require(search_text.count("archive-search-suggestions") >= 2, f"{language} search page is missing search suggestions")
+    require('role=option' in home_text and 'role=option' in search_text, f"{language} search suggestions are empty")
 default_home = urljoin(base_url, f'{config["defaultContentLanguage"]}/')
 require(
     any(link.get("hreflang") == "x-default" and link.get("href") == default_home for link in prod_docs[production_home_en][0].links),
     "English home has the wrong x-default URL",
 )
 require("fuse.basic" not in english_home_text, "Fuse is loaded outside the search page")
-require("/js/" not in english_home_text, "home loads an external JavaScript asset")
+require("/js/suggestions." in english_home_text, "home is missing its suggestions script")
+require("/js/search.min." not in english_home_text, "home loads the full search script")
 require("fuse.basic" in english_search_text, "search page is missing Fuse")
 require("/js/search.min." in english_search_text, "search page is missing its scoped script")
 english_article = next((production / "en" / "posts").glob("*/index.html"))

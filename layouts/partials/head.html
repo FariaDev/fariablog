@@ -80,11 +80,13 @@
     document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
       var darkLabel = button.getAttribute('aria-label') || 'Switch to dark mode';
       var lightLabel = button.dataset.lightLabel || 'Switch to light mode';
-      var glyph = button.querySelector('.theme-glyph');
+      var moonIcon = button.querySelector('.theme-icon-moon');
+      var sunIcon = button.querySelector('.theme-icon-sun');
       function render() {
         var nextIsDark = root.dataset.theme !== 'dark';
         var label = nextIsDark ? darkLabel : lightLabel;
-        if (glyph) glyph.textContent = nextIsDark ? '🌙' : '☀️';
+        if (moonIcon) moonIcon.hidden = !nextIsDark;
+        if (sunIcon) sunIcon.hidden = nextIsDark;
         button.setAttribute('aria-label', label);
         button.title = label;
       }
@@ -100,6 +102,10 @@
 </script>
 {{- $css := resources.Get "css/site.css" | resources.Minify | resources.Fingerprint "sha256" -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- if or .IsHome (eq .Layout "search") }}
+{{- $suggestionsJS := resources.Get "js/suggestions.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $suggestionsJS.RelPermalink }}" integrity="{{ $suggestionsJS.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}
 {{- if eq .Layout "search" }}
 {{- $fuse := resources.Get "js/fuse.basic.min.js" | resources.Fingerprint "sha256" -}}
 <script defer src="{{ $fuse.RelPermalink }}" integrity="{{ $fuse.Data.Integrity }}" crossorigin="anonymous"></script>

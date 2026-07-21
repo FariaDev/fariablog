@@ -5,8 +5,7 @@
   <section>
     <form role="search" action="{{ .RelPermalink }}" method="get">
       <label for="archive-search">{{ i18n "search_label" }}</label>
-      <div class="search-controls"><input id="archive-search" name="q" type="search" list="archive-search-suggestions" autocomplete="off" placeholder="{{ .Params.placeholder | default (i18n "search_placeholder") }}" data-search-input><button type="submit">{{ i18n "nav_search" }}</button><button type="button" data-clear-search hidden>{{ i18n "clear" }}</button></div>
-      {{ partial "search-suggestions.html" (dict "id" "archive-search-suggestions" "site" .Site) }}
+      <div class="search-controls"><div class="search-input-wrap"><input id="archive-search" name="q" type="search" autocomplete="off" placeholder="{{ .Params.placeholder | default (i18n "search_placeholder") }}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="archive-search-suggestions" data-suggestions="archive-search-suggestions" data-search-input>{{ partial "search-suggestions.html" (dict "id" "archive-search-suggestions" "site" .Site) }}</div><button type="submit">{{ i18n "nav_search" }}</button><button type="button" data-clear-search hidden>{{ i18n "clear" }}</button></div>
     </form>
     <p class="search-status" data-search-status aria-live="polite"></p>
   </section>

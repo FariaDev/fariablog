@@ -1,9 +1,12 @@
 {{- $id := .id -}}
-<datalist id="{{ $id }}">
+<div class="search-suggestions" id="{{ $id }}" role="listbox" hidden>
+  {{- $index := 0 -}}
   {{- range sort (where .site.RegularPages "Section" "in" .site.MainSections) "Title" }}
-  <option value="{{ .Title }}"></option>
+  <button type="button" id="{{ $id }}-option-{{ $index }}" role="option" data-value="{{ .Title }}">{{ .Title }}</button>
+  {{- $index = add $index 1 -}}
   {{- end }}
   {{- range .site.Taxonomies.tags.Alphabetical }}
-  <option value="{{ .Page.Title }}"></option>
+  <button type="button" id="{{ $id }}-option-{{ $index }}" role="option" data-value="{{ .Page.Title }}">{{ .Page.Title }}</button>
+  {{- $index = add $index 1 -}}
   {{- end }}
-</datalist>
+</div>
