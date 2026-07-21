@@ -15,7 +15,16 @@
 /images/*
   Cache-Control: public, max-age=86400, must-revalidate
 
-# Cache para HTML (mais curto para permitir atualizações)
+# Localized pages use extensionless URLs, so cover their public routes explicitly.
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/pt-br/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/en/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
 /*.html
   Cache-Control: public, max-age=3600, must-revalidate
 
