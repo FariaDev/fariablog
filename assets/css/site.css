@@ -1,10 +1,10 @@
 /* FariaBlog — a quiet, text-first personal site. */
 :root {
   color-scheme: light dark;
-  --background: #eee9de;
-  --foreground: #242321;
-  --muted: #706d66;
-  --rule: #cbc7bc;
+  --background: #e9eef0;
+  --foreground: #20282b;
+  --muted: #687377;
+  --rule: #c5cfd2;
 }
 
 html[data-theme="light"] {
@@ -13,10 +13,10 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --background: #191918;
-  --foreground: #efede6;
-  --muted: #aaa69d;
-  --rule: #4b4944;
+  --background: #151b1d;
+  --foreground: #edf2f3;
+  --muted: #a3afb2;
+  --rule: #3d494d;
 }
 
 body {
@@ -191,7 +191,7 @@ form[role="search"] label {
 input[type="search"] {
   box-sizing: border-box;
   width: min(100%, 29rem);
-  padding: .6rem .72rem;
+  padding: .4rem .65rem;
   border: 1px solid var(--rule);
   border-radius: .25rem;
   background: transparent;
@@ -205,7 +205,7 @@ input[type="search"]:focus {
 }
 
 form[role="search"] button {
-  padding: .55rem .8rem;
+  padding: .35rem .72rem;
   border: 1px solid var(--foreground);
   border-radius: .25rem;
   background: var(--foreground);
