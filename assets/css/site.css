@@ -1,6 +1,10 @@
-/* FariaBlog — a small, readable website. */
+/* FariaBlog — a quiet, text-first personal site. */
 :root {
   color-scheme: light dark;
+  --background: #f3f0e8;
+  --foreground: #242321;
+  --muted: #706d66;
+  --rule: #cbc7bc;
 }
 
 html[data-theme="light"] {
@@ -9,33 +13,159 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-}
-
-html[data-theme="dark"] body {
-  background: #000;
+  --background: #191918;
+  --foreground: #efede6;
+  --muted: #aaa69d;
+  --rule: #4b4944;
 }
 
 body {
-  margin: 1em auto;
-  max-width: 40em;
-  padding: 0 .62em 3.24em;
-  font: 1.2em/1.62 sans-serif;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font: 1.18rem/1.58 Georgia, "Times New Roman", serif;
+  text-rendering: optimizeLegibility;
+}
+
+.site-header,
+main,
+.site-footer {
+  width: min(42rem, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.site-header {
+  padding-block: 2.5rem 1.75rem;
+}
+
+.site-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1rem;
+  margin-top: 1.4rem;
+  font-size: .9rem;
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.2;
+  line-height: 1.18;
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 2.15rem;
+}
+
+h2 {
+  margin: 2.15rem 0 .85rem;
+  font-size: 1.55rem;
+}
+
+h3 {
+  margin: 1.7rem 0 .45rem;
+  font-size: 1.2rem;
+}
+
+p,
+ul,
+ol,
+blockquote,
+pre,
+table,
+figure {
+  margin-block: 0 1.3rem;
 }
 
 a {
   color: inherit;
-  text-decoration-thickness: .07em;
-  text-underline-offset: .12em;
+  text-decoration-thickness: .06em;
+  text-underline-offset: .14em;
 }
 
 a:hover {
-  text-decoration-thickness: .12em;
+  text-decoration-thickness: .11em;
+}
+
+.home-intro {
+  margin: 1rem 0 2.5rem;
+  font-size: 1.22rem;
+  line-height: 1.65;
+}
+
+.home-intro p {
+  margin-bottom: 1.45rem;
+}
+
+.publication-list {
+  padding-left: 1.35rem;
+}
+
+.publication-list li {
+  margin-bottom: .72rem;
+  padding-left: .12rem;
+}
+
+.publication-entry {
+  margin-block: 2rem;
+}
+
+aside,
+figcaption,
+.site-footer {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.theme-toggle {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: 2.7rem;
+  height: 1.45rem;
+  padding: .15rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.theme-glyph {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  justify-content: flex-end;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+input {
+  max-width: 100%;
 }
 
 img {
@@ -44,11 +174,18 @@ img {
 }
 
 figure {
-  margin: 1em 0;
+  margin-inline: 0;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
 }
 
 pre {
   max-width: 100%;
+  padding: .8rem;
   overflow-x: auto;
 }
 
@@ -56,7 +193,8 @@ code,
 pre,
 kbd,
 samp {
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: .9em;
 }
 
 table {
@@ -68,22 +206,24 @@ table {
 
 th,
 td {
-  padding: .35em .5em;
-  border: 1px solid currentColor;
+  padding: .4em .55em;
+  border: 1px solid var(--rule);
   text-align: left;
   vertical-align: top;
 }
 
-.site-header nav p {
-  margin-top: 0;
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
 }
 
 .site-footer {
-  margin-top: 2em;
+  margin-top: 3.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .search-status {
-  min-height: 1.62em;
+  min-height: 1.58em;
 }
 
 [hidden] {
@@ -91,37 +231,56 @@ td {
 }
 
 .copy-code {
-  margin-bottom: .5em;
+  margin-bottom: .5rem;
 }
 
 .heading-anchor {
   margin-left: .3em;
-  font-size: .75em;
+  font-size: .72em;
 }
 
 .skip-link {
   position: absolute;
   left: -10000px;
-  top: auto;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
 
 .skip-link:focus {
-  position: static;
+  position: fixed;
+  z-index: 1;
+  top: .75rem;
+  left: .75rem;
   width: auto;
   height: auto;
+  padding: .35rem .55rem;
+  background: var(--background);
 }
 
 :focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+@media (max-width: 36rem) {
+  body {
+    font-size: 1.08rem;
+  }
+
+  .site-header {
+    padding-top: 1.6rem;
+  }
+
+  .site-title {
+    font-size: 1.75rem;
+  }
 }
 
 @media print {
   body {
-    max-width: none;
+    background: #fff;
+    color: #000;
   }
 
   .site-header,
@@ -129,5 +288,9 @@ td {
   .document-actions,
   .skip-link {
     display: none;
+  }
+
+  main {
+    width: auto;
   }
 }

@@ -1,6 +1,6 @@
-# Interface mínima do FariaBlog
+# Interface editorial do FariaBlog
 
-A apresentação principal do FariaBlog segue diretamente os padrões de [bestmotherfucking.website](https://bestmotherfucking.website/): conteúdo em primeiro lugar, tipografia do sistema, uma única coluna e quase nenhum estilo além do necessário para leitura.
+A apresentação principal do FariaBlog segue a direção de [darioamodei.com](https://darioamodei.com/): conteúdo em primeiro lugar, tipografia serifada, fundo quente, uma única coluna e listas diretas.
 
 ## Desenvolvimento
 
@@ -13,29 +13,16 @@ O servidor local abre em `http://localhost:1313/pt-br/`.
 
 ## Regras visuais
 
-A base cabe em poucas declarações:
+A base visual usa uma coluna de `42rem`, Georgia com fallback serifado, fundo marfim no tema claro e contraste suave no escuro. O cabeçalho contém apenas a identidade e o controle de tema; a navegação completa fica no rodapé.
 
-```css
-body {
-  margin: 1em auto;
-  max-width: 40em;
-  padding: 0 .62em 3.24em;
-  font: 1.2em/1.62 sans-serif;
-}
-
-h1, h2, h3 {
-  line-height: 1.2;
-}
-```
-
-As únicas extensões relevantes são funcionais: imagens responsivas, rolagem de código e tabelas, divisões claras entre células, foco de teclado, tema manual e impressão.
+As extensões restantes são funcionais: imagens responsivas, rolagem de código e tabelas, divisões claras entre células, foco de teclado, tema manual e impressão.
 
 ## Organização
 
 - `layouts/_default/index.html`: home, publicações, busca e assuntos;
 - `layouts/posts/single.html`: artigos completos;
 - `layouts/_default/`: busca, listas, taxonomias e páginas auxiliares;
-- `layouts/partials/site-header.html`: navegação textual e tema;
+- `layouts/partials/site-header.html`: identidade do site e controle de tema;
 - `layouts/partials/publication-entry.html`: representação simples de um texto;
 - `assets/css/site.css`: toda a apresentação;
 - `assets/js/search.js`: busca local, carregada apenas na rota de busca;
@@ -44,7 +31,7 @@ As únicas extensões relevantes são funcionais: imagens responsivas, rolagem d
 
 ## Princípios
 
-- fonte do sistema, sem webfont;
+- fonte serifada local, sem webfont;
 - links e controles reconhecíveis como links e controles;
 - nenhum card, sombra, moldura ou animação decorativa;
 - JavaScript somente como melhoria progressiva;

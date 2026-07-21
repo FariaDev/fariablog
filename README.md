@@ -4,7 +4,7 @@
 ![Hugo](https://img.shields.io/badge/Hugo-v0.164.0-blue.svg)
 ![Último Commit](https://img.shields.io/github/last-commit/FariaDev/fariablog.svg)
 
-Blog pessoal estático construído com Hugo e uma interface mínima inspirada em [bestmotherfucking.website](https://bestmotherfucking.website/). O projeto serve como arquivo de estudos, leituras e reflexões sobre filosofia, literatura, neurociência e educação.
+Blog pessoal estático construído com Hugo e uma interface editorial inspirada no site de [Dario Amodei](https://darioamodei.com/). O projeto serve como arquivo de estudos, leituras e reflexões sobre filosofia, literatura, neurociência e educação.
 
 <p align="center">
   <img src="https://fariablog.com/fariablog.webp" alt="FariaBlog" width="400"/>
@@ -12,7 +12,7 @@ Blog pessoal estático construído com Hugo e uma interface mínima inspirada em
 
 ## Funcionalidades Principais
 
-- **Interface:** HTML direto, tipografia nativa, uma coluna legível e modo claro/escuro.
+- **Interface:** HTML direto, tipografia serifada, uma coluna editorial e modo claro/escuro.
 - **Internacionalização:** Suporte multilíngue (Português/Inglês).
 - **Navegação:** Busca indexada via Fuse.js, sumário interno, arquivo cronológico e taxonomia por assuntos.
 - **Performance:** SEO estruturado, assets fingerprintados e imagens WebP responsivas.
@@ -24,7 +24,7 @@ Blog pessoal estático construído com Hugo e uma interface mínima inspirada em
 
 ## Interface
 
-A apresentação usa os padrões de `bestmotherfucking.website`: CSS mínimo, fonte do sistema, largura de leitura de `40em` e elementos nativos do navegador. Busca, taxonomias, imagens responsivas, SEO e internacionalização continuam integrados ao Hugo.
+A apresentação segue a sobriedade de `darioamodei.com`: fundo quente, tipografia serifada, coluna estreita, listas simples e um controle de tema discreto. Busca, taxonomias, imagens responsivas, SEO e internacionalização continuam integrados ao Hugo.
 
 A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) e o contrato do Cloudflare Pages em [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 

@@ -3,33 +3,38 @@
 {{- $posts = sort $posts "Date" "desc" -}}
 {{- $paginator := .Paginate $posts -}}
 {{- $searchPage := .Site.GetPage "search" -}}
-<article>
-  <header>
-    <h1>{{ i18n "home_title" }} <em>FariaBlog</em>.</h1>
-    <aside>{{ i18n "home_byline" }} {{ site.Params.authorName }} · {{ i18n "home_subjects" }}</aside>
-  </header>
+<article class="home-page">
+  <div class="home-intro">
+    <p>{{ i18n "home_byline" }} {{ site.Params.authorName }}. {{ i18n "home_subjects" }}.</p>
+    <p>{{ i18n "home_intro_title" }} {{ site.Params.homeInfoContent }}</p>
+  </div>
 
-  <h2>{{ i18n "home_intro_title" }}</h2>
-  <p>{{ site.Params.homeInfoContent }}</p>
+  <section>
+    <h2>{{ i18n "publications" }}</h2>
+    <ul class="publication-list">
+      {{- range $paginator.Pages }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+    {{ partial "pagination.html" $paginator }}
+  </section>
 
-  <h2>{{ i18n "publications" }}</h2>
-  {{- range $paginator.Pages }}
-    {{ partial "publication-entry.html" (dict "page" . "showSummary" true) }}
-  {{- end }}
-  {{ partial "pagination.html" $paginator }}
+  <section>
+    <h2>{{ i18n "nav_search" }}</h2>
+    <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
+      <label for="publication-search">{{ i18n "search_label" }}</label>
+      <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
+      <button type="submit">{{ i18n "nav_search" }}</button>
+    </form>
+  </section>
 
-  <h2>{{ i18n "nav_search" }}</h2>
-  <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
-    <label for="publication-search">{{ i18n "search_label" }}</label>
-    <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}">
-    <button type="submit">{{ i18n "nav_search" }}</button>
-  </form>
-
-  <h2>{{ i18n "subject_index" }}</h2>
-  <ul>
-    {{- range .Site.Taxonomies.tags.Alphabetical }}
-    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> ({{ .Count }})</li>
-    {{- end }}
-  </ul>
+  <section>
+    <h2>{{ i18n "subject_index" }}</h2>
+    <ul>
+      {{- range .Site.Taxonomies.tags.Alphabetical }}
+      <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> ({{ .Count }})</li>
+      {{- end }}
+    </ul>
+  </section>
 </article>
 {{ end }}

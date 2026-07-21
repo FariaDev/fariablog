@@ -1,5 +1,5 @@
 {{- $page := .page -}}
-<article>
+<article class="publication-entry">
   <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
   <aside>
     <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format ($page.Site.Params.dateFormat | default "02 Jan 2006") }}</time> ·

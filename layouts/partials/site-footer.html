@@ -1,3 +1,20 @@
+{{- $search := .Site.GetPage "search" -}}
+{{- $tags := .Site.GetPage "tags" -}}
+{{- $archive := .Site.GetPage "archives" -}}
+{{- $books := .Site.GetPage "books" -}}
+{{- $contact := .Site.GetPage "contact" -}}
+{{- $translations := .Translations -}}
+{{- if .IsHome }}{{ $translations = .Site.Home.Translations }}{{ end -}}
 <footer class="site-footer">
-  <p>fariablog.com · © {{ now.Year }} {{ site.Title }} · <a href="{{ "index.xml" | relLangURL }}">RSS</a> · {{ i18n "inspired_by" }} <a href="https://bestmotherfucking.website/">bestmotherfucking.website</a></p>
+  <nav class="site-nav" aria-label="{{ i18n "primary_navigation" }}">
+    <a href="{{ .Site.Home.RelPermalink }}">Home</a>
+    {{ with $search }}<a href="{{ .RelPermalink }}">{{ i18n "nav_search" }}</a>{{ end }}
+    {{ with $tags }}<a href="{{ .RelPermalink }}">{{ i18n "nav_subjects" }}</a>{{ end }}
+    {{ with $archive }}<a href="{{ .RelPermalink }}">{{ i18n "nav_archive" }}</a>{{ end }}
+    {{ with $books }}<a href="{{ .RelPermalink }}">{{ i18n "nav_books" }}</a>{{ end }}
+    {{ with $contact }}<a href="{{ .RelPermalink }}">{{ i18n "nav_about" }}</a>{{ end }}
+    {{ range $translations }}<a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}">{{ .Language.Params.languageLabel }}</a>{{ end }}
+    <a href="{{ "index.xml" | relLangURL }}">RSS</a>
+  </nav>
+  <p>© {{ now.Year }} {{ site.Title }} · {{ i18n "inspired_by" }} <a href="https://darioamodei.com/">darioamodei.com</a></p>
 </footer>
