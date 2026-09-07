@@ -1,5 +1,6 @@
 +++
 title = "Por que sempre estamos cansados: o diagnóstico de Han"
+spine = "Cansaço"
 description = "Por que estamos sempre exaustos? O filósofo Byung-Chul Han explica como a sociedade do desempenho nos transformou em escravos de nós mesmos."
 date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "han-tiredness"
 [cover]
   image = "/images/imagem-post3.webp"
   alt = "Pintura de uma pessoa segurando uma máscara sorridente enquanto seu reflexo no espelho mostra um rosto triste e chorando, ilustrando dualidade emocional."
-  caption = "📢 **Crédito da imagem:** Imagem criada utilizando ferramentas de inteligência artificial, especificamente o **GPT-4o**, desenvolvido pela **OpenAI**"
 +++
 
 <!-- # **Por que sempre estamos cansados: o diagnóstico de Han** -->

@@ -1,0 +1,17 @@
+{{- $spines := dict
+  "antifragile" "Antifrágil"
+  "han-tiredness" "Cansaço"
+  "nietzsche-dostoevsky" "Nietzsche"
+  "reading-any-book" "Ler"
+  "latin-education" "Latim"
+-}}
+{{- if eq .Language.Lang "en" -}}
+  {{- $spines = dict
+    "antifragile" "Antifragile"
+    "han-tiredness" "Tiredness"
+    "nietzsche-dostoevsky" "Nietzsche"
+    "reading-any-book" "Reading"
+    "latin-education" "Latin"
+  -}}
+{{- end -}}
+{{- index $spines .Params.translationKey | default .Title -}}

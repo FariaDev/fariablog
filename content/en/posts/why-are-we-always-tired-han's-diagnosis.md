@@ -1,5 +1,6 @@
 +++
 title = "Why Are We Always Tired: Han's Diagnosis"
+spine = "Tiredness"
 description = "Why are we always exhausted? Philosopher Byung-Chul Han explains how the achievement society has turned us into slaves of ourselves."
 date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "han-tiredness"
 [cover]
   image = "/images/imagem-post3.webp"
   alt = "Painting of a person holding a smiling mask while their reflection in the mirror shows a sad, crying face, illustrating emotional duality."
-  caption = "📢 **Image credit:** Image created using artificial intelligence tools, specifically **GPT-4o**, developed by **OpenAI**"
 +++
 
 <!-- # **Why Are We Always Tired: Han's Diagnosis** -->

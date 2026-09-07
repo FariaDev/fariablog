@@ -53,6 +53,8 @@ hugo --gc --minify --environment development --destination "$development_dir"
 python3 scripts/verify.py "$repo_root" "$production_dir" "$development_dir"
 node --check assets/js/search.js
 node --check assets/js/article.js
+node --check assets/js/house.js
+node --check assets/js/dock.js
 npm test
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then

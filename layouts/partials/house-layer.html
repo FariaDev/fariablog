@@ -1,0 +1,32 @@
+{{- $hour := .hour -}}
+{{- $alt := .alt -}}
+{{- $active := .active -}}
+{{- $prefix := .prefix | default "home" -}}
+{{- $resource := partial "image-resource.html" (dict "path" .path) -}}
+{{- $src := "" -}}
+{{- $srcset := slice -}}
+{{- with $resource -}}
+  {{- $src = .RelPermalink -}}
+  {{- if hugo.IsExtended -}}
+    {{- range slice "720" "1080" "1280" -}}
+      {{- if ge $resource.Width (int .) -}}
+        {{- $resized := $resource.Resize (printf "%sx webp q90" .) -}}
+        {{- $copied := resources.Copy (printf "processed-images/%s-%s-%s.webp" $prefix $hour .) $resized -}}
+        {{- $variant := $copied | fingerprint "sha256" -}}
+        {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink .) -}}
+        {{- $src = $variant.RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  <img
+    class="home-layer"
+    data-hour="{{ $hour }}"
+    src="{{ $src }}"
+    {{- if $srcset }} srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }}
+    width="{{ .Width }}"
+    height="{{ .Height }}"
+    alt="{{ $alt }}"
+    decoding="async"
+    fetchpriority="{{ if $active }}high{{ else }}low{{ end }}"
+    loading="eager">
+{{- end -}}

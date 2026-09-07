@@ -1,0 +1,26 @@
+{{- $search := .Site.GetPage "search" -}}
+{{- $posts := .Site.GetPage "section" "posts" -}}
+{{- $books := .Site.GetPage "books" -}}
+{{- $about := .Site.GetPage "about" -}}
+{{- $isPosts := eq .Section "posts" -}}
+{{- $isSearch := eq .Layout "search" -}}
+<nav class="gooey-dock{{ if $isSearch }} is-searching{{ end }}" data-gooey-dock aria-label="{{ i18n "primary_navigation" }}">
+  <div class="gooey" data-gooey>
+    <a class="gooey-item" href="{{ .Site.Home.RelPermalink }}"{{ if .IsHome }} aria-current="page"{{ end }}>{{ i18n "nav_home" }}</a>
+    {{ with $posts }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if $isPosts }} aria-current="page"{{ end }}>{{ i18n "nav_writing" }}</a>{{ end }}
+    {{ with $books }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if eq $.Layout "books" }} aria-current="page"{{ end }}>{{ i18n "nav_books" }}</a>{{ end }}
+    {{ with $about }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if eq $.Layout "about" }} aria-current="page"{{ end }}>{{ i18n "nav_about" }}</a>{{ end }}
+  </div>
+  {{ with $search }}
+  <a class="search-lens" href="{{ .RelPermalink }}" data-search-open aria-label="{{ i18n "nav_search" }}" title="{{ i18n "nav_search" }}" aria-expanded="{{ if $isSearch }}true{{ else }}false{{ end }}">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></svg>
+  </a>
+  <form class="dock-search" action="{{ .RelPermalink }}" method="get" data-dock-search{{ if not $isSearch }} hidden{{ end }}>
+    <label class="visually-hidden" for="dock-search">{{ i18n "search_label" }}</label>
+    <input id="dock-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_label" }}"{{ if $isSearch }} role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="archive-search-suggestions" data-suggestions="archive-search-suggestions"{{ end }} data-search-input>
+    {{- if $isSearch }}{{ partial "search-suggestions.html" (dict "id" "archive-search-suggestions" "site" .Site) }}{{ end }}
+    <button type="button" data-clear-search hidden>{{ i18n "clear" }}</button>
+    <button type="button" class="dock-search-close" data-search-close aria-label="{{ i18n "close_search" }}">×</button>
+  </form>
+  {{ end }}
+</nav>

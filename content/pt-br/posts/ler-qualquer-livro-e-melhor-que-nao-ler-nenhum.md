@@ -1,5 +1,6 @@
 +++
 title = "Ler qualquer livro é melhor que não ler nenhum?"
+spine = "Ler"
 description = "Descubra o que a neurociência revela sobre os benefícios da leitura e por que variar entre ficção e não-ficção é essencial para a saúde cerebral."
 date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "reading-any-book"
 [cover]
   image = "/images/capa-post.webp"
   alt = "Ilustração estilizada de um cérebro azul cercado por livros abertos flutuando em correntes de energia dourada e azul, simbolizando conhecimento e aprendizado."
-  caption = "📢 **Crédito da imagem:** Imagem criada utilizando ferramentas de inteligência artificial, especificamente o **DALL·E**, desenvolvido pela **OpenAI**"
 +++
 
 <!-- # **Ler qualquer livro é melhor que não ler nenhum?** -->

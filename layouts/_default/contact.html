@@ -1,8 +1,13 @@
 {{ define "main" }}
-<article>
-  {{ partial "aux-header.html" (dict "kicker" (i18n "author_note") "title" .Title "subtitle" (site.Params.authorName | printf "%s · FariaBlog")) }}
-  <section>
-    {{ .Content }}
-  </section>
+{{- $about := .Site.GetPage "about" -}}
+<article class="quiet-page">
+  <header class="essay-mast">
+    <h1>{{ .Title }}</h1>
+  </header>
+  <p>
+    {{- with $about }}
+    <a href="{{ .RelPermalink }}#escreva">{{ i18n "contact_on_about" }}</a>
+    {{- end }}
+  </p>
 </article>
 {{ end }}

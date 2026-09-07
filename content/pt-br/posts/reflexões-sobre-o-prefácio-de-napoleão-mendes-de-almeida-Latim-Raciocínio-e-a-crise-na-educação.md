@@ -1,5 +1,6 @@
 +++
 title = "Reflexões sobre o Prefácio de Napoleão Mendes de Almeida: Latim, Raciocínio e a Crise na Educação"
+spine = "Latim"
 description = "O estudo do latim desenvolve raciocínio e inteligência. Reflexões sobre a crise educacional brasileira inspiradas na Gramática Latina."
 date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "latin-education"
 [cover]
   image = "/images/imagem-post4.webp"
   alt = "Fotografia da escultura de bronze 'O Pensador' de Rodin, mostrando um homem sentado em profunda contemplação contra um céu azul."
-  caption = "📢 **Crédito da imagem:** Imagem de 'O Pensador' da **Wikipédia**, a enciclopédia livre."
 +++
 
 <!-- # Reflexões sobre o Prefácio de Napoleão Mendes de Almeida: Latim, Raciocínio e a Crise na Educação -->

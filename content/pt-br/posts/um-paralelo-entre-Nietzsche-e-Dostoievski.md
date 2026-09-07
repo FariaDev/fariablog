@@ -1,5 +1,6 @@
 +++
 title = "Um paralelo entre Nietzsche e Dostoiévski."
+spine = "Nietzsche"
 description = "Nietzsche e Dostoiévski questionam o excesso de racionalidade. Descubra o que Crepúsculo dos Ídolos e Memórias do Subsolo têm em comum."
 date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "nietzsche-dostoevsky"
 [cover]
   image = "/images/imagem-post2.webp"
   alt = "Ilustração de Friedrich Nietzsche e Fyodor Dostoevsky se encarando em perfil, representando um debate filosófico ou literário."
-  caption = "📢 **Crédito da imagem:** Imagem criada utilizando ferramentas de inteligência artificial, especificamente o **Grok**, desenvolvido pela **xAI**"
 +++
 
 <!-- # **Um paralelo entre Nietzsche e Dostoiévski.** -->

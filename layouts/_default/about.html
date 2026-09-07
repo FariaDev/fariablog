@@ -6,9 +6,11 @@
     {{ partial "house-layer.html" (dict "hour" "midnight" "path" "images/home/midnight.jpg" "alt" (i18n "hour_midnight_alt") "active" false) }}
   </div>
   <div class="home-words">
-    <h1>{{ site.Title }}</h1>
-    <p class="home-subjects">{{ i18n "home_subjects" }}</p>
-    <p class="home-intro">{{ i18n "home_intro" }}</p>
+    <h1>{{ .Title }}</h1>
+    <div class="home-intro">{{ .Content }}</div>
+    <p class="about-write">
+      <a href="mailto:fariablog1@gmail.com">fariablog1@gmail.com</a>
+    </p>
   </div>
 </article>
 {{ end }}

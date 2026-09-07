@@ -1,8 +1,15 @@
 {{ define "main" }}
-<article>
-  {{ partial "aux-header.html" (dict "kicker" (i18n "personal_bibliography") "title" .Title "subtitle" .Description) }}
-  <section>
-    {{ .Content }}
-  </section>
+<article class="home-window books-window" data-house-window data-active-hour="noon">
+  <div class="home-scene has-scrim" data-house-scene>
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "noon" "path" "images/shelf/noon.jpg" "alt" (i18n "books_shelf_alt") "active" true) }}
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "dusk" "path" "images/shelf/dusk.jpg" "alt" (i18n "books_shelf_alt") "active" false) }}
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "midnight" "path" "images/shelf/midnight.jpg" "alt" (i18n "books_shelf_alt") "active" false) }}
+  </div>
+  <div class="texts-words">
+    <h1>{{ .Title }}</h1>
+  </div>
 </article>
+<section class="books-corpus">
+  {{ .Content }}
+</section>
 {{ end }}

@@ -8,14 +8,26 @@
 <meta charset="utf-8">
 <title>{{ $pageTitle }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#181817" media="(prefers-color-scheme: dark)">
+<script>
+(function () {
+  var hour = new Date().getHours();
+  document.documentElement.setAttribute('data-hour', hour >= 10 && hour < 17 ? 'noon' : hour >= 17 && hour < 21 ? 'dusk' : 'midnight');
+})();
+</script>
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f3eee4">
 <meta name="description" content="{{ $description }}">
 <meta name="author" content="{{ $author }}">
 <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ delimit site.Params.keywords ", " }}{{ end }}">
 <meta name="robots" content="{{ if and $isProduction (not $is404) }}index, follow{{ else }}noindex, nofollow{{ end }}">
-<link rel="canonical" href="{{ .Permalink }}">
+{{- $canonical := .Permalink -}}
+{{- if eq .Layout "contact" }}{{ with .Site.GetPage "about" }}{{ $canonical = .Permalink }}{{ end }}{{ end -}}
+<link rel="canonical" href="{{ $canonical }}">
+{{- if eq .Layout "contact" }}
+{{- with .Site.GetPage "about" }}
+<meta http-equiv="refresh" content="0;url={{ .RelPermalink }}#escreva">
+{{- end }}
+{{- end }}
 {{- if .IsHome }}
 <link rel="alternate" hreflang="x-default" href="{{ (index site.Home.AllTranslations 0).Permalink }}">
 {{- end }}
@@ -61,48 +73,22 @@
 <meta name="twitter:image" content="{{ . }}">
 <meta name="twitter:image:alt" content="{{ $ogImageAlt }}">
 {{- end }}
-<link rel="icon" href="{{ "favicon.ico?v=2" | relURL }}" sizes="any">
-<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=2" | relURL }}" sizes="32x32">
-<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png?v=2" | relURL }}" sizes="180x180">
+<link rel="icon" href="{{ "favicon.svg?v=3" | relURL }}" type="image/svg+xml">
+<link rel="icon" href="{{ "favicon.ico?v=3" | relURL }}" sizes="any">
+<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=3" | relURL }}" sizes="32x32">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png?v=3" | relURL }}" sizes="180x180">
 {{ with .Site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
-<script>
-(function () {
-  var root = document.documentElement;
-  var key = 'fariablog-theme';
-  var theme;
-  try {
-    theme = localStorage.getItem(key);
-  } catch (error) {}
-  theme = theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  root.dataset.theme = theme;
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
-      var darkLabel = button.getAttribute('aria-label') || 'Switch to dark mode';
-      var lightLabel = button.dataset.lightLabel || 'Switch to light mode';
-      var moonIcon = button.querySelector('.theme-icon-moon');
-      var sunIcon = button.querySelector('.theme-icon-sun');
-      function render() {
-        var nextIsDark = root.dataset.theme !== 'dark';
-        var label = nextIsDark ? darkLabel : lightLabel;
-        if (moonIcon) moonIcon.toggleAttribute('hidden', !nextIsDark);
-        if (sunIcon) sunIcon.toggleAttribute('hidden', nextIsDark);
-        button.setAttribute('aria-label', label);
-        button.title = label;
-      }
-      button.addEventListener('click', function () {
-        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        try { localStorage.setItem(key, root.dataset.theme); } catch (error) {}
-        render();
-      });
-      render();
-    });
-  });
-}());
-</script>
 {{- $css := resources.Get "css/site.css" | resources.Minify | resources.Fingerprint "sha256" -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
-{{- if or .IsHome (eq .Layout "search") }}
+{{- $dockJS := resources.Get "js/dock.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $dockJS.RelPermalink }}" integrity="{{ $dockJS.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- $isTexts := and (eq .Kind "section") (eq .Section "posts") -}}
+{{- $isEssay := and .IsPage (eq .Section "posts") -}}
+{{- if or .IsHome $isTexts $isEssay (eq .Layout "books") (eq .Layout "about") }}
+{{- $houseJS := resources.Get "js/house.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $houseJS.RelPermalink }}" integrity="{{ $houseJS.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}
+{{- if eq .Layout "search" }}
 {{- $suggestionsJS := resources.Get "js/suggestions.js" | resources.Minify | resources.Fingerprint "sha256" -}}
 <script defer src="{{ $suggestionsJS.RelPermalink }}" integrity="{{ $suggestionsJS.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}

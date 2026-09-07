@@ -1,5 +1,6 @@
 +++
 title = "A Parallel Between Nietzsche and Dostoevsky"
+spine = "Nietzsche"
 description = "Nietzsche and Dostoevsky question excessive rationality. Discover what Twilight of the Idols and Notes from Underground have in common."
 date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "nietzsche-dostoevsky"
 [cover]
   image = "/images/imagem-post2.webp"
   alt = "Illustration of Friedrich Nietzsche and Fyodor Dostoevsky facing each other in profile, representing a philosophical or literary debate."
-  caption = "📢 **Image credit:** Image created using artificial intelligence tools, specifically **Grok**, developed by **xAI**"
 +++
 
 <!-- # **A Parallel Between Nietzsche and Dostoevsky** -->
