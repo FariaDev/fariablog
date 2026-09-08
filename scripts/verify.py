@@ -417,6 +417,21 @@ for root, docs in ((production, prod_docs), (development, dev_docs)):
                 continue
             require(local_target(root, path, raw_url) is not None, f"broken local reference {raw_url!r} in {path}")
 
+# House sources remain inert until the visitor's clock selects one.
+for path, (parser, _) in prod_docs.items():
+    layers = [image for image in parser.images if "data-src" in image]
+    if not layers:
+        continue
+    require({i.get("data-hour") for i in layers} == {"noon", "dusk", "midnight"}, f"missing house lighting in {path}")
+    for image in layers:
+        require("src" not in image and "srcset" not in image, f"house variant enters preload scanning in {path}")
+        require(image.get("fetchpriority") == "low", f"unselected house variant has high priority in {path}")
+        require(local_target(production, path, image["data-src"]) is not None, f"broken deferred house source in {path}")
+        require(image.get("data-srcset"), f"house variant lacks responsive sources in {path}")
+        for candidate in image["data-srcset"].split(","):
+            candidate_url = candidate.strip().split()[0]
+            require(local_target(production, path, candidate_url) is not None, f"broken deferred responsive source in {path}")
+
 # Processable editorial images must have plain-text alternatives, dimensions, lazy loading, and responsive WebP sources.
 for path, (parser, _) in prod_docs.items():
     if "/posts/" not in path.relative_to(production).as_posix():

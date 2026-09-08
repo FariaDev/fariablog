@@ -2,18 +2,20 @@
 {{- $writing := .Site.GetPage "section" "posts" -}}
 <article class="home-window texts-window" data-house-window data-active-hour="noon">
   <div class="home-scene has-scrim" data-house-scene>
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt") "active" true) }}
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt") "active" false) }}
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt") "active" false) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt")) }}
   </div>
   <div class="texts-words">
     {{- with $writing }}
     <p class="essay-back"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
     {{- end }}
-    <p class="essay-spine">{{ partial "spine.html" . }}</p>
+    <p class="essay-spine"><span data-essay-title data-essay-index="{{ $writing.RelPermalink }}">{{ partial "spine.html" . }}</span></p>
   </div>
+  {{ partial "scene-descent.html" (i18n "read_essay") }}
+  {{ partial "site-nav.html" . }}
 </article>
-<article class="texts-corpus article-layout">
+<article id="leitura" class="texts-corpus article-layout" tabindex="-1">
   <div class="article-main">
     <header class="essay-mast">
       {{- with $writing }}

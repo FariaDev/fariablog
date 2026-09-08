@@ -1,5 +1,5 @@
 (function () {
-  var dock = document.querySelector('[data-gooey-dock]');
+  var dock = document.querySelector('[data-threshold-nav]');
   if (!dock) return;
 
   var openBtn = dock.querySelector('[data-search-open]');
@@ -55,6 +55,11 @@
   }
 
   document.addEventListener('keydown', function (event) {
+    if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !(event.target.closest && event.target.closest('input, textarea, select, [contenteditable]'))) {
+      event.preventDefault();
+      open(true);
+      input.scrollIntoView({ block: 'center' });
+    }
     if (event.key === 'Escape' && dock.classList.contains('is-searching')) {
       close();
     }

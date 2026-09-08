@@ -1,74 +1,72 @@
 (function () {
   var root = document.querySelector('[data-house-window]');
   if (!root) return;
-
-  var hours = ['noon', 'dusk', 'midnight'];
   var scene = root.querySelector('[data-house-scene]');
-
-  function hourFromClock(date) {
-    var hour = date.getHours();
-    if (hour >= 10 && hour < 17) return 'noon';
-    if (hour >= 17 && hour < 21) return 'dusk';
-    return 'midnight';
+  var layers = Array.from(root.querySelectorAll('img[data-src]'));
+  var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  function hourFromClock() {
+    var hour = new Date().getHours();
+    return hour >= 10 && hour < 17 ? 'noon' : hour >= 17 && hour < 21 ? 'dusk' : 'midnight';
   }
-
-  function apply(hour) {
-    if (hours.indexOf(hour) === -1) hour = 'noon';
-    document.documentElement.setAttribute('data-hour', hour);
-    root.setAttribute('data-active-hour', hour);
-  }
-
-  try {
-    localStorage.removeItem('fariablog-hour');
-    sessionStorage.removeItem('fariablog-hour');
-  } catch (error) {}
-
-  apply(hourFromClock(new Date()));
-  window.requestAnimationFrame(function () {
-    document.documentElement.classList.add('hours-armed');
-  });
-
-  window.setInterval(function () {
-    apply(hourFromClock(new Date()));
-  }, 60000);
-
-  window.addEventListener('pageshow', function () {
-    apply(hourFromClock(new Date()));
-  });
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) return;
-    apply(hourFromClock(new Date()));
-  });
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion || !scene) return;
-
-  var max = 8;
-  var x = 0;
-  var y = 0;
-  var targetX = 0;
-  var targetY = 0;
-  var frame = 0;
-
-  function tick() {
-    x += (targetX - x) * 0.08;
-    y += (targetY - y) * 0.08;
-    scene.style.transform = 'translate(' + x.toFixed(2) + 'px, ' + y.toFixed(2) + 'px) scale(1.04)';
-    if (Math.abs(targetX - x) > 0.05 || Math.abs(targetY - y) > 0.05) {
-      frame = window.requestAnimationFrame(tick);
-    } else {
-      frame = 0;
+  function load(img) {
+    if (!img.src) {
+      if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+      img.src = img.dataset.src;
     }
+    return img.decode().catch(function () {});
   }
-
-  window.addEventListener('mousemove', function (event) {
-    var rect = root.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    var px = (event.clientX - rect.left) / rect.width - 0.5;
-    var py = (event.clientY - rect.top) / rect.height - 0.5;
-    targetX = -px * max * 2;
-    targetY = -py * max * 2;
-    if (!frame) frame = window.requestAnimationFrame(tick);
-  });
+  var revision = 0;
+  function apply() {
+    var hour = hourFromClock();
+    var current = ++revision;
+    var img = layers.find(function (layer) { return layer.dataset.hour === hour; });
+    if (!img) return;
+    load(img).then(function () {
+      if (current !== revision || !img.naturalWidth) return;
+      document.documentElement.dataset.hour = hour;
+      root.dataset.activeHour = hour;
+      layers.forEach(function (layer) { layer.setAttribute('aria-hidden', String(layer !== img)); });
+      requestAnimationFrame(function () { document.documentElement.classList.add('hours-armed'); });
+    });
+  }
+  function warm() {
+    var connection = navigator.connection;
+    if (connection && (connection.saveData || /2g/.test(connection.effectiveType))) return;
+    var run = function () { layers.forEach(load); };
+    if ('requestIdleCallback' in window) window.requestIdleCallback(run);
+    else window.setTimeout(run, 1500);
+  }
+  if (document.readyState === 'complete') warm();
+  else window.addEventListener('load', warm, { once: true });
+  apply();
+  window.setInterval(apply, 60000);
+  window.addEventListener('pageshow', apply);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) apply(); });
+  if (!scene) return;
+  var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0;
+  var height = root.offsetHeight;
+  var top = root.offsetTop;
+  function tick() {
+    frame = 0;
+    if (motion.matches) { scene.style.transform = ''; return; }
+    x += (targetX - x) * .12;
+    y += (targetY - y) * .12;
+    var progress = Math.max(0, Math.min(1, (window.scrollY - top) / height));
+    scene.style.transform = 'translate(' + x.toFixed(2) + 'px,' + (y + progress * 4).toFixed(2) + 'px) scale(' + (1.04 + progress * .02).toFixed(4) + ')';
+    if (Math.abs(x - targetX) > .05 || Math.abs(y - targetY) > .05) schedule();
+  }
+  function schedule() { if (!frame) frame = requestAnimationFrame(tick); }
+  root.addEventListener('pointermove', function (event) {
+    if (motion.matches || !pointer.matches || event.pointerType === 'touch') return;
+    targetX = -(event.clientX / window.innerWidth - .5) * 12;
+    targetY = -((event.clientY + window.scrollY - top) / height - .5) * 12;
+    schedule();
+  }, { passive: true });
+  function reset() { targetX = targetY = 0; schedule(); }
+  root.addEventListener('pointerleave', reset);
+  motion.addEventListener('change', reset);
+  pointer.addEventListener('change', reset);
+  window.addEventListener('scroll', function () { if (!motion.matches) schedule(); }, { passive: true });
+  window.addEventListener('resize', function () { height = root.offsetHeight; top = root.offsetTop; schedule(); });
 })();

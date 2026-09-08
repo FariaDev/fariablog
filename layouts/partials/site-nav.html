@@ -4,12 +4,12 @@
 {{- $about := .Site.GetPage "about" -}}
 {{- $isPosts := eq .Section "posts" -}}
 {{- $isSearch := eq .Layout "search" -}}
-<nav class="gooey-dock{{ if $isSearch }} is-searching{{ end }}" data-gooey-dock aria-label="{{ i18n "primary_navigation" }}">
-  <div class="gooey" data-gooey>
-    <a class="gooey-item" href="{{ .Site.Home.RelPermalink }}"{{ if .IsHome }} aria-current="page"{{ end }}>{{ i18n "nav_home" }}</a>
-    {{ with $posts }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if $isPosts }} aria-current="page"{{ end }}>{{ i18n "nav_writing" }}</a>{{ end }}
-    {{ with $books }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if eq $.Layout "books" }} aria-current="page"{{ end }}>{{ i18n "nav_books" }}</a>{{ end }}
-    {{ with $about }}<a class="gooey-item" href="{{ .RelPermalink }}"{{ if eq $.Layout "about" }} aria-current="page"{{ end }}>{{ i18n "nav_about" }}</a>{{ end }}
+<nav class="threshold-nav{{ if $isSearch }} is-searching{{ end }}" data-threshold-nav aria-label="{{ i18n "primary_navigation" }}">
+  <div class="threshold-links">
+    <a class="threshold-link" href="{{ .Site.Home.RelPermalink }}"{{ if .IsHome }} aria-current="page"{{ end }}><span>{{ i18n "nav_home" }}</span></a>
+    {{ with $posts }}<a class="threshold-link" href="{{ .RelPermalink }}"{{ if $isPosts }} aria-current="page"{{ end }}><span>{{ i18n "nav_writing" }}</span></a>{{ end }}
+    {{ with $books }}<a class="threshold-link" href="{{ .RelPermalink }}"{{ if eq $.Layout "books" }} aria-current="page"{{ end }}><span>{{ i18n "nav_books" }}</span></a>{{ end }}
+    {{ with $about }}<a class="threshold-link" href="{{ .RelPermalink }}"{{ if eq $.Layout "about" }} aria-current="page"{{ end }}><span>{{ i18n "nav_about" }}</span></a>{{ end }}
   </div>
   {{ with $search }}
   <a class="search-lens" href="{{ .RelPermalink }}" data-search-open aria-label="{{ i18n "nav_search" }}" title="{{ i18n "nav_search" }}" aria-expanded="{{ if $isSearch }}true{{ else }}false{{ end }}">

@@ -54,6 +54,7 @@ python3 scripts/verify.py "$repo_root" "$production_dir" "$development_dir"
 node --check assets/js/search.js
 node --check assets/js/article.js
 node --check assets/js/house.js
+node --check assets/js/essay-transition.js
 node --check assets/js/dock.js
 npm test
 

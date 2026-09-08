@@ -1,6 +1,5 @@
 {{- $hour := .hour -}}
 {{- $alt := .alt -}}
-{{- $active := .active -}}
 {{- $prefix := .prefix | default "home" -}}
 {{- $resource := partial "image-resource.html" (dict "path" .path) -}}
 {{- $src := "" -}}
@@ -21,12 +20,23 @@
   <img
     class="home-layer"
     data-hour="{{ $hour }}"
-    src="{{ $src }}"
-    {{- if $srcset }} srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }}
+    data-src="{{ $src }}"
+    {{- if $srcset }} data-srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }}
     width="{{ .Width }}"
     height="{{ .Height }}"
     alt="{{ $alt }}"
+    aria-hidden="true"
     decoding="async"
-    fetchpriority="{{ if $active }}high{{ else }}low{{ end }}"
-    loading="eager">
+    fetchpriority="low">
+  <script>
+  (function (script) {
+    var img = script.previousElementSibling;
+    if (img.dataset.hour !== document.documentElement.dataset.hour) return;
+    img.fetchPriority = 'high';
+    img.removeAttribute('aria-hidden');
+    if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+    img.src = img.dataset.src;
+  })(document.currentScript);
+  </script>
+  {{ if eq $hour "noon" }}<noscript><img loading="eager" class="home-layer" data-hour="noon" src="{{ $src }}" {{ if $srcset }}srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }} width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}"></noscript>{{ end }}
 {{- end -}}

@@ -2,23 +2,24 @@
 {{- $posts := sort .Pages "Date" "desc" -}}
 <article class="home-window texts-window" data-house-window data-active-hour="noon">
   <div class="home-scene has-scrim" data-house-scene>
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt") "active" true) }}
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt") "active" false) }}
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt") "active" false) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt")) }}
   </div>
   <div class="texts-words">
     <h1>{{ .Title }}</h1>
     <nav class="texts-index" aria-label="{{ .Title }}">
       {{- range $i, $page := $posts }}
-      <a class="texts-row" href="{{ $page.RelPermalink }}" title="{{ $page.Title }}" style="--fx-row:{{ $i }}">
+      <a class="texts-row" href="{{ $page.RelPermalink }}" title="{{ $page.Title }}">
         <span class="texts-row-inner">
-          <span class="texts-num">[{{ add $i 1 }}]</span>
-          <span class="texts-leader" aria-hidden="true">.......................................................................................................................</span>
+          <span class="texts-num">{{ printf "%02d" (add $i 1) }}</span>
+          <span class="texts-divider" aria-hidden="true">/</span>
           <span class="texts-label">{{ partial "spine.html" $page }}</span>
         </span>
       </a>
       {{- end }}
     </nav>
   </div>
+  {{ partial "site-nav.html" . }}
 </article>
 {{ end }}
