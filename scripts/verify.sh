@@ -45,6 +45,8 @@ verify_tmp="$(mktemp -d "${TMPDIR:-/tmp}/fariablog-verify.XXXXXX")"
 trap 'rm -rf "$verify_tmp"' EXIT
 export HUGO_CACHEDIR="$verify_tmp/cache"
 
+python3 scripts/build-house-avif.py --check
+
 production_dir="$verify_tmp/production"
 development_dir="$verify_tmp/development"
 hugo --gc --minify --environment production --destination "$production_dir"
@@ -54,6 +56,7 @@ python3 scripts/verify.py "$repo_root" "$production_dir" "$development_dir"
 node --check assets/js/search.js
 node --check assets/js/article.js
 node --check assets/js/house.js
+node --check assets/js/fireflies.js
 node --check assets/js/essay-transition.js
 node --check assets/js/dock.js
 npm test

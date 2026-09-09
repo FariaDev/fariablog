@@ -1,48 +1,110 @@
 (function () {
+  var html = document.documentElement;
   var root = document.querySelector('[data-house-window]');
-  if (!root) return;
-  var scene = root.querySelector('[data-house-scene]');
-  var layers = Array.from(root.querySelectorAll('img[data-src]'));
+  var scene = root && root.querySelector('[data-house-scene]');
+  var layers = root ? Array.from(root.querySelectorAll('img[data-src]')) : [];
+  var lamp = root && root.querySelector('[data-desk-lamp]');
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var desiredLamp = html.dataset.lamp === 'off' ? 'off' : 'on';
+  var revision = 0, active = null, fadeTimer, lampPending = false;
   function hourFromClock() {
     var hour = new Date().getHours();
     return hour >= 10 && hour < 17 ? 'noon' : hour >= 17 && hour < 21 ? 'dusk' : 'midnight';
   }
+  function selected(hour) {
+    return layers.find(function (img) {
+      return img.dataset.hour === hour && (!img.dataset.lamp || img.dataset.lamp === desiredLamp);
+    });
+  }
   function load(img) {
     if (!img.src) {
+      var source = img.parentElement.querySelector('source');
+      if (source && source.dataset.srcset) source.srcset = source.dataset.srcset;
       if (img.dataset.srcset) img.srcset = img.dataset.srcset;
       img.src = img.dataset.src;
     }
     return img.decode().catch(function () {});
   }
-  var revision = 0;
-  function apply() {
+  function updateLamp(hour, busy) {
+    if (!lamp) return;
+    lamp.hidden = hour === 'noon';
+    lamp.setAttribute('aria-busy', String(busy));
+    lamp.setAttribute('aria-pressed', String(html.dataset.lamp !== 'off'));
+  }
+  function clearFade() {
+    window.clearTimeout(fadeTimer);
+    layers.forEach(function (layer) { layer.classList.remove('is-outgoing'); });
+    if (root) root.classList.remove('lamp-changing');
+  }
+  function apply(fromLamp) {
+    if (!fromLamp && lampPending) return;
+    // BFCache can restore a room opened before the lamp changed elsewhere.
+    if (!fromLamp) {
+      try { desiredLamp = window.sessionStorage.getItem('fariablog-lamp') === 'off' ? 'off' : 'on'; } catch (_) {}
+    }
     var hour = hourFromClock();
     var current = ++revision;
-    var img = layers.find(function (layer) { return layer.dataset.hour === hour; });
+    var img = selected(hour);
+    if (!root) { html.dataset.hour = hour; return; }
     if (!img) return;
+    updateLamp(hour, Boolean(fromLamp));
     load(img).then(function () {
-      if (current !== revision || !img.naturalWidth) return;
-      document.documentElement.dataset.hour = hour;
+      if (current !== revision) return;
+      lampPending = false;
+      if (!img.naturalWidth) {
+        desiredLamp = html.dataset.lamp === 'off' ? 'off' : 'on';
+        updateLamp(html.dataset.hour, false);
+        return;
+      }
+      if (active !== img) {
+        clearFade();
+        if (active && !motion.matches) {
+          active.classList.add('is-outgoing');
+          if (fromLamp) root.classList.add('lamp-changing');
+          fadeTimer = window.setTimeout(clearFade, fromLamp ? 1100 : 1850);
+        }
+      }
+      html.dataset.hour = hour;
+      html.dataset.lamp = desiredLamp;
       root.dataset.activeHour = hour;
+      active = img;
       layers.forEach(function (layer) { layer.setAttribute('aria-hidden', String(layer !== img)); });
-      requestAnimationFrame(function () { document.documentElement.classList.add('hours-armed'); });
+      if (fromLamp) { try { window.sessionStorage.setItem('fariablog-lamp', desiredLamp); } catch (_) {} }
+      updateLamp(hour, false);
+      requestAnimationFrame(function () { html.classList.add('hours-armed'); });
     });
   }
   function warm() {
     var connection = navigator.connection;
     if (connection && (connection.saveData || /2g/.test(connection.effectiveType))) return;
-    var run = function () { layers.forEach(load); };
+    var run = function () { ['noon', 'dusk', 'midnight'].map(selected).filter(Boolean).forEach(load); };
     if ('requestIdleCallback' in window) window.requestIdleCallback(run);
     else window.setTimeout(run, 1500);
   }
-  if (document.readyState === 'complete') warm();
-  else window.addEventListener('load', warm, { once: true });
-  apply();
-  window.setInterval(apply, 60000);
-  window.addEventListener('pageshow', apply);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) apply(); });
+  if (root) {
+    if (document.readyState === 'complete') warm();
+    else window.addEventListener('load', warm, { once: true });
+  }
+  if (lamp) lamp.addEventListener('click', function () {
+    lampPending = true;
+    desiredLamp = desiredLamp === 'on' ? 'off' : 'on';
+    apply(true);
+  });
+  apply(false);
+  window.setInterval(function () { if (!document.hidden) apply(false); }, 60000);
+  window.addEventListener('pageshow', function () { apply(false); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) apply(false); });
+  var descent = root && root.querySelector('.scene-descent');
+  if (descent) descent.addEventListener('click', function (event) {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var target = document.getElementById('leitura');
+    if (!target) return;
+    event.preventDefault();
+    if (window.location.hash !== '#leitura') window.history.pushState(null, '', '#leitura');
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth', block: 'start' });
+  });
   if (!scene) return;
   var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0;
   var height = root.offsetHeight;

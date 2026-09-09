@@ -1,6 +1,9 @@
 {{ define "main" }}
 <article class="quiet-page article-content">
-  <img class="window-signature" src="{{ "favicon.svg" | relURL }}" width="48" height="48" alt="">
+  <figure class="temporal-signature">
+    {{ (resources.Get "brand/window.svg").Content | safeHTML }}
+    <figcaption>{{ i18n "temporal_window" }}</figcaption>
+  </figure>
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 </article>

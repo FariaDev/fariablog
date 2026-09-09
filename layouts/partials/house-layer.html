@@ -1,42 +1,52 @@
 {{- $hour := .hour -}}
 {{- $alt := .alt -}}
-{{- $prefix := .prefix | default "home" -}}
+{{- $lamp := .lamp | default "" -}}
+{{- $name := replace (strings.TrimSuffix ".jpg" (strings.TrimPrefix "images/" .path)) "/" "-" -}}
 {{- $resource := partial "image-resource.html" (dict "path" .path) -}}
 {{- $src := "" -}}
 {{- $srcset := slice -}}
+{{- $avifset := slice -}}
+{{- $coverSizes := "(min-aspect-ratio: 16/9) 110vw, calc(100vh * 1.96)" -}}
+{{- with index site.Data.house_images.sources .path -}}
+  {{- range .variants -}}
+    {{- $avif := resources.Get .path -}}
+    {{- $copy := resources.Copy (printf "processed-images/%s-%d.avif" $name (int .width)) $avif -}}
+    {{- $variant := $copy | fingerprint "sha256" -}}
+    {{- $avifset = $avifset | append (printf "%s %dw" $variant.RelPermalink (int .width)) -}}
+  {{- end -}}
+{{- end -}}
 {{- with $resource -}}
   {{- $src = .RelPermalink -}}
   {{- if hugo.IsExtended -}}
-    {{- range slice "720" "1080" "1280" -}}
+    {{- range slice "720" "1080" "1280" "1536" -}}
       {{- if ge $resource.Width (int .) -}}
         {{- $resized := $resource.Resize (printf "%sx webp q90" .) -}}
-        {{- $copied := resources.Copy (printf "processed-images/%s-%s-%s.webp" $prefix $hour .) $resized -}}
+        {{- $copied := resources.Copy (printf "processed-images/%s-%s.webp" $name .) $resized -}}
         {{- $variant := $copied | fingerprint "sha256" -}}
         {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink .) -}}
         {{- $src = $variant.RelPermalink -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
-  <img
-    class="home-layer"
-    data-hour="{{ $hour }}"
-    data-src="{{ $src }}"
-    {{- if $srcset }} data-srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }}
-    width="{{ .Width }}"
-    height="{{ .Height }}"
-    alt="{{ $alt }}"
-    aria-hidden="true"
-    decoding="async"
-    fetchpriority="low">
+  <picture class="house-picture">
+    <source type="image/avif" data-srcset="{{ delimit $avifset ", " }}" sizes="{{ $coverSizes }}">
+    <img class="home-layer" data-hour="{{ $hour }}" {{ with $lamp }}data-lamp="{{ . }}"{{ end }}
+      data-src="{{ $src }}" {{ if $srcset }}data-srcset="{{ delimit $srcset ", " }}" sizes="{{ $coverSizes }}"{{ end }}
+      width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}" aria-hidden="true" decoding="async" fetchpriority="low">
+  </picture>
   <script>
   (function (script) {
-    var img = script.previousElementSibling;
-    if (img.dataset.hour !== document.documentElement.dataset.hour) return;
+    var picture = script.previousElementSibling;
+    var img = picture.querySelector('img');
+    var state = document.documentElement.dataset;
+    if (img.dataset.hour !== state.hour || (img.dataset.lamp && img.dataset.lamp !== (state.lamp || 'on'))) return;
     img.fetchPriority = 'high';
     img.removeAttribute('aria-hidden');
+    var source = picture.querySelector('source');
+    if (source && source.dataset.srcset) source.srcset = source.dataset.srcset;
     if (img.dataset.srcset) img.srcset = img.dataset.srcset;
     img.src = img.dataset.src;
   })(document.currentScript);
   </script>
-  {{ if eq $hour "noon" }}<noscript><img loading="eager" class="home-layer" data-hour="noon" src="{{ $src }}" {{ if $srcset }}srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }} width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}"></noscript>{{ end }}
+  {{ if eq $hour "noon" }}<noscript><picture><source type="image/avif" srcset="{{ delimit $avifset ", " }}" sizes="{{ $coverSizes }}"><img loading="eager" class="home-layer" data-hour="noon" src="{{ $src }}" {{ if $srcset }}srcset="{{ delimit $srcset ", " }}" sizes="{{ $coverSizes }}"{{ end }} width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}"></picture></noscript>{{ end }}
 {{- end -}}

@@ -30,6 +30,7 @@ class DocumentParser(html.parser.HTMLParser):
         self.metas = []
         self.links = []
         self.images = []
+        self.sources = []
         self.references = []
         self.jsonld = []
         self._jsonld_buffer = None
@@ -42,6 +43,8 @@ class DocumentParser(html.parser.HTMLParser):
             self.metas.append(attrs_dict)
         if tag.lower() == "link":
             self.links.append(attrs_dict)
+        if tag.lower() == "source":
+            self.sources.append(attrs_dict)
         if tag.lower() == "img":
             self.images.append(attrs_dict)
         if "href" in attrs_dict:
@@ -359,6 +362,9 @@ portuguese_about = (production / "pt-br" / "about" / "index.html").read_text(enc
 require("fariablog1@gmail.com" in english_about and "fariablog1@gmail.com" in portuguese_about, "about page is missing the writing address")
 require('data-house-window' in english_about, "about is missing the house window")
 require("/js/house." in english_about, "about is missing its house script")
+require("/processed-images/desk-" in english_home_text and "data-desk-lamp" in english_home_text, "home must use the interactive writing desk")
+require("/processed-images/about-" in english_about, "about must use the overhead desk scene")
+require((repo / "assets/brand/window.svg").read_bytes() == (repo / "static/favicon.svg").read_bytes(), "favicon differs from the colophon master; run scripts/build-icons.sh")
 require("data-hour=noon" in english_about and "data-hour=dusk" in english_about and "data-hour=midnight" in english_about, "about is missing the three hours")
 english_contact = (production / "en" / "contact" / "index.html").read_text(encoding="utf-8")
 require("/en/about/" in english_contact, "contact page does not point to about")
@@ -455,6 +461,17 @@ for path, (parser, _) in prod_docs.items():
             candidate_path = urlparse(candidate_url).path
             require(candidate_path.startswith("/processed-images/") and re.search(r"\.[0-9a-f]{64}\.webp$", candidate_path), f"responsive image is not content-addressed: {candidate_url!r} in {path}")
             require(local_target(production, path, candidate_url) is not None, f"broken responsive image source {candidate_url!r} in {path}")
+
+for path, (doc, _) in prod_docs.items():
+    for source in doc.sources:
+        if source.get("type") != "image/avif":
+            continue
+        candidates = source.get("data-srcset") or source.get("srcset")
+        require(candidates, f"empty AVIF sources in {path}")
+        for candidate in candidates.split(","):
+            url = candidate.strip().split()[0]
+            require(re.search(r"\.[0-9a-f]{64}\.avif$", url), f"AVIF is not fingerprinted: {url}")
+            require(local_target(production, path, url) is not None, f"missing AVIF: {url}")
 
 processed_images = sorted((production / "processed-images").glob("*.webp"))
 require(processed_images, "production build emitted no processed image variants")

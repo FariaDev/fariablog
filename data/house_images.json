@@ -1,0 +1,543 @@
+{
+  "version": 1,
+  "settings": {
+    "quality": 60,
+    "depth": 10,
+    "speed": 6,
+    "widths": [
+      720,
+      1080,
+      1280
+    ],
+    "extra_widths": {
+      "desk": [
+        1536
+      ],
+      "about": [
+        1536
+      ]
+    }
+  },
+  "sources": {
+    "images/about/dusk-off.jpg": {
+      "sha256": "c0dbacf743eed7cb4b2225af38dfe9e73909fb19605fe0b3b0d47e968da22799",
+      "variants": [
+        {
+          "path": "house-avif/about/dusk-off-720.avif",
+          "width": 720,
+          "sha256": "d005d1dd5fccfacf4f41f1a1807fc0bcfdfbfcef9fa613a9278cd65a3a696f5e",
+          "bytes": 21709
+        },
+        {
+          "path": "house-avif/about/dusk-off-1080.avif",
+          "width": 1080,
+          "sha256": "a48d12c31341345f45310bbb0acf924c806b41070d58729df5fa0a7319c7f37e",
+          "bytes": 43245
+        },
+        {
+          "path": "house-avif/about/dusk-off-1280.avif",
+          "width": 1280,
+          "sha256": "e8ff5c0901414e1eed1331e53bd9b80f40bb30c9c6dafd707d3c64ee72e16115",
+          "bytes": 56669
+        },
+        {
+          "path": "house-avif/about/dusk-off-1536.avif",
+          "width": 1536,
+          "sha256": "81b8c6d2bc3c699f1d73ad428a07766b3a60d37f1186d3d2f5f7ae0c9e45f80e",
+          "bytes": 75450
+        }
+      ]
+    },
+    "images/about/dusk.jpg": {
+      "sha256": "ce19764bddae2ade355aaf5c99d0b90967d0979ee18c0d5a7c36eddfa89e35aa",
+      "variants": [
+        {
+          "path": "house-avif/about/dusk-720.avif",
+          "width": 720,
+          "sha256": "6ddbe73963487728cee73e311c7d3f92aa09bf5455e6edfa46787e8915e9418f",
+          "bytes": 24631
+        },
+        {
+          "path": "house-avif/about/dusk-1080.avif",
+          "width": 1080,
+          "sha256": "31b81cce4516e96c3d22e1015c1ac48640f41bc1dc1a29d6d1761f250974244b",
+          "bytes": 49211
+        },
+        {
+          "path": "house-avif/about/dusk-1280.avif",
+          "width": 1280,
+          "sha256": "e8b9d25f3da4660a400c1dd76b82ccf791dad284e91cdd5313ee043050372954",
+          "bytes": 64781
+        },
+        {
+          "path": "house-avif/about/dusk-1536.avif",
+          "width": 1536,
+          "sha256": "be52f7c8a062a266d2335966ff1073700b6b4e4e8fa471e59dae33d312864d65",
+          "bytes": 86383
+        }
+      ]
+    },
+    "images/about/midnight-off.jpg": {
+      "sha256": "64cae3836380ff42e83bb226ad87ea03aadd2ea4f3a5fc61b80f0fcbee6bc2f3",
+      "variants": [
+        {
+          "path": "house-avif/about/midnight-off-720.avif",
+          "width": 720,
+          "sha256": "a6122f3f211aaebe03a5989933e12ab69df590e7f085ebea5a842c2e9a490bfd",
+          "bytes": 15590
+        },
+        {
+          "path": "house-avif/about/midnight-off-1080.avif",
+          "width": 1080,
+          "sha256": "9d6319c2e28e6a5533315cd14d068bfe16135c6641f8cfe8e921337033cf89d5",
+          "bytes": 30548
+        },
+        {
+          "path": "house-avif/about/midnight-off-1280.avif",
+          "width": 1280,
+          "sha256": "3ead123482ca986d3ba4c2262179a24b158693dfd95014fd34cfee7b2bc7ffb5",
+          "bytes": 40203
+        },
+        {
+          "path": "house-avif/about/midnight-off-1536.avif",
+          "width": 1536,
+          "sha256": "d65c237169aebc89dba134cb6fbea8bb190b9fd0076fe8651abadd5523a13d78",
+          "bytes": 53218
+        }
+      ]
+    },
+    "images/about/midnight.jpg": {
+      "sha256": "02db435a05d2af4a57d60e95cc2f2879dd78cd5923ffee9972a53e3c1c7dc0b3",
+      "variants": [
+        {
+          "path": "house-avif/about/midnight-720.avif",
+          "width": 720,
+          "sha256": "262ef47a8cfa284a037eca2a33cbd7339b6f5e22dc18c94f25740c396b81eb3a",
+          "bytes": 21215
+        },
+        {
+          "path": "house-avif/about/midnight-1080.avif",
+          "width": 1080,
+          "sha256": "cd836e2b3985bc0f8a1c41944b2bae392f0121df8cb286e741db238ff5b9869e",
+          "bytes": 42390
+        },
+        {
+          "path": "house-avif/about/midnight-1280.avif",
+          "width": 1280,
+          "sha256": "b303159228c521cfb5fd29e8fe9201e6c4ae93a6f6bdb98c17a249448a865c4f",
+          "bytes": 56283
+        },
+        {
+          "path": "house-avif/about/midnight-1536.avif",
+          "width": 1536,
+          "sha256": "0e2b5a0794d49fd6fcc8c09f0b0d6f30e55096e482e084e5298d147a42a56441",
+          "bytes": 75054
+        }
+      ]
+    },
+    "images/about/noon.jpg": {
+      "sha256": "78bb96a4f5216542d7689326a7cadfd97a5a2036092d36750d797c6500e987e9",
+      "variants": [
+        {
+          "path": "house-avif/about/noon-720.avif",
+          "width": 720,
+          "sha256": "8238373098c3ac68ef4a26e123e46faeb37e20b7995f6e483f96dcfbef0c9335",
+          "bytes": 29173
+        },
+        {
+          "path": "house-avif/about/noon-1080.avif",
+          "width": 1080,
+          "sha256": "e9bbd8b5130915664899bde4d40782ea7abb1eca1abd1ebe96db927b291ecf52",
+          "bytes": 59769
+        },
+        {
+          "path": "house-avif/about/noon-1280.avif",
+          "width": 1280,
+          "sha256": "c9f78776a33017c85bee51221fa6d4f8fad2da59315b6d1822de66853f0334e5",
+          "bytes": 79865
+        },
+        {
+          "path": "house-avif/about/noon-1536.avif",
+          "width": 1536,
+          "sha256": "e3acdcf93d786178e0baa081fa074b51317063034b4aefe2b639a9ed7cb1799f",
+          "bytes": 106794
+        }
+      ]
+    },
+    "images/desk/dusk-off.jpg": {
+      "sha256": "4a07317aff4cf4f0597c4665525eb70b801759f9a69692e14fd057b796f708c5",
+      "variants": [
+        {
+          "path": "house-avif/desk/dusk-off-720.avif",
+          "width": 720,
+          "sha256": "a1a13621a7d140ecace0606c13c6e604c622a51f0f93d4fa25c9064cc2a73b5b",
+          "bytes": 19868
+        },
+        {
+          "path": "house-avif/desk/dusk-off-1080.avif",
+          "width": 1080,
+          "sha256": "f28248c557e20cf93f249f04029aee0e63ccf6a7ec432ca984141d8082a4cc65",
+          "bytes": 36349
+        },
+        {
+          "path": "house-avif/desk/dusk-off-1280.avif",
+          "width": 1280,
+          "sha256": "2befd39f3bda180c931cc43189d0cc51df2d89d5cc21a559b92b2fa481b37df5",
+          "bytes": 46909
+        },
+        {
+          "path": "house-avif/desk/dusk-off-1536.avif",
+          "width": 1536,
+          "sha256": "a86556ce36d4c6c175bddb2f28f61e48654d4f657eb1282113e0e14158248e04",
+          "bytes": 60087
+        }
+      ]
+    },
+    "images/desk/dusk.jpg": {
+      "sha256": "b9579a615d7dccb26a9977bfe5ec9271cf368b7782acbbcdf62f9a29712cf62b",
+      "variants": [
+        {
+          "path": "house-avif/desk/dusk-720.avif",
+          "width": 720,
+          "sha256": "9edae954bac3767ee0e19ac868c7b7a04f09d3537c22ccc7fb8b5ba3f2e43476",
+          "bytes": 20819
+        },
+        {
+          "path": "house-avif/desk/dusk-1080.avif",
+          "width": 1080,
+          "sha256": "dbd8e5436d9a9f90e2913e622ceb5da2e46fe8dd6a1e7ee15d2f833c047c4d3e",
+          "bytes": 39428
+        },
+        {
+          "path": "house-avif/desk/dusk-1280.avif",
+          "width": 1280,
+          "sha256": "c5e823898de7c0f0731ac6a2daa88072b92f459d189c64ae2ae401316029f162",
+          "bytes": 51573
+        },
+        {
+          "path": "house-avif/desk/dusk-1536.avif",
+          "width": 1536,
+          "sha256": "108c25c049b6e31f6723c8e7ee75f2cc295ada49b34f17a5e17b3e911c0dfc7a",
+          "bytes": 67060
+        }
+      ]
+    },
+    "images/desk/midnight-off.jpg": {
+      "sha256": "de0726a8603ca5e73707be771ad91a583d8aa7854bc4e00fdadccdba9cdd308c",
+      "variants": [
+        {
+          "path": "house-avif/desk/midnight-off-720.avif",
+          "width": 720,
+          "sha256": "72093782a5fe1d87a6921a929b05d8ccd8b5fa2bf590859ea5a233a5f06c71f5",
+          "bytes": 12429
+        },
+        {
+          "path": "house-avif/desk/midnight-off-1080.avif",
+          "width": 1080,
+          "sha256": "ffbd64a428fb88e2303432ac8e251557f2ff00e754c52a06a02138918ccb179b",
+          "bytes": 23197
+        },
+        {
+          "path": "house-avif/desk/midnight-off-1280.avif",
+          "width": 1280,
+          "sha256": "e909cfe77abf68093bffa62750624025541ef10def9818d4c8c5b86fcb0629cb",
+          "bytes": 29785
+        },
+        {
+          "path": "house-avif/desk/midnight-off-1536.avif",
+          "width": 1536,
+          "sha256": "0aa6b778f9ed30a77883bed0331ee130587e56db8d39fddddee44054eabfecfa",
+          "bytes": 38363
+        }
+      ]
+    },
+    "images/desk/midnight.jpg": {
+      "sha256": "be27ffea7da262bb876f37c4510f02a42c9a7e5c79b440b192973035e2bab74f",
+      "variants": [
+        {
+          "path": "house-avif/desk/midnight-720.avif",
+          "width": 720,
+          "sha256": "e8d366e0a0b4d3b0a93d380ea2a76afced32ffc7178f9093be615d46f0faed58",
+          "bytes": 15596
+        },
+        {
+          "path": "house-avif/desk/midnight-1080.avif",
+          "width": 1080,
+          "sha256": "1d4e53f91626afff1623f871080cef82dc8ae13b7daffd21ab6a75a79ef04bfd",
+          "bytes": 29128
+        },
+        {
+          "path": "house-avif/desk/midnight-1280.avif",
+          "width": 1280,
+          "sha256": "cf706ee425b518d0e50c57c6078ee59243d56e6d7e3e59f5c3fd21e4ecc9a867",
+          "bytes": 37523
+        },
+        {
+          "path": "house-avif/desk/midnight-1536.avif",
+          "width": 1536,
+          "sha256": "bb20253febc55eb6df9710bc4c31155f12e553395debeeb50871704e781f3db2",
+          "bytes": 48567
+        }
+      ]
+    },
+    "images/desk/noon.jpg": {
+      "sha256": "203de42c66687b45929aa52766a7d43d9588785e4534df974b7e5f9ece50c956",
+      "variants": [
+        {
+          "path": "house-avif/desk/noon-720.avif",
+          "width": 720,
+          "sha256": "0cda78feeb3ea90fa6c6fccaa9f949d3ac2c676c5e061f0ff69765b632b8a8c3",
+          "bytes": 21810
+        },
+        {
+          "path": "house-avif/desk/noon-1080.avif",
+          "width": 1080,
+          "sha256": "5ee78cd29f0b23950a30c7eb48882a73db1fd02e97af994920f3d03266970aec",
+          "bytes": 42072
+        },
+        {
+          "path": "house-avif/desk/noon-1280.avif",
+          "width": 1280,
+          "sha256": "5ba93b6a33569fef53019ef260d571ea00abbbf697436703c449ed705b1b5010",
+          "bytes": 55227
+        },
+        {
+          "path": "house-avif/desk/noon-1536.avif",
+          "width": 1536,
+          "sha256": "8faec552f47f3519e2ca38bdcdb434db9d7ce81f6861acca79aafb169410ee0a",
+          "bytes": 71164
+        }
+      ]
+    },
+    "images/home/dusk.jpg": {
+      "sha256": "0a82f5df286f21893c86a26ccb1d2924a2581da3498ea3ab8458677351b166f0",
+      "variants": [
+        {
+          "path": "house-avif/home/dusk-720.avif",
+          "width": 720,
+          "sha256": "b2ddaa3fb917deea820db8104d972ce26ed1ed8b5d68a43b400b7905cc9efb0d",
+          "bytes": 20928
+        },
+        {
+          "path": "house-avif/home/dusk-1080.avif",
+          "width": 1080,
+          "sha256": "8556d3b0d4711a459b86bfb71aaf975e84018032aaa47e3419e5143d051e7d10",
+          "bytes": 40329
+        },
+        {
+          "path": "house-avif/home/dusk-1280.avif",
+          "width": 1280,
+          "sha256": "582adf848a9bfb60e5822cc3797be77145e3741fc55468c67e32742d183f8814",
+          "bytes": 53974
+        }
+      ]
+    },
+    "images/home/midnight.jpg": {
+      "sha256": "01eb938600dd6acb980f38866aac3cc3c1964de66a9fdcc809212ea42b13a37b",
+      "variants": [
+        {
+          "path": "house-avif/home/midnight-720.avif",
+          "width": 720,
+          "sha256": "f25cc62018e6425fd8b854b91240cc80e7ca9da8a4911c3ce98bf5980a022dc4",
+          "bytes": 14451
+        },
+        {
+          "path": "house-avif/home/midnight-1080.avif",
+          "width": 1080,
+          "sha256": "b0d32ad7da0219faac4bcebf76d22dfecaa6e71bbcc11cd03c8c219b750a3416",
+          "bytes": 28186
+        },
+        {
+          "path": "house-avif/home/midnight-1280.avif",
+          "width": 1280,
+          "sha256": "e599a620a5d027343ba3a9bfb4ddbd433c013a5b2f5a986415e27af3dc9c49d5",
+          "bytes": 37304
+        }
+      ]
+    },
+    "images/home/noon.jpg": {
+      "sha256": "c832d189ccae206fd4cb3156a58ed6cd59145ca77df0979334cedfe5f88ce355",
+      "variants": [
+        {
+          "path": "house-avif/home/noon-720.avif",
+          "width": 720,
+          "sha256": "416b199e5870e2779f565b277a8bd13a05fed38a7b3d6270980a6acc1e72c140",
+          "bytes": 21581
+        },
+        {
+          "path": "house-avif/home/noon-1080.avif",
+          "width": 1080,
+          "sha256": "786879ed71a39e093a94fa08387d93570ad65fe48523b306dcedbc548b80aa1a",
+          "bytes": 41937
+        },
+        {
+          "path": "house-avif/home/noon-1280.avif",
+          "width": 1280,
+          "sha256": "f5ca1397e12280217404fff2c7247edecca8527ca398c3591c0a11f95c0ba354",
+          "bytes": 55674
+        }
+      ]
+    },
+    "images/shelf/dusk.jpg": {
+      "sha256": "f66c4277e6efd4efd77c28bc77fb6145e065498e2d5a4be5feb9d9f1f64c3664",
+      "variants": [
+        {
+          "path": "house-avif/shelf/dusk-720.avif",
+          "width": 720,
+          "sha256": "be9ed64414a7a60adf363e201b357a231161ea46d730ffb0aabd41bc1a1c9b1a",
+          "bytes": 21581
+        },
+        {
+          "path": "house-avif/shelf/dusk-1080.avif",
+          "width": 1080,
+          "sha256": "5a3bf30073f88ec520094c0def874ba965b382c17475e443080bba9bf72b165b",
+          "bytes": 42314
+        },
+        {
+          "path": "house-avif/shelf/dusk-1280.avif",
+          "width": 1280,
+          "sha256": "16254da98546495e665c8f0178006659ab6408be9361a18e9c3a2093d4cedf36",
+          "bytes": 56833
+        }
+      ]
+    },
+    "images/shelf/midnight.jpg": {
+      "sha256": "f9e636ab64486b35d8c47655a1cf40efef466a5d4143e3e6a71bc652ad5313c2",
+      "variants": [
+        {
+          "path": "house-avif/shelf/midnight-720.avif",
+          "width": 720,
+          "sha256": "dcfc2493f952cb33684aa1dc94a06c4a04eef9433f11e707798dcd1b33147fff",
+          "bytes": 16173
+        },
+        {
+          "path": "house-avif/shelf/midnight-1080.avif",
+          "width": 1080,
+          "sha256": "57abcaabbabbd15907418ad4b3d342457396be76ad437595d4ac793c23fd650c",
+          "bytes": 31722
+        },
+        {
+          "path": "house-avif/shelf/midnight-1280.avif",
+          "width": 1280,
+          "sha256": "36aae343c431aad423eaf90ce726e82d4cda72b64b245441fb9e9bec7584c5a9",
+          "bytes": 41771
+        }
+      ]
+    },
+    "images/shelf/noon.jpg": {
+      "sha256": "807b3bbe7080b9b271662f5b3c47ef9335809106abc29edee2445282d3df6106",
+      "variants": [
+        {
+          "path": "house-avif/shelf/noon-720.avif",
+          "width": 720,
+          "sha256": "0c6fb0468ec124fc81eace4dd751b2ec0582c2f3be376b3b060baf2dac9f7ed7",
+          "bytes": 23087
+        },
+        {
+          "path": "house-avif/shelf/noon-1080.avif",
+          "width": 1080,
+          "sha256": "5b1ac4803b87a139e64ca3802045e1e753ae8a0f113db5962ff1ebf152ab5d59",
+          "bytes": 45069
+        },
+        {
+          "path": "house-avif/shelf/noon-1280.avif",
+          "width": 1280,
+          "sha256": "f8638dec9d83fce614b6baa7fefddb8d134a6290569469a3e81e805b625d9841",
+          "bytes": 58894
+        }
+      ]
+    },
+    "images/window/dusk.jpg": {
+      "sha256": "03b484ab7ed6a8d96afec066326b441aa8b68847d1176e59b0b4d80634ed1fb9",
+      "variants": [
+        {
+          "path": "house-avif/window/dusk-720.avif",
+          "width": 720,
+          "sha256": "02376f9202c51646150c1220fc68bff8acb771011d36154dba03851193c6e0f4",
+          "bytes": 16102
+        },
+        {
+          "path": "house-avif/window/dusk-1080.avif",
+          "width": 1080,
+          "sha256": "bcf6a28d7669c0d7d0a43a9d280f7c9f841a5b1b618dc36ed41ea067752ae9eb",
+          "bytes": 31365
+        },
+        {
+          "path": "house-avif/window/dusk-1280.avif",
+          "width": 1280,
+          "sha256": "18057bcf07b437b91de28d988404141eeb611f6bbcae10e6886aeeee9846fb62",
+          "bytes": 41624
+        }
+      ]
+    },
+    "images/window/midnight-off.jpg": {
+      "sha256": "1e4d2ef28c5e5917dc90445083f9871b6c255c0a094dea12ab0f688fa8136ca9",
+      "variants": [
+        {
+          "path": "house-avif/window/midnight-off-720.avif",
+          "width": 720,
+          "sha256": "8a9121c2f2aceb395b7fa206515189141244ca393d9fcaa57d784cdb18330669",
+          "bytes": 13865
+        },
+        {
+          "path": "house-avif/window/midnight-off-1080.avif",
+          "width": 1080,
+          "sha256": "1f7cf5795d9f02bcd224df74553af89eaafeb87c0d5eda52d96176ae86c5f402",
+          "bytes": 26284
+        },
+        {
+          "path": "house-avif/window/midnight-off-1280.avif",
+          "width": 1280,
+          "sha256": "34d216700a030e736d8c98e5aa48760fc472783f11ebab4db443c05b110fa9db",
+          "bytes": 34099
+        }
+      ]
+    },
+    "images/window/midnight.jpg": {
+      "sha256": "16cfbe494fad57129dd9c6f04d034b388ebd8583eb5211d992d80d516fa35181",
+      "variants": [
+        {
+          "path": "house-avif/window/midnight-720.avif",
+          "width": 720,
+          "sha256": "1461636a5aa9460cb20a683514da7334986e1eeee21bc6822a7c7c78977409d3",
+          "bytes": 12873
+        },
+        {
+          "path": "house-avif/window/midnight-1080.avif",
+          "width": 1080,
+          "sha256": "9e10903550df024db1c9f8fe776f89bc3e5e5836fcd1e4277a82ba1fd5f0c015",
+          "bytes": 24124
+        },
+        {
+          "path": "house-avif/window/midnight-1280.avif",
+          "width": 1280,
+          "sha256": "44703a15583f4446baa1f05ba03982927752e06d85e218e32ab565fe6afc7a16",
+          "bytes": 31298
+        }
+      ]
+    },
+    "images/window/noon.jpg": {
+      "sha256": "96bba34d57d4e014aa8de02f4e51d31c2c34d5ca4dd70684df37654e13653819",
+      "variants": [
+        {
+          "path": "house-avif/window/noon-720.avif",
+          "width": 720,
+          "sha256": "de110e20372b3d8ea017d1838aefb24287e32d9956b30a1d7c68594debf0cf92",
+          "bytes": 19003
+        },
+        {
+          "path": "house-avif/window/noon-1080.avif",
+          "width": 1080,
+          "sha256": "f9d54e2dc94fffcd1f9ad6d61406874d7faa8c032971084ea60cc4300c1722b7",
+          "bytes": 36537
+        },
+        {
+          "path": "house-avif/window/noon-1280.avif",
+          "width": 1280,
+          "sha256": "1d81aa12ee5727df3b711f2a700b2c206a159df9d5f878e64b8b9dd954ee0eea",
+          "bytes": 48722
+        }
+      ]
+    }
+  }
+}
