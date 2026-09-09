@@ -98,14 +98,14 @@ test('About initial paint selects exactly one lamp exposure, AVIF before WebP', 
     assert.ok(f.layers.find(i => i.src).parentElement.querySelector().srcset.endsWith('720w'));
   }
 });
-test('lamp waits for decoded exposure and persists only the successful switch', async () => {
+test('lamp saves the choice immediately but waits for decoded exposure', async () => {
   const f = lampFixture(); await flush();
   let finish;
   f.layers[4].decode = () => new Promise(r => { finish = r; });
   f.events.click();
   assert.equal(f.html.dataset.lamp, 'on');
   assert.equal(f.attrs['aria-busy'], 'true');
-  assert.deepEqual(f.storage, {});
+  assert.equal(f.storage['fariablog-lamp'], 'off');
   finish(); await flush();
   assert.equal(f.html.dataset.lamp, 'off');
   assert.equal(f.attrs['aria-pressed'], 'false');
@@ -118,10 +118,11 @@ test('failed and stale lamp decodes preserve the latest valid exposure', async (
   f.layers[4].decode = () => Promise.reject(new Error('network'));
   f.events.click(); await flush();
   assert.equal(f.html.dataset.lamp, 'on');
-  assert.deepEqual(f.storage, {});
+  assert.equal(f.storage['fariablog-lamp'], 'off');
   f.layers[4].naturalWidth = 720;
   let finish;
   f.layers[4].decode = () => new Promise(r => { finish = r; });
+  f.events.click(); await flush();
   f.events.click(); f.events.click(); await flush(); finish(); await flush();
   assert.equal(f.html.dataset.lamp, 'on');
   assert.equal(f.attrs['aria-busy'], 'false');
@@ -166,4 +167,24 @@ for (const reduced of [false, true]) test(`descent preserves focus and history w
   calls.length = 0;
   click({ button: 0, ctrlKey: true });
   assert.equal(calls.length, 0, 'modified links retain native navigation');
+});
+
+test('navigation before decode carries the chosen light into the next room', async () => {
+  const first = lampFixture(); await flush();
+  first.layers[4].decode = () => new Promise(() => {});
+  first.events.click();
+  const next = lampFixture({ stored: first.storage['fariablog-lamp'] }); await flush();
+  assert.equal(next.html.dataset.lamp, 'off');
+  assert.equal(next.attrs['aria-pressed'], 'false');
+});
+test('BFCache restore replaces a pending choice with the latest room preference', async () => {
+  const f = lampFixture(); await flush();
+  let finish;
+  f.layers[4].decode = () => new Promise(resolve => { finish = resolve; });
+  f.events.click();
+  f.storage['fariablog-lamp'] = 'on';
+  f.events.pageshow({ persisted: true }); await flush();
+  finish(); await flush();
+  assert.equal(f.html.dataset.lamp, 'on');
+  assert.equal(f.attrs['aria-busy'], 'false');
 });

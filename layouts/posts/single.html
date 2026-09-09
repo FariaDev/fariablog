@@ -41,38 +41,42 @@
     </div>
 
     <div class="essay-end">
-      {{- with .Params.tags }}
-      <nav class="essay-tags" aria-label="{{ i18n "subject_index" }}">
-        {{- range $i, $tag := . -}}
-          {{- with $.Site.GetPage (printf "/tags/%s" ($tag | urlize)) -}}
-            {{- if $i }}<span aria-hidden="true">·</span>{{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          {{- end -}}
+      <div class="essay-meta">
+        {{- with .Params.tags }}
+        <nav class="essay-tags" aria-label="{{ i18n "subject_index" }}">
+          {{- range $i, $tag := . -}}
+            {{- with $.Site.GetPage (printf "/tags/%s" ($tag | urlize)) -}}
+              {{- if $i }}<span aria-hidden="true">·</span>{{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{- end -}}
+          {{- end }}
+        </nav>
         {{- end }}
-      </nav>
-      {{- end }}
 
-      <p class="essay-tools">
-        <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button>
-        <span aria-hidden="true">·</span>
-        {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
-        {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
-        <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
-      </p>
+        <p class="essay-tools">
+          <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button>
+          <span aria-hidden="true">·</span>
+          {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
+          {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
+          <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
+        </p>
 
-      {{- if or .NextInSection .PrevInSection }}
-      <nav class="essay-pager" aria-label="{{ i18n "publications" }}">
-        {{- with .NextInSection }}
-        <a class="essay-pager-prev" href="{{ .RelPermalink }}">← {{ partial "spine.html" . }}</a>
+      </div>
+      <div class="essay-navigation">
+        {{- with $writing }}
+        <p class="essay-back-paper"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
         {{- end }}
-        {{- with .PrevInSection }}
-        <a class="essay-pager-next" href="{{ .RelPermalink }}">{{ partial "spine.html" . }} →</a>
+        {{- if or .NextInSection .PrevInSection }}
+        <nav class="essay-pager" aria-label="{{ i18n "publications" }}">
+          {{- with .NextInSection }}
+          <a class="essay-pager-prev" href="{{ .RelPermalink }}">← {{ partial "spine.html" . }}</a>
+          {{- end }}
+          {{- with .PrevInSection }}
+          <a class="essay-pager-next" href="{{ .RelPermalink }}">{{ partial "spine.html" . }} →</a>
+          {{- end }}
+        </nav>
         {{- end }}
-      </nav>
-      {{- end }}
 
-      {{- with $writing }}
-      <p class="essay-back-paper"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
-      {{- end }}
+      </div>
     </div>
   </div>
 </article>

@@ -1,6 +1,6 @@
 {{ define "main" }}
 <article>
-  <img class="window-signature" src="{{ "favicon.svg?v=5" | relURL }}" width="48" height="48" alt="">
+  <img class="window-signature" src="{{ "window-signature.svg?v=1" | relURL }}" width="48" height="48" alt="">
   {{ partial "aux-header.html" (dict "kicker" "404" "title" (i18n "not_found_title") "subtitle" (i18n "not_found_text")) }}
   <p>
     <a href="{{ .Site.Home.RelPermalink }}">{{ i18n "return_home" }}</a> ·

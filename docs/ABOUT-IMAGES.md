@@ -6,6 +6,8 @@ Arquivos finais da vista frontal (Início) e da vista superior (Sobre) usam font
 
 ## Entrega e carregamento
 
+Cada exposição inclui uma miniatura JPEG de 48 px pré-calculada pelo script e guardada no manifesto, embutida no HTML (menos de 2,5 KB por camada). Ela preenche o fundo enquanto o arquivo completo carrega, sem pedido de rede adicional, com o mesmo recorte da cena. A imagem decodificada cobre a miniatura.
+
 `python3 scripts/build-house-avif.py` produz AVIF q60, 10 bits, em 720/1080/1280 px; as fontes novas de `desk/` e `about/` também recebem 1536 px. Requer ImageMagick com encoder AVIF. `--check` só usa Python e verifica fontes e derivados contra `data/house_images.json`; não depende de encoder no CI. Hugo copia e aplica fingerprint aos AVIFs prontos, preservando compatibilidade com 0.148.1. WebP q90 continua como fallback, com o mesmo teto nativo por fonte.
 
 O `sizes` das cenas considera o recorte vertical de `object-fit: cover` e o bleed da cena: em paisagem reserva `110vw`; em telas mais altas reserva `1,96 × 100vh`. Assim, um telefone não escolhe uma variante de 720/1080 px para uma fotografia que está sendo ampliada pelo recorte. O navegador ainda fica limitado ao maior arquivo nativo disponível para cada cômodo.
@@ -23,7 +25,7 @@ O ganho de detalhe é pequeno, mas visível nos livros, veios da madeira e papel
 
 A medição anterior à nova vista de cima comparou 45 variantes AVIF (1.473.709 bytes) com os WebP correspondentes (3.313.472 bytes): redução de 55,5%. O conjunto atual inclui também a vista superior; essa porcentagem não é uma nova medição. Cada visita baixa apenas a resolução escolhida pelo navegador. A cena ativa recebe prioridade alta; as outras duas exposições preferidas aguardam load/idle e não são aquecidas com economia de dados/2G. Exposições alternativas da luminária só são pedidas ao interagir ou restaurar a escolha da sessão.
 
-A luminária não tem texto visível. Botão nativo com nome acessível, estado pressionado e foco por teclado, disponível ao entardecer e à noite. A troca aguarda decode e conserva a exposição anterior sob a nova: 1,05 s para acender, 0,8 s para apagar; instantânea com movimento reduzido. Escolha salva em sessionStorage após sucesso. Um decode antigo não substitui a escolha mais recente.
+No Sobre, o alvo de clique cobre a cúpula e a base da luminária. A luminária não tem texto visível. Botão nativo com nome acessível, estado pressionado e foco por teclado, disponível ao entardecer e à noite. A troca aguarda decode e conserva a exposição anterior sob a nova: 1,05 s para acender, 0,8 s para apagar; instantânea com movimento reduzido. Escolha salva em sessionStorage no clique, antes do carregamento, para sobreviver à navegação imediata. O retorno pelo histórico relê a escolha mais recente. Um decode antigo não substitui a escolha mais recente.
 
 Os vaga-lumes pertencem somente à janela de Textos/ensaios: 12% de chance por sessão elegível, atraso de 8–20 s, três pontos discretos durante no máximo 11 s, sem repetição. Exigem noite, hero visível e aba ativa. Economia de dados, 2G e movimento reduzido os desativam.
 

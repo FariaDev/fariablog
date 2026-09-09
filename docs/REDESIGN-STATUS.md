@@ -16,7 +16,7 @@ O núcleo foi implementado. Nem todas as possibilidades sugeridas foram adiciona
 | 10. Atmosfera adicional | Parcial e contida | Pequena diferença estática de tom ao entardecer. Vaga-lumes na janela de leitura em 12% das visitas elegíveis, uma única aparição por sessão. Luminária troca exposições após decode e seu reflexo em Textos acompanha a escolha; sem poeira ou partículas contínuas. |
 | 11. Ensaios | Implementado | 43rem, corpo preservado, line-height 1.64, hierarquia h2/h3, metadados/TOC 14px, muted 4.62:1. Le­de explícito via shortcode; nenhum ensaio foi marcado automaticamente. Blockquotes preservados. |
 | 12. Estados de leitura | Implementado | Seleção, underline, visitados, foco e estilos de notas de rodapé. Rolagem horizontal de tabelas preservada. |
-| 13. Marca | Símbolo e assets implementados | Janela entreaberta; SVG/ICO e PNGs 16/32/48/180/192/512. Revisão rasterizada de 16/32/48. Favicon/ícones usam a janela colorida noturna do colophon; a marca maior continua acompanhando noon/dusk/midnight. Não há manifest/PWA. |
+| 13. Marca | Símbolo e assets implementados | Janela entreaberta; SVG/ICO e PNGs 16/32/48/180/192/512. Revisão rasterizada de 16/32/48. Favicon SVG/ICO/PNG 16–48 usa uma janela simplificada com vidros claros, desenhada na grade de 16 px; a assinatura e os ícones maiores preservam o desenho do colophon; a marca maior continua acompanhando noon/dusk/midnight. Não há manifest/PWA. |
 | 14. Assinatura | Implementado | Janela discreta no rodapé, colophon e 404. |
 | 15. Contenção | Preservada | Sem cursor, som, WebGL, grain animado ou partículas contínuas. |
 | 16. Originalidade | Direção aplicada | Casa, papel, janela, iluminação local e catálogo substituem as soluções mais literais da referência. A avaliação estética final continua sendo sua. |
@@ -24,10 +24,14 @@ O núcleo foi implementado. Nem todas as possibilidades sugeridas foram adiciona
 
 ## Ajustes posteriores
 
+- Estado da luminária salvo no clique e compartilhado na sessão entre páginas e idiomas, inclusive na navegação antes do decode e no retorno pelo histórico.
+- Prévia pequena embutida em cada cena evita fundo vazio durante carregamentos sem cache. Teste no Chrome com imagens completas bloqueadas confirmou a prévia; clique na cúpula do Sobre conferido em desktop e celular.
+- Fechamento dos ensaios agrupa assuntos/ações e retorno/próximo texto, com recuos menores até a assinatura. Alvos de 44 px preservados.
+
 - O título selecionado viaja da linha do catálogo ao título no hero, também no retorno. Em navegadores sem suporte à transição entre documentos, os links mantêm navegação normal.
 - “Ler o ensaio” / “Explorar a bibliografia” sinalizam conteúdo abaixo da cena. São links nativos, com rolagem suave (imediata com movimento reduzido), que levam ao papel e transferem o foco, inclusive sem JavaScript.
 - O comportamento de transições entre documentos segue os eventos `pageswap` e `pagereveal`, conforme a [documentação da API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using).
 
 ## Verificação
 
-Builds de produção e desenvolvimento; validação de HTML, SEO, links, imagens e cache; 32 testes Node. Inspeção no navegador de desktop/mobile, seleção do título na transição e salto/foco do indicador.
+Builds de produção e desenvolvimento; validação de HTML, SEO, links, imagens e cache; 34 testes Node. Inspeção no navegador de desktop/mobile, seleção do título na transição e salto/foco do indicador.

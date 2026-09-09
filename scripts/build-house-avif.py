@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Encode committed AVIF alternatives; CI checks fingerprints without an encoder."""
 import argparse
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -32,6 +33,11 @@ def widths_for(source):
     return SETTINGS['widths'] + SETTINGS['extra_widths'].get(source.parent.name, [])
 
 
+def preview(source):
+    raw = subprocess.check_output(['magick', str(source), '-resize', '48x', '-strip', '-quality', '35', 'jpg:-'])
+    return 'data:image/jpeg;base64,' + base64.b64encode(raw).decode('ascii')
+
+
 def check(manifest):
     assert manifest['settings'] == SETTINGS, 'AVIF encoding settings changed'
     expected = {p.relative_to(ROOT / 'assets').as_posix() for p in sources()}
@@ -39,6 +45,9 @@ def check(manifest):
     for source in sources():
         key = source.relative_to(ROOT / 'assets').as_posix()
         entry = manifest['sources'][key]
+        thumbnail = base64.b64decode(entry['preview'].split(',', 1)[1], validate=True)
+        assert thumbnail.startswith(b'\xff\xd8') and thumbnail.endswith(b'\xff\xd9'), f'invalid preview: {key}'
+        assert len(entry['preview']) < 2400, f'oversized preview: {key}'
         assert digest(source) == entry['sha256'], f'changed source: {key}'
         assert [v['width'] for v in entry['variants']] == widths_for(source), f'missing sizes: {key}'
         for variant in entry['variants']:
@@ -60,6 +69,8 @@ def generate():
             and all((ROOT / 'assets' / v['path']).exists()
                     and digest(ROOT / 'assets' / v['path']) == v['sha256'] for v in old.get('variants', []))
             and len(old.get('variants', [])) == len(widths_for(source))):
+            if 'preview' not in old:
+                old['preview'] = preview(source)
             result['sources'][key] = old
             continue
         variants = []
@@ -70,7 +81,7 @@ def generate():
                             '-define', 'heic:speed=6', '-quality', '60', str(output)], check=True)
             variants.append({'path': output.relative_to(ROOT / 'assets').as_posix(), 'width': width,
                              'sha256': digest(output), 'bytes': output.stat().st_size})
-        result['sources'][key] = {'sha256': digest(source), 'variants': variants}
+        result['sources'][key] = {'sha256': digest(source), 'variants': variants, 'preview': preview(source)}
     MANIFEST.parent.mkdir(exist_ok=True)
     MANIFEST.write_text(json.dumps(result, indent=2) + '\n')
     check(result)
