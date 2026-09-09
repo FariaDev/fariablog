@@ -1,5 +1,6 @@
 +++
 title = "Reflections on Napoleão Mendes de Almeida's Preface: Latin, Reasoning, and the Crisis in Education"
+spine = "Latin"
 description = "Studying Latin develops reasoning and intelligence. Reflections on the educational crisis inspired by Napoleão Mendes de Almeida's Latin Grammar."
 date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "latin-education"
 [cover]
   image = "/images/imagem-post4.webp"
   alt = "Photograph of Rodin’s bronze sculpture 'The Thinker,' depicting a man seated in deep contemplation against a blue sky."
-  caption = "📢 **Image credit:** Image of 'The Thinker' from **Wikipedia**, the free encyclopedia."
 +++
 
 <!-- # Reflections on Napoleão Mendes de Almeida’s Preface: Latin, Reasoning, and the Crisis in Education -->

@@ -1,5 +1,6 @@
 +++
 title = "How to Benefit from Chaos: Notes on Taleb's 'Antifragile'"
+spine = "Antifragile"
 description = "Detailed notes on Nassim Taleb's Antifragile: learn how to benefit from chaos and understand the difference between fragile, robust, and antifragile."
 date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "antifragile"
 [cover]
   image = "/images/imagem-post5.webp"
   alt = "Oil painting 'The Tempest' by Giorgione. The artwork depicts a serene landscape with a breastfeeding woman and a soldier, contrasting with a dark sky and a lightning bolt in the background, symbolizing the calm and life that persist in the face of impending chaotic volatility."
-  caption = "📢 **Image Credit:** Image created using artificial intelligence tools, specifically **Midjourney**."
 +++
 
 ---

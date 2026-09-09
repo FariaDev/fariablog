@@ -1,10 +1,30 @@
 {{ define "main" }}
-<article class="article-layout">
+{{- $writing := .Site.GetPage "section" "posts" -}}
+<article class="home-window texts-window" data-house-window data-active-hour="noon">
+  <div class="home-scene has-scrim" data-house-scene>
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt")) }}
+  </div>
+  <div class="texts-words">
+    {{- with $writing }}
+    <p class="essay-back"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
+    {{- end }}
+    <p class="essay-spine"><span data-essay-title data-essay-index="{{ $writing.RelPermalink }}">{{ partial "spine.html" . }}</span></p>
+  </div>
+  {{ partial "scene-descent.html" (i18n "read_essay") }}
+  {{ partial "site-nav.html" . }}
+</article>
+<article id="leitura" class="texts-corpus article-layout" tabindex="-1">
   <div class="article-main">
-    <header>
+    <header class="essay-mast">
+      {{- with $writing }}
+      <p class="essay-back-paper"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
+      {{- end }}
       <h1>{{ .Title }}</h1>
       <aside>
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ i18n (printf "month_%d" (int .Date.Month)) }} {{ .Date.Year }}</time>
+        · {{ .ReadingTime }} {{ i18n "reading_time" }}
       </aside>
     </header>
 
@@ -19,34 +39,40 @@
       {{ .Content }}
     </div>
 
-    {{- with .Params.tags }}
-    <h2>{{ i18n "subject_index" }}</h2>
-    <ul>
-      {{- range . }}
-        {{- with $.Site.GetPage (printf "/tags/%s" (. | urlize)) }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+    <div class="essay-end">
+      {{- with .Params.tags }}
+      <nav class="essay-tags" aria-label="{{ i18n "subject_index" }}">
+        {{- range $i, $tag := . -}}
+          {{- with $.Site.GetPage (printf "/tags/%s" ($tag | urlize)) -}}
+            {{- if $i }}<span aria-hidden="true">·</span>{{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{- end -}}
+        {{- end }}
+      </nav>
       {{- end }}
-    </ul>
-    {{- end }}
 
-    <div class="document-actions">
-      <h2>{{ i18n "more" }}</h2>
-      <p>
-        <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button> ·
+      <p class="essay-tools">
+        <button type="button" data-copy-link data-copied-label="{{ i18n "copied" }}" data-copy-failed-label="{{ i18n "copy_failed" }}">{{ i18n "copy_link" }}</button>
+        <span aria-hidden="true">·</span>
         {{- $editContentDir := .Site.Params.editPost.contentDir | default (printf "content/%s" .Language.Lang) -}}
         {{- $editPath := printf "%s/%s/%s" site.Params.editBaseURL $editContentDir .File.Path -}}
         <a href="{{ $editPath }}" target="_blank" rel="noopener noreferrer">{{ i18n "edit" }}</a>
       </p>
-    </div>
 
-    {{- if or .NextInSection .PrevInSection }}
-    <nav aria-label="{{ i18n "publications" }}">
-      <h2>{{ i18n "publications" }}</h2>
-      <ul>
-        {{- with .NextInSection }}<li>← <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
-        {{- with .PrevInSection }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a> →</li>{{ end }}
-      </ul>
-    </nav>
-    {{- end }}
+      {{- if or .NextInSection .PrevInSection }}
+      <nav class="essay-pager" aria-label="{{ i18n "publications" }}">
+        {{- with .NextInSection }}
+        <a class="essay-pager-prev" href="{{ .RelPermalink }}">← {{ partial "spine.html" . }}</a>
+        {{- end }}
+        {{- with .PrevInSection }}
+        <a class="essay-pager-next" href="{{ .RelPermalink }}">{{ partial "spine.html" . }} →</a>
+        {{- end }}
+      </nav>
+      {{- end }}
+
+      {{- with $writing }}
+      <p class="essay-back-paper"><a href="{{ .RelPermalink }}" aria-label="{{ i18n "back_to_writing" }}">← {{ i18n "nav_writing" }}</a></p>
+      {{- end }}
+    </div>
   </div>
 </article>
 {{ end }}

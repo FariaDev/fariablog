@@ -1,5 +1,6 @@
 +++
 title = "Is Reading Any Book Better Than Reading None?"
+spine = "Reading"
 description = "Discover what neuroscience reveals about the benefits of reading and why varying between fiction and non-fiction is essential for brain health."
 date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "reading-any-book"
 [cover]
   image = "/images/capa-post.webp"
   alt = "Stylized illustration of a blue brain surrounded by open books floating in streams of golden and blue energy, symbolizing knowledge and learning."
-  caption = "📢 **Image credit:** Image created using artificial intelligence tools, specifically **DALL·E**, developed by **OpenAI**"
 +++
 
 <!-- # **Is Reading Any Book Better Than Reading None?** -->

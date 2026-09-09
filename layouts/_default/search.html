@@ -1,24 +1,14 @@
 {{ define "main" }}
 {{- $posts := sort (where .Site.RegularPages "Section" "in" site.MainSections) "Date" "desc" -}}
-<article class="site-search" data-search-endpoint="{{ "index.json" | relLangURL }}" data-search-one="{{ i18n "search_one" }}" data-search-many="{{ i18n "search_many" }}" data-search-none="{{ i18n "search_no_results" }}" data-search-error="{{ i18n "search_error" }}">
-  {{ partial "aux-header.html" (dict "title" .Title) }}
-  <section>
-    <form role="search" action="{{ .RelPermalink }}" method="get">
-      <label for="archive-search">{{ i18n "search_label" }}</label>
-      <div class="search-controls"><div class="search-input-wrap"><input id="archive-search" name="q" type="search" autocomplete="off" placeholder="{{ .Params.placeholder | default (i18n "search_placeholder") }}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="archive-search-suggestions" data-suggestions="archive-search-suggestions" data-search-input>{{ partial "search-suggestions.html" (dict "id" "archive-search-suggestions" "site" .Site) }}</div><button type="submit">{{ i18n "nav_search" }}</button><button type="button" data-clear-search hidden>{{ i18n "clear" }}</button></div>
-    </form>
-    <p class="search-status" data-search-status aria-live="polite"></p>
-  </section>
-  <section aria-labelledby="search-results-title">
-    <h2 id="search-results-title">{{ i18n "publications" }}</h2>
-    <div data-search-results hidden></div>
-    {{ partial "search-result-template.html" . }}
-    <div data-search-entries>
-      {{- range $posts }}
-        {{- partial "publication-entry.html" (dict "page" . "showSummary" true) -}}
-      {{- end }}
-    </div>
-    <noscript><p>{{ i18n "search_no_script" }}</p></noscript>
-  </section>
+<article class="site-search quiet-page" data-search-endpoint="{{ "index.json" | relLangURL }}" data-search-one="{{ i18n "search_one" }}" data-search-many="{{ i18n "search_many" }}" data-search-none="{{ i18n "search_no_results" }}" data-search-error="{{ i18n "search_error" }}">
+  <p class="search-status" data-search-status aria-live="polite"></p>
+  <div data-search-results hidden></div>
+  {{ partial "search-result-template.html" . }}
+  <div data-search-entries>
+    {{- range $posts }}
+      {{- partial "publication-entry.html" (dict "page" . "showSummary" true) -}}
+    {{- end }}
+  </div>
+  <noscript><p>{{ i18n "search_no_script" }}</p></noscript>
 </article>
 {{ end }}

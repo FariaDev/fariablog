@@ -3,9 +3,15 @@
   <head>
     {{ partial "head.html" . }}
   </head>
-  <body data-copy-code="{{ i18n "copy_code" }}" data-code-copied="{{ i18n "code_copied" }}" data-code-copy-failed="{{ i18n "code_copy_failed" }}">
+  {{- $isTexts := and (eq .Kind "section") (eq .Section "posts") -}}
+  {{- $isEssay := and .IsPage (eq .Section "posts") -}}
+  {{- $isBooks := eq .Layout "books" -}}
+  {{- $isAbout := eq .Layout "about" -}}
+  {{- $isSearch := eq .Layout "search" -}}
+  <body class="{{ if .IsHome }}is-home{{ end }}{{ if $isTexts }} is-texts{{ end }}{{ if $isEssay }} is-essay{{ end }}{{ if $isBooks }} is-books{{ end }}{{ if $isAbout }} is-about{{ end }}{{ if $isSearch }} is-search{{ end }}" data-copy-code="{{ i18n "copy_code" }}" data-code-copied="{{ i18n "code_copied" }}" data-code-copy-failed="{{ i18n "code_copy_failed" }}">
     <a class="skip-link" href="#main-content">{{ i18n "skip_to_content" }}</a>
     {{ partial "site-header.html" . }}
+    {{ if not (or .IsHome $isTexts $isEssay $isBooks $isAbout) }}{{ partial "site-nav.html" . }}{{ end }}
     <main id="main-content" tabindex="-1">
       {{ block "main" . }}{{ end }}
     </main>

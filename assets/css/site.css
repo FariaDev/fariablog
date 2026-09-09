@@ -1,26 +1,16 @@
-/* FariaBlog — a quiet, text-first personal site. */
+/* FariaBlog — a quiet house for reading. */
 :root {
-  color-scheme: light dark;
-  --background: #f7f7f5;
-  --foreground: #20201e;
-  --muted: #6f6f6a;
-  --rule: #cecec8;
-  --suggestion-hover: #e9e9e5;
+  color-scheme: light;
+  --background: #f3eee4;
+  --foreground: #2a211c;
+  --muted: #74695f;
+  --rule: #d8d0c4;
+  --oxblood: #6e2430;
+  --suggestion-hover: #e5ddd0;
+  --table-mark: #dce4c8;
   --content-width: 42rem;
   --page-gutter: clamp(1rem, 4vw, 1.5rem);
-}
-
-html[data-theme="light"] {
-  color-scheme: light;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --background: #181817;
-  --foreground: #eeeeeb;
-  --muted: #aaa9a3;
-  --rule: #484844;
-  --suggestion-hover: #292927;
+  --house-ink: #f3eee4;
 }
 
 html {
@@ -34,6 +24,7 @@ body {
   color: var(--foreground);
   font: clamp(1.06rem, 1.5vw, 1.18rem)/1.58 Georgia, "Times New Roman", serif;
   text-rendering: optimizeLegibility;
+  padding-bottom: 1.5rem;
 }
 
 .site-header,
@@ -149,15 +140,7 @@ a:hover {
   text-decoration-thickness: .11em;
 }
 
-.home-intro {
-  margin: 1rem 0 2.5rem;
-  font-size: 1.22rem;
-  line-height: 1.65;
-}
 
-.home-intro p {
-  margin-bottom: 1.45rem;
-}
 
 .article-layout {
   padding-top: clamp(1.25rem, 3vw, 2rem);
@@ -428,7 +411,7 @@ hr {
 
 .site-footer {
   margin-top: clamp(2.75rem, 8vw, 4.5rem);
-  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+  padding-bottom: .5rem;
 }
 
 .search-status {
@@ -459,7 +442,7 @@ hr {
 
 .skip-link:focus {
   position: fixed;
-  z-index: 1;
+  z-index: 20;
   top: .75rem;
   left: .75rem;
   width: auto;
@@ -503,10 +486,7 @@ hr {
     padding-top: 1rem;
   }
 
-  .home-intro {
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
+
 
   .search-controls {
     flex-direction: column;
@@ -552,14 +532,20 @@ hr {
   .theme-toggle,
   .site-nav a,
   .pagination a,
-  .article-toc summary {
+  .article-toc summary,
+  .essay-back a,
+  .essay-back-paper a,
+  .search-lens,
+  .dock-search-close {
     min-width: 2.75rem;
     min-height: 2.75rem;
   }
 
   .language-switch,
   .site-nav a,
-  .pagination a {
+  .pagination a,
+  .essay-back a,
+  .essay-back-paper a {
     display: inline-flex;
     align-items: center;
   }
@@ -589,9 +575,45 @@ hr {
 
   .site-header,
   .site-footer,
+  .threshold-nav,
   .document-actions,
+  .essay-tools,
   .skip-link {
     display: none;
+  }
+
+  .home-scene {
+    display: none;
+  }
+
+  body.is-texts,
+  body.is-essay,
+  body.is-books {
+    color: #000;
+  }
+
+  body.is-texts .texts-words,
+  body.is-essay .texts-words,
+  body.is-books .texts-words {
+    position: static;
+    min-height: 0;
+    padding: 0;
+    color: #000;
+    text-shadow: none;
+  }
+
+  body.is-home,
+  body.is-about {
+    color: #000;
+  }
+
+  body.is-home .home-words,
+  body.is-about .home-words {
+    position: static;
+    max-width: none;
+    padding: 0;
+    color: #000;
+    text-shadow: none;
   }
 
   main {
@@ -603,3 +625,790 @@ hr {
     display: block;
   }
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+body.is-home,
+body.is-about {
+  padding-bottom: 0;
+  color: var(--house-ink);
+}
+
+body.is-home .site-header,
+body.is-home main,
+body.is-about .site-header,
+body.is-about main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+body.is-home .site-header,
+body.is-about .site-header {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  box-sizing: border-box;
+  padding: max(1.1rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) 0 max(1.25rem, env(safe-area-inset-left));
+}
+
+body.is-home .site-header-row,
+body.is-about .site-header-row {
+  justify-content: flex-end;
+}
+
+body.is-home .language-switch,
+body.is-about .language-switch {
+  color: var(--house-ink);
+  text-shadow: 0 1px 10px rgb(20 16 12 / 45%);
+}
+
+body.is-home .site-footer,
+body.is-about .site-footer {
+  display: none;
+}
+
+.home-window {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100svh;
+  background: #1c1814;
+}
+
+.home-scene {
+  position: absolute;
+  inset: -3%;
+  pointer-events: none;
+  transform: scale(1.04);
+}
+
+img.home-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 28% center;
+  opacity: 0;
+}
+
+html[data-hour="noon"] img.home-layer[data-hour="noon"],
+html[data-hour="dusk"] img.home-layer[data-hour="dusk"],
+html[data-hour="midnight"] img.home-layer[data-hour="midnight"],
+html:not([data-hour]) img.home-layer[data-hour="noon"] {
+  z-index: 1;
+  opacity: 1;
+}
+
+html.hours-armed img.home-layer {
+  transition: opacity 1.8s ease-in-out;
+}
+
+.home-words {
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+  max-width: 22rem;
+  padding: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem)) 0 8rem max(1.4rem, env(safe-area-inset-left));
+  color: var(--house-ink);
+  text-shadow: 0 2px 18px rgb(20 16 12 / 55%);
+}
+
+.home-byline,
+.home-subjects {
+  margin: 0 0 .55rem;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .78rem;
+  letter-spacing: .04em;
+}
+
+.home-window h1 {
+  margin: 0 0 .7rem;
+  font-size: clamp(2.1rem, 7vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.home-intro {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.home-intro p {
+  margin: 0;
+}
+
+.home-words .about-write {
+  margin: 1.15rem 0 0;
+}
+
+.home-words .about-write a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-words .about-write a:hover {
+  text-decoration: underline;
+}
+
+/* The threshold belongs to the room, and leaves with it. */
+.threshold-nav {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .65rem;
+  margin: 0 auto 1.5rem;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  color: var(--foreground);
+  view-transition-name: threshold;
+}
+.home-window .threshold-nav {
+  position: absolute;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: var(--house-ink);
+}
+.home-window::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 8rem;
+  pointer-events: none;
+  background: linear-gradient(transparent, rgb(20 16 12 / 65%));
+}
+.threshold-links { display: flex; align-items: center; }
+.threshold-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: .45rem;
+  font-size: .9375rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.threshold-link + .threshold-link::before {
+  content: "·" / "";
+  margin-right: .9rem;
+  opacity: .65;
+}
+.threshold-link[aria-current="page"] span { text-decoration: underline; text-underline-offset: .35em; }
+.search-lens { display: grid; place-items: center; width: 44px; height: 44px; color: inherit; }
+.threshold-nav.is-searching { width: min(28rem, calc(100% - 2rem)); }
+.threshold-nav.is-searching .threshold-links,
+.threshold-nav.is-searching .search-lens { display: none; }
+.dock-search {
+  display: none;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: .35rem;
+  width: 100%;
+  min-width: 0;
+  padding: .18rem .35rem .18rem .75rem;
+  border: 1px solid rgb(42 33 28 / 18%);
+  border-radius: 0;
+  background: var(--background);
+  color: var(--foreground);
+
+}
+
+.threshold-nav.is-searching .dock-search {
+  display: flex;
+}
+
+.dock-search input[type="search"] {
+  min-height: 2rem;
+  padding: .2rem 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  box-shadow: none;
+}
+
+.dock-search input[type="search"]:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.dock-search [data-clear-search] {
+  flex: 0 0 auto;
+  min-height: 0;
+  padding: 0 .2rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .72rem;
+  cursor: pointer;
+}
+
+.dock-search-close {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dock-search .search-suggestions { top: calc(100% + .4rem); bottom: auto; }
+.home-window .dock-search .search-suggestions { top: auto; bottom: calc(100% + .4rem); }
+
+@media (max-width: 36rem) {
+  .home-words {
+    max-width: 18rem;
+    padding-top: max(4.6rem, calc(env(safe-area-inset-top) + 3.6rem));
+  }
+}
+
+body.is-texts,
+body.is-essay,
+body.is-books {
+  padding-bottom: 0;
+  color: var(--house-ink);
+}
+
+body.is-essay {
+  --content-width: 43rem;
+}
+
+body.is-texts .site-header,
+body.is-texts main,
+body.is-essay .site-header,
+body.is-essay main,
+body.is-books .site-header,
+body.is-books main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+body.is-texts .site-header,
+body.is-essay .site-header,
+body.is-books .site-header {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  box-sizing: border-box;
+  padding: max(1.1rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) 0 max(1.25rem, env(safe-area-inset-left));
+}
+
+body.is-texts .site-header-row,
+body.is-essay .site-header-row,
+body.is-books .site-header-row {
+  justify-content: flex-end;
+}
+
+body.is-texts .language-switch,
+body.is-essay .language-switch,
+body.is-books .language-switch {
+  color: var(--house-ink);
+  text-shadow: 0 1px 10px rgb(20 16 12 / 45%);
+}
+
+body.is-texts .site-footer {
+  display: none;
+}
+
+body.is-essay .site-footer,
+body.is-books .site-footer {
+  width: min(calc(var(--content-width) + (var(--page-gutter) * 2)), 100%);
+}
+
+.texts-window img.home-layer,
+.books-window img.home-layer {
+  object-position: center;
+}
+
+.home-scene.has-scrim::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: rgb(20 16 12 / 38%);
+  content: "";
+  pointer-events: none;
+}
+
+.texts-words {
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem)) 1.4rem 7rem;
+  color: var(--house-ink);
+  text-shadow: 0 2px 18px rgb(20 16 12 / 55%);
+}
+
+.books-window .texts-words {
+  text-align: center;
+}
+
+body.is-about .home-words {
+  max-width: 24rem;
+}
+
+.books-corpus,
+.texts-corpus {
+  box-sizing: border-box;
+  width: min(calc(var(--content-width) + (var(--page-gutter) * 2)), 100%);
+  margin-inline: auto;
+  padding: 3rem max(var(--page-gutter), env(safe-area-inset-left)) 6rem max(var(--page-gutter), env(safe-area-inset-right));
+  color: var(--foreground);
+}
+
+.texts-corpus {
+  padding-top: 3.4rem;
+  font-size: clamp(1.08rem, 1.35vw, 1.22rem);
+  line-height: 1.64;
+}
+
+.essay-back {
+  margin: 0 0 1rem;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.essay-back a {
+  color: inherit;
+  text-decoration: none;
+  text-shadow: 0 1px 10px rgb(20 16 12 / 45%);
+}
+
+.essay-back a:hover {
+  text-decoration: underline;
+}
+
+.essay-back-paper {
+  margin: 0 0 1.25rem;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .84rem;
+  letter-spacing: .03em;
+}
+
+.essay-back-paper a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.essay-back-paper a:hover {
+  color: var(--oxblood);
+  text-decoration: underline;
+}
+
+.essay-end {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .84rem;
+  letter-spacing: .02em;
+}
+
+.essay-end a,
+.essay-end button {
+  color: var(--muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.essay-end a:hover,
+.essay-end button:hover {
+  color: var(--oxblood);
+  text-decoration: underline;
+}
+
+.essay-tags,
+.essay-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem .55rem;
+  margin: 0 0 1.05rem;
+}
+
+.essay-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.35rem;
+}
+
+.essay-pager-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.essay-mast h1 {
+  margin: 0 0 .7rem;
+  font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1.16;
+  text-wrap: balance;
+}
+
+.essay-mast aside {
+  margin-bottom: 1.6rem;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .875rem;
+  letter-spacing: .02em;
+}
+
+.texts-corpus .article-toc {
+  margin: 0 0 1.8rem;
+  padding-block: 0;
+  border-top: 0;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .875rem;
+  color: var(--muted);
+}
+
+.article-content .lede {
+  margin-bottom: 2.1rem;
+  color: var(--foreground);
+  font-size: clamp(1.16rem, 2vw, 1.38rem);
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.texts-corpus .article-content h2 {
+  margin-top: 3rem;
+  margin-bottom: .9rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.65rem);
+  font-weight: 600;
+}
+
+.texts-corpus .article-content h3 {
+  margin-top: 1.9rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.texts-corpus .article-content ul,
+.texts-corpus .article-content ol {
+  padding-left: 1.3rem;
+}
+
+.texts-corpus .article-content li {
+  margin-bottom: .5rem;
+}
+
+.texts-corpus .article-content hr {
+  margin: 2.1rem 0;
+}
+
+.texts-corpus blockquote {
+  margin: 0 0 1.7rem;
+  padding: .15rem 0 .15rem 1.2rem;
+  border-left: 2px solid var(--oxblood);
+  color: var(--foreground);
+  font-size: 1.04em;
+  line-height: 1.58;
+}
+
+.texts-corpus figure {
+  margin: 0 0 2.1rem;
+}
+
+.texts-corpus figcaption {
+  margin-top: .5rem;
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.essay-table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 2.3rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.texts-corpus table,
+.essay-table table {
+  display: table;
+  width: 100%;
+  min-width: 28rem;
+  margin: 0;
+  border: 1px solid var(--foreground);
+  border-collapse: collapse;
+  background: #faf8f2;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.42;
+}
+
+.texts-corpus th,
+.texts-corpus td,
+.essay-table th,
+.essay-table td {
+  padding: .85rem 1rem;
+  border: 1px solid var(--foreground);
+  text-align: left;
+  vertical-align: top;
+}
+
+.texts-corpus thead th,
+.texts-corpus tr:first-child th,
+.essay-table thead th {
+  background: #f3eee4;
+  font-weight: 600;
+}
+
+.texts-corpus tbody td:first-child,
+.essay-table tbody td:first-child {
+  font-weight: 600;
+}
+
+.texts-corpus tr > :last-child,
+.essay-table tr > :last-child {
+  background: var(--table-mark);
+}
+
+.texts-corpus h2:first-child {
+  margin-top: 0;
+}
+
+.quiet-page {
+  box-sizing: border-box;
+  width: min(calc(var(--content-width) + (var(--page-gutter) * 2)), 100%);
+  margin-inline: auto;
+  padding: 1.25rem max(var(--page-gutter), env(safe-area-inset-left)) 7rem max(var(--page-gutter), env(safe-area-inset-right));
+  color: var(--foreground);
+}
+
+.quiet-page .essay-mast h1 {
+  margin: 0 0 1.4rem;
+  font-size: clamp(1.9rem, 4.4vw, 2.6rem);
+  font-weight: 500;
+}
+
+.about-write {
+  margin-top: 2.2rem;
+}
+
+.about-write a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.about-write a:hover {
+  color: var(--oxblood);
+  text-decoration: underline;
+}
+
+.quiet-page .search-status {
+  margin: 0 0 1.6rem;
+  color: var(--muted);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .84rem;
+}
+
+.quiet-page .publication-entry {
+  margin-block: 0 1.6rem;
+}
+
+.quiet-page .publication-entry h3 {
+  margin: 0 0 .3rem;
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.quiet-page .publication-entry a {
+  text-decoration: none;
+}
+
+.quiet-page .publication-entry a:hover {
+  color: var(--oxblood);
+  text-decoration: underline;
+}
+
+.texts-window h1,
+.essay-spine {
+  margin: 0 0 2.4rem;
+  font-size: clamp(2.2rem, 7vw, 3.3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.texts-index {
+  font-size: clamp(.95rem, 2.2vw, 1.12rem);
+  line-height: 1.9;
+}
+
+.texts-row {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity .22s ease;
+  display: block;
+}
+
+.texts-row-inner {
+  display: flex;
+  align-items: baseline;
+}
+
+.texts-num {
+  flex: 0 0 auto;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .82em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+
+ .texts-divider { margin-inline: .85rem; opacity: .6; }
+.texts-row { border-bottom: 1px solid rgb(243 238 228 / 25%); padding-block: .4rem; min-height: 32px; }
+.texts-label { text-align: left; }
+.about-window img.home-layer { object-position: 12% center; transform: scale(1.22); }
+.about-window .home-words { margin-left: auto; margin-right: clamp(1.5rem, 8vw, 9rem); padding-left: 1.5rem; padding-top: 18svh; }
+::selection { background: #dfc6c4; color: #2a211c; }
+.article-content a { text-decoration: underline; }
+.article-content a:visited { color: #79534c; }
+.article-content a:hover, .article-content a:focus-visible { color: var(--oxblood); }
+.article-toc summary, .essay-tools button, .essay-end a { min-height: 44px; }
+.footnotes li, [id^="fnref"], [id^="fn:"] { scroll-margin-top: 2rem; }
+.footnote-backref { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+.dock-search input[type="search"], .dock-search-close { min-height: 44px; }
+.dock-search input[type="search"]:focus-visible { outline: 2px solid var(--oxblood); outline-offset: 2px; }
+.home-scene { view-transition-name: house-scene; }
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  ::view-transition-old(house-scene), ::view-transition-new(house-scene),
+  ::view-transition-old(threshold), ::view-transition-new(threshold) { animation-duration: .35s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.hours-armed img.home-layer, .texts-row { transition: none; }
+  .home-scene { transform: scale(1.04) !important; }
+  ::view-transition-group(*) { animation: none !important; }
+  @view-transition { navigation: none; }
+}
+@media (max-width: 36rem) {
+  .threshold-nav { gap: .2rem; }
+  .threshold-link { padding-inline: .3rem; font-size: .875rem; }
+  .threshold-link + .threshold-link::before { margin-right: .6rem; }
+  .about-window .home-words { margin-right: 1rem; padding-top: 6rem; }
+}
+@media print { .home-window .threshold-nav, .home-window::after { display: none; } }
+
+.window-signature { margin-bottom: 1rem; }
+/* Hit area follows a central volume in the 1280 x 720 source, including cover crop. */
+.books-window .home-scene { container-type: size; }
+.books-window .texts-words { pointer-events: none; }
+.shelf-note {
+  position: absolute;
+  z-index: 4;
+  left: 53.515625%;
+  left: calc(50% + max(3.515625cqw, 6.25cqh));
+  top: 80.555556%;
+  top: calc(50% + max(17.1875cqw, 30.555556cqh));
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 88px;
+  pointer-events: auto;
+  color: var(--house-ink);
+}
+.shelf-note span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.shelf-note:focus-visible { outline-color: var(--house-ink); }
+.shelf-note:focus-visible span {
+  width: auto;
+  height: auto;
+  clip-path: none;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background: var(--background);
+  color: var(--foreground);
+  padding: .25rem .5rem;
+  font-size: .875rem;
+}
+html[data-hour="dusk"] .home-scene.has-scrim::after { background: rgb(39 22 13 / 38%); }
+@media print { .shelf-note { display: none; } }
+
+.language-switch { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+.search-lens { flex: 0 0 44px; }
+.dock-search-close, .dock-search [data-clear-search] { min-width: 44px; min-height: 44px; }
+.article-toc a { display: inline-flex; align-items: center; min-height: 44px; }
+.essay-end a { display: inline-flex; align-items: center; }
+.footnote-ref { display: inline-block; min-width: 24px; text-align: center; }
+
+.about-window .home-scene.has-scrim::after {
+  background: linear-gradient(90deg, rgb(20 16 12 / 25%) 25%, rgb(20 16 12 / 68%) 75%);
+}
+
+/* The selected catalogue title travels into the room's title, in either direction. */
+.essay-spine [data-essay-title] { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(essay-title) {
+    animation-duration: .48s;
+    animation-timing-function: cubic-bezier(.22, .7, .25, 1);
+  }
+  ::view-transition-old(essay-title), ::view-transition-new(essay-title) {
+    height: 100%;
+    width: 100%;
+    animation-duration: .48s;
+    mix-blend-mode: normal;
+  }
+}
+.scene-descent {
+  position: absolute;
+  z-index: 4;
+  bottom: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+  padding-inline: .75rem;
+  color: var(--house-ink);
+  font-size: .875rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.scene-descent:hover span, .scene-descent:focus-visible span { text-decoration: underline; }
+@media print { .scene-descent { display: none; } }

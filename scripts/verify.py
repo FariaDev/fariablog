@@ -278,6 +278,8 @@ translation_paths = {}
 for language in ("en", "pt-br"):
     keyed_paths = {}
     for path in sorted((repo / "content" / language / "posts").glob("*.md")):
+        if path.name.startswith("_"):
+            continue
         front_matter = parse_front_matter(path)
         key = front_matter.get("translationKey")
         require(isinstance(key, str) and key.strip(), f"post has no translationKey: {path}")
@@ -312,35 +314,70 @@ for tracker in ("cloud.umami.is", "googletagmanager.com", "google-analytics.com"
     require(tracker not in development_text, f"development output contains tracker {tracker}")
 for credit_label in ("Crédito da imagem:", "Image credit:", "Image Credit:"):
     require(credit_label not in production_text, f"production articles expose a cover credit: {credit_label}")
+for path in sorted((production / "en" / "posts").glob("*/index.html")) + sorted(
+    (production / "pt-br" / "posts").glob("*/index.html")
+):
+    html = path.read_text(encoding="utf-8")
+    require("+++" not in html, f"front matter leaked into article HTML: {path}")
+    require("<strong>Midjourney</strong>" not in html, f"cover caption leaked into article HTML: {path}")
 
 english_home_text = production_home_en.read_text(encoding="utf-8")
 portuguese_home_text = production_home_pt.read_text(encoding="utf-8")
 english_search_text = (production / "en" / "search" / "index.html").read_text(encoding="utf-8")
 portuguese_search_text = (production / "pt-br" / "search" / "index.html").read_text(encoding="utf-8")
 require("Philosophy · Literature · Neuroscience · Education" in english_home_text, "English home contains the wrong subject labels")
+require("Filosofia · Literatura · Neurociência · Educação" in portuguese_home_text, "Portuguese home contains the wrong subject labels")
+require("<h1>FariaBlog</h1>" in english_home_text and "<h1>FariaBlog</h1>" in portuguese_home_text, "home does not display the FariaBlog title")
+require('data-house-window' in english_home_text, "home is missing the house window")
+require("data-hour=noon" in english_home_text and "data-hour=dusk" in english_home_text and "data-hour=midnight" in english_home_text, "home is missing the three hours")
+require("home-hours" not in english_home_text, "hour swatches must not appear")
+require("data-hour-set" not in english_home_text, "hour swatches must not appear")
 for language, home_text, search_text in (
     ("en", english_home_text, english_search_text),
     ("pt-br", portuguese_home_text, portuguese_search_text),
 ):
-    require(home_text.count("home-search-suggestions") >= 2, f"{language} home is missing search suggestions")
     require(search_text.count("archive-search-suggestions") >= 2, f"{language} search page is missing search suggestions")
-    require('role=option' in home_text and 'role=option' in search_text, f"{language} search suggestions are empty")
+    require('role=option' in search_text, f"{language} search suggestions are empty")
+    require("home-search-suggestions" not in home_text, f"{language} home still hosts the old search form")
 default_home = urljoin(base_url, f'{config["defaultContentLanguage"]}/')
 require(
     any(link.get("hreflang") == "x-default" and link.get("href") == default_home for link in prod_docs[production_home_en][0].links),
     "English home has the wrong x-default URL",
 )
 require("fuse.basic" not in english_home_text, "Fuse is loaded outside the search page")
-require("/js/suggestions." in english_home_text, "home is missing its suggestions script")
+require("/js/house." in english_home_text, "home is missing its house script")
+require("/js/dock." in english_home_text, "home is missing its dock script")
+require("/js/suggestions." not in english_home_text, "home loads the search suggestions script")
 require("/js/search.min." not in english_home_text, "home loads the full search script")
 require("fuse.basic" in english_search_text, "search page is missing Fuse")
 require("/js/search.min." in english_search_text, "search page is missing its scoped script")
+require("dock-search" in english_search_text, "search page is missing the dock search field")
+require(">Contact</a>" not in english_home_text, "contact is still a house room in English")
+require(">Contato</a>" not in portuguese_home_text, "contact is still a house room in Portuguese")
+english_about = (production / "en" / "about" / "index.html").read_text(encoding="utf-8")
+portuguese_about = (production / "pt-br" / "about" / "index.html").read_text(encoding="utf-8")
+require("fariablog1@gmail.com" in english_about and "fariablog1@gmail.com" in portuguese_about, "about page is missing the writing address")
+require('data-house-window' in english_about, "about is missing the house window")
+require("/js/house." in english_about, "about is missing its house script")
+require("data-hour=noon" in english_about and "data-hour=dusk" in english_about and "data-hour=midnight" in english_about, "about is missing the three hours")
+english_contact = (production / "en" / "contact" / "index.html").read_text(encoding="utf-8")
+require("/en/about/" in english_contact, "contact page does not point to about")
 english_article = next((production / "en" / "posts").glob("*/index.html"))
 english_article_text = english_article.read_text(encoding="utf-8")
 require("/js/article.min." in english_article_text, "article page is missing its scoped script")
 require("fuse.basic" not in english_article_text, "Fuse is loaded on an article page")
 require("<details class=article-toc>" in english_article_text, "article page is missing its collapsible contents navigation")
 require("<details class=article-toc open" not in english_article_text, "article contents must be collapsed by default")
+require("essay-back" in english_article_text, "article page is missing the way back to the writing index")
+require('aria-label="Back to the essays"' in english_article_text, "article back link is missing its label")
+require("essay-end" in english_article_text, "article page is missing its quiet ending")
+taleb_pages = sorted((production / "en" / "posts").glob("*antifragile*/index.html")) or sorted(
+    (production / "en" / "posts").glob("*chaos*/index.html")
+)
+require(taleb_pages, "Taleb essay is missing from production")
+taleb_text = taleb_pages[0].read_text(encoding="utf-8")
+require("essay-table" in taleb_text, "Taleb essay tables are not wrapped for reading")
+require("essay-end" in taleb_text, "long essay is missing the quiet return to the writing index")
 
 for language in ("en", "pt-br"):
     records = json.loads((production / language / "index.json").read_text(encoding="utf-8"))
@@ -379,6 +416,21 @@ for root, docs in ((production, prod_docs), (development, dev_docs)):
             if resolved.hostname not in {site_host, None}:
                 continue
             require(local_target(root, path, raw_url) is not None, f"broken local reference {raw_url!r} in {path}")
+
+# House sources remain inert until the visitor's clock selects one.
+for path, (parser, _) in prod_docs.items():
+    layers = [image for image in parser.images if "data-src" in image]
+    if not layers:
+        continue
+    require({i.get("data-hour") for i in layers} == {"noon", "dusk", "midnight"}, f"missing house lighting in {path}")
+    for image in layers:
+        require("src" not in image and "srcset" not in image, f"house variant enters preload scanning in {path}")
+        require(image.get("fetchpriority") == "low", f"unselected house variant has high priority in {path}")
+        require(local_target(production, path, image["data-src"]) is not None, f"broken deferred house source in {path}")
+        require(image.get("data-srcset"), f"house variant lacks responsive sources in {path}")
+        for candidate in image["data-srcset"].split(","):
+            candidate_url = candidate.strip().split()[0]
+            require(local_target(production, path, candidate_url) is not None, f"broken deferred responsive source in {path}")
 
 # Processable editorial images must have plain-text alternatives, dimensions, lazy loading, and responsive WebP sources.
 for path, (parser, _) in prod_docs.items():

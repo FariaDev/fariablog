@@ -1,36 +1,15 @@
 {{ define "main" }}
-{{- $posts := where .Site.RegularPages "Section" "in" site.MainSections -}}
-{{- $posts = sort $posts "Date" "desc" -}}
-{{- $paginator := .Paginate $posts -}}
-{{- $searchPage := .Site.GetPage "search" -}}
-<article class="home-page">
-  <div class="home-intro">
-    <p>{{ i18n "home_byline" }} {{ site.Params.authorName }}. {{ i18n "home_subjects" }}.</p>
-    <p>{{ i18n "home_intro_title" }} {{ site.Params.homeInfoContent }}</p>
+<article class="home-window" data-house-window data-active-hour="noon">
+  <div class="home-scene" data-house-scene>
+    {{ partial "house-layer.html" (dict "hour" "noon" "path" "images/home/noon.jpg" "alt" (i18n "hour_noon_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "dusk" "path" "images/home/dusk.jpg" "alt" (i18n "hour_dusk_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "midnight" "path" "images/home/midnight.jpg" "alt" (i18n "hour_midnight_alt")) }}
   </div>
-
-  <section>
-    <h2>{{ i18n "nav_search" }}</h2>
-    <form role="search" action="{{ $searchPage.RelPermalink }}" method="get">
-      <label for="publication-search">{{ i18n "search_label" }}</label>
-      <div class="search-controls">
-        <div class="search-input-wrap">
-          <input id="publication-search" name="q" type="search" autocomplete="off" placeholder="{{ i18n "search_placeholder" }}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="home-search-suggestions" data-suggestions="home-search-suggestions">
-          {{ partial "search-suggestions.html" (dict "id" "home-search-suggestions" "site" .Site) }}
-        </div>
-        <button type="submit">{{ i18n "nav_search" }}</button>
-      </div>
-    </form>
-  </section>
-
-  <section>
-    <h2>{{ i18n "publications" }}</h2>
-    <ul class="publication-list">
-      {{- range $paginator.Pages }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-      {{- end }}
-    </ul>
-    {{ partial "pagination.html" $paginator }}
-  </section>
+  <div class="home-words">
+    <h1>{{ site.Title }}</h1>
+    <p class="home-subjects">{{ i18n "home_subjects" }}</p>
+    <p class="home-intro">{{ i18n "home_intro" }}</p>
+  </div>
+  {{ partial "site-nav.html" . }}
 </article>
 {{ end }}

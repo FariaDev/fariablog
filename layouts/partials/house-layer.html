@@ -1,0 +1,42 @@
+{{- $hour := .hour -}}
+{{- $alt := .alt -}}
+{{- $prefix := .prefix | default "home" -}}
+{{- $resource := partial "image-resource.html" (dict "path" .path) -}}
+{{- $src := "" -}}
+{{- $srcset := slice -}}
+{{- with $resource -}}
+  {{- $src = .RelPermalink -}}
+  {{- if hugo.IsExtended -}}
+    {{- range slice "720" "1080" "1280" -}}
+      {{- if ge $resource.Width (int .) -}}
+        {{- $resized := $resource.Resize (printf "%sx webp q90" .) -}}
+        {{- $copied := resources.Copy (printf "processed-images/%s-%s-%s.webp" $prefix $hour .) $resized -}}
+        {{- $variant := $copied | fingerprint "sha256" -}}
+        {{- $srcset = $srcset | append (printf "%s %sw" $variant.RelPermalink .) -}}
+        {{- $src = $variant.RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  <img
+    class="home-layer"
+    data-hour="{{ $hour }}"
+    data-src="{{ $src }}"
+    {{- if $srcset }} data-srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }}
+    width="{{ .Width }}"
+    height="{{ .Height }}"
+    alt="{{ $alt }}"
+    aria-hidden="true"
+    decoding="async"
+    fetchpriority="low">
+  <script>
+  (function (script) {
+    var img = script.previousElementSibling;
+    if (img.dataset.hour !== document.documentElement.dataset.hour) return;
+    img.fetchPriority = 'high';
+    img.removeAttribute('aria-hidden');
+    if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+    img.src = img.dataset.src;
+  })(document.currentScript);
+  </script>
+  {{ if eq $hour "noon" }}<noscript><img loading="eager" class="home-layer" data-hour="noon" src="{{ $src }}" {{ if $srcset }}srcset="{{ delimit $srcset ", " }}" sizes="100vw"{{ end }} width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}"></noscript>{{ end }}
+{{- end -}}

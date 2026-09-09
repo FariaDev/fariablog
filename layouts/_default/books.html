@@ -1,8 +1,18 @@
 {{ define "main" }}
-<article>
-  {{ partial "aux-header.html" (dict "kicker" (i18n "personal_bibliography") "title" .Title "subtitle" .Description) }}
-  <section>
-    {{ .Content }}
-  </section>
+<article class="home-window books-window" data-house-window data-active-hour="noon">
+  <div class="home-scene has-scrim" data-house-scene>
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "noon" "path" "images/shelf/noon.jpg" "alt" (i18n "books_shelf_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "dusk" "path" "images/shelf/dusk.jpg" "alt" (i18n "books_shelf_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "shelf" "hour" "midnight" "path" "images/shelf/midnight.jpg" "alt" (i18n "books_shelf_alt")) }}
+    {{ with .Site.GetPage "colophon" }}<a class="shelf-note" href="{{ .RelPermalink }}" aria-label="Colophon"><span>Colophon</span></a>{{ end }}
+  </div>
+  <div class="texts-words">
+    <h1>{{ .Title }}</h1>
+  </div>
+  {{ partial "scene-descent.html" (i18n "explore_books") }}
+  {{ partial "site-nav.html" . }}
 </article>
+<section id="leitura" class="books-corpus" tabindex="-1">
+  {{ .Content }}
+</section>
 {{ end }}

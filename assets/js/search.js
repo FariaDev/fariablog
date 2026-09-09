@@ -7,8 +7,8 @@ export function initSearch({
   const search = root.querySelector('.site-search');
   if (!search || typeof Fuse !== 'function') return null;
 
-  const input = search.querySelector('[data-search-input]');
-  const clear = search.querySelector('[data-clear-search]');
+  const input = root.querySelector('[data-search-input]');
+  const clear = root.querySelector('[data-clear-search]');
   const status = search.querySelector('[data-search-status]');
   const results = search.querySelector('[data-search-results]');
   const entries = search.querySelector('[data-search-entries]');

@@ -1,5 +1,6 @@
 +++
 title = "Como se Beneficiar do Caos: Anotações sobre 'Antifrágil' de Taleb"
+spine = "Antifrágil"
 description = "Anotações detalhadas sobre Antifrágil de Nassim Taleb: aprenda a se beneficiar do caos e entenda a diferença entre frágil, robusto e antifrágil."
 date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
@@ -10,7 +11,6 @@ translationKey = "antifragile"
 [cover]
   image = "/images/imagem-post5.webp"
   alt = "Pintura a óleo 'A Tempestade' de Giorgione. A obra retrata uma paisagem serena com uma mulher amamentando e um soldado, que contrastam com o céu escuro e um raio ao fundo, simbolizando a calma e a vida que persistem diante da iminente volatilidade do caos."
-  caption = "📢 **Crédito da imagem:** Imagem criada utilizando ferramentas de inteligência artificial, especificamente o **Midjourney**."
 +++
 
 ---
