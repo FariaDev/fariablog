@@ -978,6 +978,7 @@ body.is-books .site-footer {
 
 body.is-about .home-words {
   max-width: 24rem;
+  isolation: isolate;
 }
 
 .books-corpus,
@@ -1303,8 +1304,8 @@ body.is-about .home-words {
  .texts-divider { margin-inline: .85rem; opacity: .6; }
 .texts-row { border-bottom: 1px solid rgb(243 238 228 / 25%); padding-block: .4rem; min-height: 32px; }
 .texts-label { text-align: left; }
-.about-window img.home-layer { object-position: 12% center; transform: scale(1.22); }
-.about-window .home-words { margin-left: auto; margin-right: clamp(1.5rem, 8vw, 9rem); padding-left: 1.5rem; padding-top: 18svh; }
+.desk-window img.home-layer { object-position: 12% center; transform: scale(1.22); }
+.desk-window .home-words { margin-left: auto; margin-right: clamp(1.5rem, 8vw, 9rem); padding-left: 1.5rem; padding-top: 18svh; }
 ::selection { background: #dfc6c4; color: #2a211c; }
 .article-content a { text-decoration: underline; }
 .article-content a:visited { color: #79534c; }
@@ -1331,7 +1332,7 @@ body.is-about .home-words {
   .threshold-nav { gap: .2rem; }
   .threshold-link { padding-inline: .3rem; font-size: .875rem; }
   .threshold-link + .threshold-link::before { margin-right: .6rem; }
-  .about-window .home-words { margin-right: 1rem; padding-top: 6rem; }
+  .desk-window .home-words { margin-right: 1rem; padding-top: 6rem; }
 }
 @media print { .home-window .threshold-nav, .home-window::after { display: none; } }
 
@@ -1376,7 +1377,7 @@ html[data-hour="dusk"] .home-scene.has-scrim::after { background: rgb(39 22 13 /
 .essay-end a { display: inline-flex; align-items: center; }
 .footnote-ref { display: inline-block; min-width: 24px; text-align: center; }
 
-.about-window .home-scene.has-scrim::after {
+.desk-window .home-scene.has-scrim::after {
   background: linear-gradient(90deg, rgb(20 16 12 / 25%) 25%, rgb(20 16 12 / 68%) 75%);
 }
 
@@ -1412,3 +1413,83 @@ html[data-hour="dusk"] .home-scene.has-scrim::after { background: rgb(39 22 13 /
 }
 .scene-descent:hover span, .scene-descent:focus-visible span { text-decoration: underline; }
 @media print { .scene-descent { display: none; } }
+
+/* The lamp changes the photographed light; the old exposure stays beneath the new. */
+html[data-hour] img.home-layer[data-lamp="off"] { opacity: 0; z-index: 0; }
+html[data-lamp="off"][data-hour="dusk"] img.home-layer[data-hour="dusk"][data-lamp="on"],
+html[data-lamp="off"][data-hour="midnight"] img.home-layer[data-hour="midnight"][data-lamp="on"] { opacity: 0; z-index: 0; }
+html[data-lamp="off"][data-hour="dusk"] img.home-layer[data-hour="dusk"][data-lamp="off"],
+html[data-lamp="off"][data-hour="midnight"] img.home-layer[data-hour="midnight"][data-lamp="off"] { opacity: 1; z-index: 2; }
+html[data-hour="noon"] img.home-layer[data-hour="noon"],
+html[data-hour="dusk"] img.home-layer[data-hour="dusk"][data-lamp="on"],
+html[data-hour="midnight"] img.home-layer[data-hour="midnight"][data-lamp="on"] { z-index: 2; }
+html[data-hour] img.home-layer.is-outgoing { opacity: 1; z-index: 1; transition: none; }
+html.hours-armed .lamp-changing img.home-layer:not(.is-outgoing) { transition: opacity 1.05s cubic-bezier(.22,.61,.36,1); }
+html.hours-armed[data-lamp="off"] .lamp-changing img.home-layer:not(.is-outgoing) { transition-duration: .8s; }
+.desk-window img.home-layer { object-position: center; transform: none; }
+.desk-window .home-words { margin-left: clamp(0rem, 5vw, 5rem); margin-right: 1rem; padding-top: 12svh; pointer-events: none; }
+.desk-window .home-words a { pointer-events: auto; }
+.desk-window .home-scene.has-scrim::after { background: linear-gradient(90deg, rgb(20 16 12 / 64%), rgb(20 16 12 / 12%) 52%, transparent 75%); }
+.desk-window .home-scene { container-type: size; }
+.scene-objects { position: absolute; z-index: 4; width: max(100cqw, 177.777778cqh); height: max(56.25cqw, 100cqh); left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.desk-lamp { position: absolute; left: 52%; top: 41%; transform: translate(-50%, -50%); width: 13%; height: 17%; min-width: 44px; min-height: 44px; border: 0; border-radius: 40%; background: transparent; color: #f3eee4; cursor: pointer; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
+.desk-lamp[hidden] { display: none; }
+.desk-lamp:focus-visible { outline: 2px solid #f3eee4; outline-offset: 5px; }
+.desk-lamp[aria-busy="true"] { cursor: progress; }
+@media (max-width: 36rem) {
+  .desk-window .home-words { margin-left: 0; padding-top: 5rem; max-width: 21rem; }
+  .desk-window .home-scene.has-scrim::after { background: linear-gradient(180deg, rgb(20 16 12 / 70%), rgb(20 16 12 / 30%) 42%, transparent 65%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.hours-armed .lamp-changing img.home-layer:not(.is-outgoing) { transition: none; }
+}
+@media print { .desk-lamp { display: none; } }
+
+/* An occasional, single visit outside the reading window. */
+[data-field-window] .home-scene { container-type: size; }
+.field-fireflies { z-index: 3; clip-path: polygon(51% 40%, 78% 40%, 78% 87%, 51% 87%); }
+.field-fireflies i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #e1dfa2; box-shadow: 0 0 4px 1px rgb(218 225 148 / 25%); opacity: 0; animation: field-glimmer 7s ease-in-out both; left: 55%; top: 68%; }
+.field-fireflies i:nth-child(2) { left: 59%; top: 76%; animation-delay: 2s; animation-duration: 8s; }
+.field-fireflies i:nth-child(3) { left: 69%; top: 65%; animation-delay: 1s; }
+@keyframes field-glimmer { 0%, 100% { opacity: 0; transform: translate(0, 0); } 30% { opacity: .5; } 55% { opacity: .12; } 75% { opacity: .38; } 100% { transform: translate(9px, -12px); } }
+.temporal-signature { margin: 0 0 2rem; }
+.temporal-signature figcaption { font-size: .8rem; color: var(--muted); }
+.temporal-window { display: block; margin-left: -1rem; margin-bottom: .5rem; }
+.window-sky { stop-color: #b5c9c0; }
+.window-horizon { stop-color: #f1dda4; }
+.window-moon { opacity: 0; }
+html[data-hour="dusk"] .window-sky { stop-color: #846c7e; }
+html[data-hour="dusk"] .window-horizon { stop-color: #dba56e; }
+html[data-hour="midnight"] .window-sky { stop-color: #152332; }
+html[data-hour="midnight"] .window-horizon { stop-color: #47585c; }
+html[data-hour="midnight"] .window-moon { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .field-fireflies { display: none; } .field-fireflies i { animation: none; } }
+@media print { .field-fireflies { display: none; } }
+html.hours-armed img.home-layer[aria-hidden="true"]:not(.is-outgoing) { transition: none; }
+
+/* Overhead view shares the room state, with its own cover crop and lamp position. */
+.about-window img.home-layer { object-position: 65% center; }
+.about-window .scene-objects { left: 65%; transform: translate(-65%, -50%); }
+.about-window .desk-lamp { left: 63.5%; top: 41%; width: 12%; height: 14%; }
+body.is-about .language-switch {
+  background: radial-gradient(ellipse, rgb(20 16 12 / 42%), transparent 72%);
+  text-shadow: 0 1px 10px rgb(20 16 12 / 72%), 0 0 2px rgb(20 16 12 / 64%);
+}
+@media (max-width: 36rem) {
+  /* The overhead source is cover-cropped on a tall phone. Follow its calm
+     left side while keeping the lamp's hit area registered to the same crop. */
+  .about-window img.home-layer { object-position: 58% center; }
+  .about-window .scene-objects { left: 58%; transform: translate(-58%, -50%); }
+  .about-window .home-words { max-width: 20rem; }
+  .about-window .home-words::before {
+    position: absolute;
+    z-index: -1;
+    inset: 3.8rem -1.2rem auto -1.1rem;
+    height: 17rem;
+    content: "";
+    pointer-events: none;
+    background: radial-gradient(ellipse at 36% 45%, rgb(20 16 12 / 40%) 0, rgb(20 16 12 / 24%) 55%, transparent 100%);
+  }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

@@ -1,10 +1,11 @@
 {{ define "main" }}
 {{- $writing := .Site.GetPage "section" "posts" -}}
-<article class="home-window texts-window" data-house-window data-active-hour="noon">
+<article class="home-window texts-window" data-house-window data-field-window data-active-hour="noon">
   <div class="home-scene has-scrim" data-house-scene>
     {{ partial "house-layer.html" (dict "prefix" "window" "hour" "noon" "path" "images/window/noon.jpg" "alt" (i18n "window_noon_alt")) }}
     {{ partial "house-layer.html" (dict "prefix" "window" "hour" "dusk" "path" "images/window/dusk.jpg" "alt" (i18n "window_dusk_alt")) }}
-    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt")) }}
+    {{ partial "house-layer.html" (dict "prefix" "window" "hour" "midnight" "lamp" "on" "path" "images/window/midnight.jpg" "alt" (i18n "window_midnight_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "midnight" "lamp" "off" "path" "images/window/midnight-off.jpg" "alt" (i18n "window_midnight_off_alt")) }}
   </div>
   <div class="texts-words">
     {{- with $writing }}

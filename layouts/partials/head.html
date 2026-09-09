@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
 (function () {
+  try { document.documentElement.dataset.lamp = sessionStorage.getItem('fariablog-lamp') === 'off' ? 'off' : 'on'; } catch (_) {}
   var hour = new Date().getHours();
   document.documentElement.setAttribute('data-hour', hour >= 10 && hour < 17 ? 'noon' : hour >= 17 && hour < 21 ? 'dusk' : 'midnight');
 })();
@@ -73,10 +74,10 @@
 <meta name="twitter:image" content="{{ . }}">
 <meta name="twitter:image:alt" content="{{ $ogImageAlt }}">
 {{- end }}
-<link rel="icon" href="{{ "favicon.svg?v=4" | relURL }}" type="image/svg+xml">
-<link rel="icon" href="{{ "favicon.ico?v=4" | relURL }}" sizes="any">
-<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=4" | relURL }}" sizes="32x32">
-<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png?v=4" | relURL }}" sizes="180x180">
+<link rel="icon" href="{{ "favicon.svg?v=5" | relURL }}" type="image/svg+xml">
+<link rel="icon" href="{{ "favicon.ico?v=5" | relURL }}" sizes="any">
+<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=5" | relURL }}" sizes="32x32">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png?v=5" | relURL }}" sizes="180x180">
 {{ with .Site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
 {{- $css := resources.Get "css/site.css" | resources.Minify | resources.Fingerprint "sha256" -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
@@ -85,10 +86,12 @@
 {{- $isTexts := and (eq .Kind "section") (eq .Section "posts") -}}
 {{- $isEssay := and .IsPage (eq .Section "posts") -}}
 {{- if or $isTexts $isEssay }}
+{{- $fireflies := resources.Get "js/fireflies.js" | resources.Minify | resources.Fingerprint "sha256" -}}
+<script defer src="{{ $fireflies.RelPermalink }}" integrity="{{ $fireflies.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- $essayTransition := resources.Get "js/essay-transition.js" | resources.Minify -}}
 <script>{{ $essayTransition.Content | safeJS }}</script>
 {{- end }}
-{{- if or .IsHome $isTexts $isEssay (eq .Layout "books") (eq .Layout "about") }}
+{{- if or .IsHome $isTexts $isEssay (eq .Layout "books") (eq .Layout "about") (eq .Layout "colophon") }}
 {{- $houseJS := resources.Get "js/house.js" | resources.Minify | resources.Fingerprint "sha256" -}}
 <script defer src="{{ $houseJS.RelPermalink }}" integrity="{{ $houseJS.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}

@@ -1,9 +1,15 @@
 {{ define "main" }}
-<article class="home-window" data-house-window data-active-hour="noon">
-  <div class="home-scene" data-house-scene>
-    {{ partial "house-layer.html" (dict "hour" "noon" "path" "images/home/noon.jpg" "alt" (i18n "hour_noon_alt")) }}
-    {{ partial "house-layer.html" (dict "hour" "dusk" "path" "images/home/dusk.jpg" "alt" (i18n "hour_dusk_alt")) }}
-    {{ partial "house-layer.html" (dict "hour" "midnight" "path" "images/home/midnight.jpg" "alt" (i18n "hour_midnight_alt")) }}
+<article class="home-window desk-window" data-house-window data-active-hour="noon">
+  <div class="home-scene has-scrim" data-house-scene>
+    {{ partial "house-layer.html" (dict "hour" "noon" "path" "images/desk/noon.jpg" "alt" (i18n "about_noon_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "dusk" "path" "images/desk/dusk.jpg" "lamp" "on" "alt" (i18n "about_dusk_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "midnight" "path" "images/desk/midnight.jpg" "lamp" "on" "alt" (i18n "about_midnight_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "dusk" "path" "images/desk/dusk-off.jpg" "lamp" "off" "alt" (i18n "about_dusk_off_alt")) }}
+    {{ partial "house-layer.html" (dict "hour" "midnight" "path" "images/desk/midnight-off.jpg" "lamp" "off" "alt" (i18n "about_midnight_off_alt")) }}
+    <div class="scene-objects">
+      <button class="desk-lamp" data-desk-lamp hidden type="button" aria-label="{{ i18n "desk_lamp" }}" aria-pressed="true">
+      </button>
+    </div>
   </div>
   <div class="home-words">
     <h1>{{ site.Title }}</h1>
