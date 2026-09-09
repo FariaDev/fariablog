@@ -46,14 +46,13 @@
     var hour = hourFromClock();
     var current = ++revision;
     var img = selected(hour);
-    if (!root) { html.dataset.hour = hour; return; }
+    if (!root) { html.dataset.hour = hour; html.dataset.lamp = desiredLamp; return; }
     if (!img) return;
     updateLamp(hour, Boolean(fromLamp));
     load(img).then(function () {
       if (current !== revision) return;
       lampPending = false;
       if (!img.naturalWidth) {
-        desiredLamp = html.dataset.lamp === 'off' ? 'off' : 'on';
         updateLamp(html.dataset.hour, false);
         return;
       }
@@ -70,7 +69,6 @@
       root.dataset.activeHour = hour;
       active = img;
       layers.forEach(function (layer) { layer.setAttribute('aria-hidden', String(layer !== img)); });
-      if (fromLamp) { try { window.sessionStorage.setItem('fariablog-lamp', desiredLamp); } catch (_) {} }
       updateLamp(hour, false);
       requestAnimationFrame(function () { html.classList.add('hours-armed'); });
     });
@@ -89,11 +87,17 @@
   if (lamp) lamp.addEventListener('click', function () {
     lampPending = true;
     desiredLamp = desiredLamp === 'on' ? 'off' : 'on';
+    // Save the choice before fetching: navigation must not undo a pending click.
+    try { window.sessionStorage.setItem('fariablog-lamp', desiredLamp); } catch (_) {}
     apply(true);
   });
   apply(false);
   window.setInterval(function () { if (!document.hidden) apply(false); }, 60000);
-  window.addEventListener('pageshow', function () { apply(false); });
+  window.addEventListener('pageshow', function (event) {
+    // A restored document may have left a decode pending before navigation.
+    if (event && event.persisted) lampPending = false;
+    apply(false);
+  });
   document.addEventListener('visibilitychange', function () { if (!document.hidden) apply(false); });
   var descent = root && root.querySelector('.scene-descent');
   if (descent) descent.addEventListener('click', function (event) {

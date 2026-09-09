@@ -364,7 +364,8 @@ require('data-house-window' in english_about, "about is missing the house window
 require("/js/house." in english_about, "about is missing its house script")
 require("/processed-images/desk-" in english_home_text and "data-desk-lamp" in english_home_text, "home must use the interactive writing desk")
 require("/processed-images/about-" in english_about, "about must use the overhead desk scene")
-require((repo / "assets/brand/window.svg").read_bytes() == (repo / "static/favicon.svg").read_bytes(), "favicon differs from the colophon master; run scripts/build-icons.sh")
+require((repo / "assets/brand/favicon.svg").read_bytes() == (repo / "static/favicon.svg").read_bytes(), "favicon differs from its small-size master; run scripts/build-icons.sh")
+require((repo / "assets/brand/window.svg").read_bytes() == (repo / "static/window-signature.svg").read_bytes(), "window signature differs from the colophon master; run scripts/build-icons.sh")
 require("data-hour=noon" in english_about and "data-hour=dusk" in english_about and "data-hour=midnight" in english_about, "about is missing the three hours")
 english_contact = (production / "en" / "contact" / "index.html").read_text(encoding="utf-8")
 require("/en/about/" in english_contact, "contact page does not point to about")
@@ -431,6 +432,8 @@ for path, (parser, _) in prod_docs.items():
     require({i.get("data-hour") for i in layers} == {"noon", "dusk", "midnight"}, f"missing house lighting in {path}")
     for image in layers:
         require("src" not in image and "srcset" not in image, f"house variant enters preload scanning in {path}")
+        preview_style = image.get("style", "")
+        require("data:image/jpeg;base64," in preview_style and len(preview_style) < 2500, f"house scene lacks a small inline loading preview in {path}")
         require(image.get("fetchpriority") == "low", f"unselected house variant has high priority in {path}")
         require(local_target(production, path, image["data-src"]) is not None, f"broken deferred house source in {path}")
         require(image.get("data-srcset"), f"house variant lacks responsive sources in {path}")

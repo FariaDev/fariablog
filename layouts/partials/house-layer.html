@@ -17,6 +17,9 @@
 {{- end -}}
 {{- with $resource -}}
   {{- $src = .RelPermalink -}}
+  {{/* Precomputed preview avoids reading transient Hugo image-cache files. */}}
+  {{- $preview := (index site.Data.house_images.sources $.path).preview -}}
+  {{- $previewStyle := printf "background-image:url(%s)" $preview -}}
   {{- if hugo.IsExtended -}}
     {{- range slice "720" "1080" "1280" "1536" -}}
       {{- if ge $resource.Width (int .) -}}
@@ -32,7 +35,7 @@
     <source type="image/avif" data-srcset="{{ delimit $avifset ", " }}" sizes="{{ $coverSizes }}">
     <img class="home-layer" data-hour="{{ $hour }}" {{ with $lamp }}data-lamp="{{ . }}"{{ end }}
       data-src="{{ $src }}" {{ if $srcset }}data-srcset="{{ delimit $srcset ", " }}" sizes="{{ $coverSizes }}"{{ end }}
-      width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}" aria-hidden="true" decoding="async" fetchpriority="low">
+      style="{{ $previewStyle | safeCSS }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}" aria-hidden="true" decoding="async" fetchpriority="low">
   </picture>
   <script>
   (function (script) {

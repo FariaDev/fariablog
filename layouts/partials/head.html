@@ -74,9 +74,9 @@
 <meta name="twitter:image" content="{{ . }}">
 <meta name="twitter:image:alt" content="{{ $ogImageAlt }}">
 {{- end }}
-<link rel="icon" href="{{ "favicon.svg?v=5" | relURL }}" type="image/svg+xml">
-<link rel="icon" href="{{ "favicon.ico?v=5" | relURL }}" sizes="any">
-<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=5" | relURL }}" sizes="32x32">
+<link rel="icon" href="{{ "favicon.svg?v=6" | relURL }}" type="image/svg+xml">
+<link rel="icon" href="{{ "favicon.ico?v=6" | relURL }}" sizes="any">
+<link rel="icon" type="image/png" href="{{ "favicon-32x32.png?v=6" | relURL }}" sizes="32x32">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png?v=5" | relURL }}" sizes="180x180">
 {{ with .Site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
 {{- $css := resources.Get "css/site.css" | resources.Minify | resources.Fingerprint "sha256" -}}
