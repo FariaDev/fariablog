@@ -110,7 +110,7 @@
     target.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth', block: 'start' });
   });
   if (!scene) return;
-  var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0;
+  var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0, sceneScale = 1.04;
   var height = root.offsetHeight;
   var top = root.offsetTop;
   function tick() {
@@ -119,7 +119,7 @@
     x += (targetX - x) * .12;
     y += (targetY - y) * .12;
     var progress = Math.max(0, Math.min(1, (window.scrollY - top) / height));
-    scene.style.transform = 'translate(' + x.toFixed(2) + 'px,' + (y + progress * 4).toFixed(2) + 'px) scale(' + (1.04 + progress * .02).toFixed(4) + ')';
+    scene.style.transform = 'translate(' + x.toFixed(2) + 'px,' + (y + progress * 4).toFixed(2) + 'px) scale(' + (sceneScale + progress * .02).toFixed(4) + ')';
     if (Math.abs(x - targetX) > .05 || Math.abs(y - targetY) > .05) schedule();
   }
   function schedule() { if (!frame) frame = requestAnimationFrame(tick); }
@@ -154,8 +154,8 @@
     var angle = ((window.screen && window.screen.orientation && window.screen.orientation.angle) || window.orientation || 0) * Math.PI / 180;
     var horizontal = gamma * Math.cos(angle) + beta * Math.sin(angle);
     var vertical = beta * Math.cos(angle) - gamma * Math.sin(angle);
-    targetX = -Math.max(-1, Math.min(1, horizontal / 25)) * 6;
-    targetY = -Math.max(-1, Math.min(1, vertical / 25)) * 6;
+    targetX = -Math.max(-1, Math.min(1, horizontal / 15)) * 18;
+    targetY = -Math.max(-1, Math.min(1, vertical / 15)) * 18;
     schedule();
   }
   function syncTilt() {
@@ -163,6 +163,8 @@
     if (enabled && !listening) window.addEventListener('deviceorientation', tilt, { passive: true });
     if (!enabled && listening) window.removeEventListener('deviceorientation', tilt);
     listening = enabled;
+    // Extra image coverage accommodates the stronger phone movement.
+    sceneScale = enabled ? 1.08 : 1.04;
     if (control) control.hidden = allowed || !touch.matches || motion.matches;
     neutral();
   }
