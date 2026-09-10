@@ -276,6 +276,63 @@ for path, language in ((production_home_en, "en"), (production_home_pt, "pt-br")
     require(any(isinstance(item, dict) and item.get("description") == expected for item in jsonld), f"JSON-LD description is not language-specific in {path}")
     require(meta_value(parser, "robots", "index, follow"), f"production robots metadata is wrong in {path}")
 
+# Sharing crawlers read HTML without JavaScript; validate their actual image files.
+def jpeg_dimensions(path):
+    raw = path.read_bytes()
+    require(raw[:2] == b"\xff\xd8", f"social card is not JPEG: {path}")
+    position = 2
+    while position + 4 < len(raw):
+        if raw[position] != 255:
+            position += 1
+            continue
+        marker = raw[position + 1]
+        if marker == 255:
+            position += 1
+            continue
+        length = int.from_bytes(raw[position + 2:position + 4], "big")
+        if marker in {0xC0, 0xC1, 0xC2}:
+            return (int.from_bytes(raw[position + 7:position + 9], "big"),
+                    int.from_bytes(raw[position + 5:position + 7], "big"))
+        position += 2 + length
+    fail(f"social card has no JPEG dimensions: {path}")
+
+social_images = set()
+for path, (parser, jsonld) in prod_docs.items():
+    metadata = {m.get("property", m.get("name")): m.get("content", "") for m in parser.metas}
+    if "og:image" not in metadata:
+        continue  # Hugo redirect documents do not use the page head.
+    canonical = next((link.get("href") for link in parser.links if link.get("rel") == "canonical"), None)
+    require(canonical == metadata.get("og:url"), f"canonical/OG URL mismatch in {path}")
+    require(metadata.get("description") == metadata.get("og:description") == metadata.get("twitter:description"), f"description mismatch in {path}")
+    require(20 <= len(metadata["description"]) <= 180, f"missing or excessive description in {path}")
+    require(metadata.get("og:title") == metadata.get("twitter:title"), f"social title mismatch in {path}")
+    image_url = metadata["og:image"]
+    require(image_url.startswith(base_url), f"noncanonical social image in {path}")
+    require(image_url == metadata.get("og:image:secure_url") == metadata.get("twitter:image"), f"social image mismatch in {path}")
+    require(metadata.get("og:image:alt") == metadata.get("twitter:image:alt") and metadata.get("og:image:alt"), f"social image lacks alt text in {path}")
+    require(metadata.get("twitter:card") == "summary_large_image", f"missing large-image card in {path}")
+    require(metadata.get("og:image:type") == "image/jpeg", f"incorrect social image MIME in {path}")
+    image_path = local_target(production, path, image_url)
+    require(image_path is not None, f"missing social image in {path}")
+    require(jpeg_dimensions(image_path) == (1200, 630), f"wrong social card dimensions in {path}")
+    require(metadata.get("og:image:width") == "1200" and metadata.get("og:image:height") == "630", f"wrong social dimension metadata in {path}")
+    require(image_path.stat().st_size < 300_000, f"social card exceeds 300 KB in {path}")
+    social_images.add(image_url)
+    for item in jsonld:
+        if item.get("@type") == "BlogPosting":
+            require(item.get("image", {}).get("url") == image_url, f"article schema uses a different image in {path}")
+            require(item.get("author", {}).get("url", "").endswith("/about/"), f"article author lacks profile URL in {path}")
+for language in ("pt-br", "en"):
+    home_parser, home_schema = prod_docs[production / language / "index.html"]
+    require(any(item.get("@type") == "WebSite" and item.get("name") == "FariaBlog" for item in home_schema), f"missing WebSite schema for {language}")
+    for layout in ("search", "contact"):
+        parser, _ = prod_docs[production / language / layout / "index.html"]
+        require(meta_value(parser, "robots", "noindex, follow"), f"utility page should not be indexed: {language}/{layout}")
+    sitemap = ET.parse(production / language / "sitemap.xml")
+    sitemap_urls = [node.text for node in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    require(not any(url.endswith(("/search/", "/contact/")) for url in sitemap_urls), f"sitemap includes noindex/redirect pages for {language}")
+require(len(social_images) == 4, "expected one social card per room")
+
 # Every published post must have exactly one counterpart in each language.
 translation_paths = {}
 for language in ("en", "pt-br"):

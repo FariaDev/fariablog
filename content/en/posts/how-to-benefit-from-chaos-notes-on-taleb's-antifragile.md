@@ -1,7 +1,8 @@
 +++
+description = "Reading notes on Nassim Nicholas Taleb’s Antifragile: uncertainty, risk, and the difference between resisting chaos and learning from it."
+summary = "Reading notes on Nassim Nicholas Taleb’s Antifragile: uncertainty, risk, and the difference between resisting chaos and learning from it."
 title = "How to Benefit from Chaos: Notes on Taleb's 'Antifragile'"
 spine = "Antifragile"
-description = "Detailed notes on Nassim Taleb's Antifragile: learn how to benefit from chaos and understand the difference between fragile, robust, and antifragile."
 date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Philosophy", "Economics"]

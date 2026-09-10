@@ -1,0 +1,17 @@
+{{- $title := .Params.seoTitle | default .Title | plainify | htmlUnescape -}}
+{{- $description := .Description | default .Summary | default site.Params.description | plainify | htmlUnescape | replaceRE "\\s+" " " | strings.TrimSpace | truncate 160 -}}
+{{- if .IsHome -}}
+  {{- $title = printf "%s — %s" site.Title (cond (eq .Language.Lang "pt-br") "Uma casa para leitura" "A house for reading") -}}
+  {{- $description = site.Params.description -}}
+{{- else if eq .Kind "term" -}}
+  {{- $description = cond (eq .Language.Lang "pt-br") (printf "Ensaios e notas de leitura sobre %s, por Lucas Faria. Explore os textos do FariaBlog relacionados a este assunto." .Title) (printf "Essays and reading notes on %s by Lucas Faria. Explore related writing from FariaBlog." .Title) -}}
+{{- else if eq .Kind "taxonomy" -}}
+  {{- $title = cond (eq .Language.Lang "pt-br") "Assuntos" "Topics" -}}
+  {{- $description = cond (eq .Language.Lang "pt-br") "Explore os ensaios do FariaBlog por assunto: filosofia, literatura, leitura, neurociência e educação." "Explore FariaBlog essays by topic: philosophy, literature, reading, neuroscience, and education." -}}
+{{- end -}}
+{{- $canonical := .Permalink -}}
+{{- if eq .Layout "contact" }}{{ with .Site.GetPage "about" }}{{ $canonical = .Permalink }}{{ end }}{{ end -}}
+{{- $author := .Params.author | default site.Params.authorName -}}
+{{- if eq $author "Lucas" }}{{ $author = site.Params.authorName }}{{ end -}}
+{{- $card := partial "social-image.html" (dict "page" .) -}}
+{{- return (dict "title" $title "description" $description "canonical" $canonical "author" $author "image" $card "imageAlt" (cond (eq .Language.Lang "pt-br") "Faria Blog: a janela da marca e uma cena da casa de leitura ao entardecer." "Faria Blog: the window logo and a scene from the reading house at dusk.")) -}}

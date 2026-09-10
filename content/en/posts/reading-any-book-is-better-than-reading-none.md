@@ -1,7 +1,8 @@
 +++
+description = "A reflection on the benefits of reading, the variety of fiction and nonfiction, and what we seek in books."
+summary = "A reflection on the benefits of reading, the variety of fiction and nonfiction, and what we seek in books."
 title = "Is Reading Any Book Better Than Reading None?"
 spine = "Reading"
-description = "Discover what neuroscience reveals about the benefits of reading and why varying between fiction and non-fiction is essential for brain health."
 date = "2025-01-28T12:00:00-03:00"
 author = "Lucas"
 tags = ["Reading", "Neuroscience"]

@@ -1472,7 +1472,7 @@ html.hours-armed img.home-layer[aria-hidden="true"]:not(.is-outgoing) { transiti
 /* Overhead view shares the room state, with its own cover crop and lamp position. */
 .about-window img.home-layer { object-position: 65% center; background-position: 65% center; }
 .about-window .scene-objects { left: 65%; transform: translate(-65%, -50%); }
-.about-window .desk-lamp { left: 63.5%; top: 23%; width: 24%; height: 48%; }
+.about-window .desk-lamp { left: 63.5%; top: 23%; width: 26%; height: 50%; border-radius: 0; }
 body.is-about .language-switch {
   background: radial-gradient(ellipse, rgb(20 16 12 / 42%), transparent 72%);
   text-shadow: 0 1px 10px rgb(20 16 12 / 72%), 0 0 2px rgb(20 16 12 / 64%);

@@ -1,4 +1,4 @@
-# Configuração principal do FariaBlog — interface mínima.
+# Configuração principal do FariaBlog — uma casa para leitura.
 baseURL = "https://fariablog.com/"
 title = "FariaBlog"
 defaultContentLanguage = "pt-br"
@@ -26,13 +26,12 @@ defaultContentLanguageInSubdir = true
 
 [params]
   authorName = "Lucas Faria"
-  description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
+  description = "Uma casa para leitura. Ensaios e notas de Lucas Faria sobre filosofia, literatura, neurociência e educação, com uma estante de livros lidos."
   keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
   showToc = true
   mainSections = ["posts"]
   rssLimit = 20
   editBaseURL = "https://github.com/FariaDev/fariablog/edit/main"
-  images = ["/og/fariablog.jpg"]
 
 [languages]
   [languages.pt-br]
@@ -42,7 +41,7 @@ defaultContentLanguageInSubdir = true
     [languages.pt-br.params]
       locale = "pt-BR"
       languageLabel = "Português"
-      description = "Um blog sobre filosofia, literatura, neurociência e reflexões sobre educação. Compartilhando insights e descobertas através da leitura e do pensamento crítico."
+      description = "Uma casa para leitura. Ensaios e notas de Lucas Faria sobre filosofia, literatura, neurociência e educação, com uma estante de livros lidos."
       keywords = ["filosofia", "literatura", "neurociência", "educação", "leitura", "reflexões", "blog", "pensamento crítico"]
       dateFormat = "02/01/2006"
       homeInfoContent = "Compartilhando insights, reflexões e descobertas. Um espaço para explorar o que estou lendo, estudando e pensando no momento."
@@ -56,14 +55,13 @@ defaultContentLanguageInSubdir = true
     [languages.en.params]
       locale = "en-US"
       languageLabel = "English"
-      description = "A blog about philosophy, literature, neuroscience, and reflections on education. Sharing insights and discoveries through reading and critical thinking."
+      description = "A house for reading. Essays and notes by Lucas Faria on philosophy, literature, neuroscience, and education, alongside a shelf of books read."
       keywords = ["philosophy", "literature", "neuroscience", "education", "reading", "reflections", "blog", "critical thinking"]
       dateFormat = "Jan 02, 2006"
       homeInfoContent = "Sharing insights, reflections, and discoveries. A space to explore what I'm reading, studying, and thinking about right now."
       [languages.en.params.editPost]
         contentDir = "content/en"
 
-enableRobotsTXT = true
 
 [sitemap]
   changefreq = "weekly"

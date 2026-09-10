@@ -1,7 +1,8 @@
 +++
+description = "Anotações de Antifrágil, de Nassim Nicholas Taleb, sobre incerteza, riscos e a diferença entre resistir ao caos e aprender com ele."
+summary = "Anotações de Antifrágil, de Nassim Nicholas Taleb, sobre incerteza, riscos e a diferença entre resistir ao caos e aprender com ele."
 title = "Como se Beneficiar do Caos: Anotações sobre 'Antifrágil' de Taleb"
 spine = "Antifrágil"
-description = "Anotações detalhadas sobre Antifrágil de Nassim Taleb: aprenda a se beneficiar do caos e entenda a diferença entre frágil, robusto e antifrágil."
 date = "2025-07-20T00:36:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Filosofia", "Economia"]

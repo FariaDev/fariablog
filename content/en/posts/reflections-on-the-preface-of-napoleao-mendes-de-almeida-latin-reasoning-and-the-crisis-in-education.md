@@ -1,7 +1,8 @@
 +++
+description = "Reflections on the preface to Napoleão Mendes de Almeida’s Latin Grammar, exploring language, reasoning, and education."
+summary = "Reflections on the preface to Napoleão Mendes de Almeida’s Latin Grammar, exploring language, reasoning, and education."
 title = "Reflections on Napoleão Mendes de Almeida's Preface: Latin, Reasoning, and the Crisis in Education"
 spine = "Latin"
-description = "Studying Latin develops reasoning and intelligence. Reflections on the educational crisis inspired by Napoleão Mendes de Almeida's Latin Grammar."
 date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
 tags = ["Education", "Reading"]

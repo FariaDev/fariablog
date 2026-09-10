@@ -1,7 +1,8 @@
 +++
+description = "A estante de Lucas Faria: livros lidos, organizados por título, e as leituras que deram origem a ensaios e notas no FariaBlog."
+seoTitle = "Livros lidos e notas de leitura"
 title = "Meus Livros Lidos"
 layout = "books"
-description = "Aqui está a lista de livros que li (em ordem alfabética), exportada do Skoob."
 date = "2026-04-17T00:00:00-03:00"
 lastmod = "2026-04-17T00:00:00-03:00"
 language = "pt-br"

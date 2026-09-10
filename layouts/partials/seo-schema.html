@@ -1,46 +1,31 @@
-{{- if .IsHome }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": {{ site.Params.authorName | jsonify | safeJS }},
-  "url": {{ site.Home.Permalink | jsonify | safeJS }},
-  "description": {{ site.Params.description | jsonify | safeJS }},
-  "sameAs": ["https://github.com/FariaDev"]
-}
-</script>
-{{- else if and .IsPage (in site.MainSections .Section) }}
-{{- $author := .Params.author | default site.Params.authorName -}}
-{{- $image := "" -}}
-{{- with .Params.cover.image }}{{ $image = . | absURL }}{{ end -}}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": {{ .Title | plainify | jsonify | safeJS }},
-  "description": {{ (.Description | default .Summary | plainify) | jsonify | safeJS }},
-  "url": {{ .Permalink | jsonify | safeJS }},
-  "mainEntityOfPage": {"@type": "WebPage", "@id": {{ .Permalink | jsonify | safeJS }}},
-  "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify | safeJS }},
-  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify | safeJS }},
-  "wordCount": {{ .WordCount }},
-  "inLanguage": {{ .Language.Lang | jsonify | safeJS }},
-  "author": {"@type": "Person", "name": {{ $author | jsonify | safeJS }}},
-  "publisher": {"@type": "Person", "name": {{ site.Params.authorName | jsonify | safeJS }}}{{ with $image }},
-  "image": {{ . | jsonify | safeJS }}{{ end }}{{ with .Params.tags }},
-  "keywords": {{ . | jsonify | safeJS }}{{ end }}
-}
-</script>
-{{- else }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": {{ .Title | plainify | jsonify | safeJS }},
-  "description": {{ .Description | default .Summary | default site.Params.description | plainify | jsonify | safeJS }},
-  "url": {{ .Permalink | jsonify | safeJS }},
-  "inLanguage": {{ .Language.Lang | jsonify | safeJS }},
-  "isPartOf": {"@type": "WebSite", "name": {{ site.Title | jsonify | safeJS }}, "url": {{ site.Home.Permalink | jsonify | safeJS }}}
-}
-</script>
-{{- end }}
+{{- $p := .page -}}
+{{- $seo := .seo -}}
+{{- $base := $p.Site.BaseURL -}}
+{{- $aboutURL := $p.Site.Home.Permalink -}}
+{{- with $p.Site.GetPage "about" }}{{ $aboutURL = .Permalink }}{{ end -}}
+{{- $person := dict "@type" "Person" "@id" (printf "%s#author" $base) "name" $seo.author "url" $aboutURL -}}
+{{- $website := dict "@type" "WebSite" "@id" (printf "%s#website" $base) "name" $p.Site.Title "url" $base -}}
+{{- $image := dict "@type" "ImageObject" "url" $seo.image.Permalink "width" $seo.image.Width "height" $seo.image.Height -}}
+{{- $schema := dict "@context" "https://schema.org" "@type" "WebPage" "@id" (printf "%s#webpage" $seo.canonical) "name" $seo.title "description" $seo.description "url" $seo.canonical "inLanguage" $p.Language.Lang "isPartOf" $website "primaryImageOfPage" $image -}}
+{{- if $p.IsHome -}}
+  {{- $siteSchema := merge $website (dict "@context" "https://schema.org" "description" $seo.description "inLanguage" $p.Language.Lang "publisher" $person) -}}
+  <script type="application/ld+json">{{ $siteSchema | jsonify | safeJS }}</script>
+  {{- $authorSchema := merge $person (dict "@context" "https://schema.org" "sameAs" (slice "https://github.com/FariaDev")) -}}
+  <script type="application/ld+json">{{ $authorSchema | jsonify | safeJS }}</script>
+{{- else if and $p.IsPage (eq $p.Section "posts") -}}
+  {{- $schema = dict "@context" "https://schema.org" "@type" "BlogPosting" "@id" (printf "%s#article" $seo.canonical) "headline" $p.Title "description" $seo.description "url" $seo.canonical "mainEntityOfPage" (dict "@type" "WebPage" "@id" $seo.canonical) "datePublished" ($p.Date.Format "2006-01-02T15:04:05Z07:00") "dateModified" ($p.Lastmod.Format "2006-01-02T15:04:05Z07:00") "wordCount" $p.WordCount "inLanguage" $p.Language.Lang "author" $person "publisher" $person "image" $image -}}
+  {{- with $p.Params.tags }}{{ $schema = merge $schema (dict "keywords" .) }}{{ end -}}
+  {{- $writing := $p.Site.GetPage "section" "posts" -}}
+  {{- $breadcrumbs := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice
+    (dict "@type" "ListItem" "position" 1 "name" $p.Site.Title "item" $p.Site.Home.Permalink)
+    (dict "@type" "ListItem" "position" 2 "name" $writing.Title "item" $writing.Permalink)
+    (dict "@type" "ListItem" "position" 3 "name" $p.Title "item" $p.Permalink)) -}}
+  <script type="application/ld+json">{{ $breadcrumbs | jsonify | safeJS }}</script>
+{{- else if eq $p.Layout "about" -}}
+  {{- $schema = merge $schema (dict "@type" "ProfilePage" "mainEntity" $person) -}}
+{{- else if eq $p.Layout "search" -}}
+  {{- $schema = merge $schema (dict "@type" "SearchResultsPage") -}}
+{{- else if or $p.IsSection (in (slice "term" "taxonomy") $p.Kind) (in (slice "books" "archives") $p.Layout) -}}
+  {{- $schema = merge $schema (dict "@type" "CollectionPage") -}}
+{{- end -}}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
