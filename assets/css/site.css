@@ -1517,23 +1517,3 @@ body.is-essay .site-footer {
 }
 body.is-essay .site-footer p { margin: 0; }
 body.is-essay .site-footer .window-signature { margin: 0; flex: 0 0 auto; }
-
-/* Sensor permission is offered only on touch devices that require it. */
-.scene-motion {
-  position: absolute;
-  top: max(1rem, env(safe-area-inset-top));
-  left: 1rem;
-  z-index: 6;
-  min-height: 44px;
-  padding: .5rem .75rem;
-  border: 0;
-  border-radius: 0;
-  background: rgb(20 16 12 / 65%);
-  color: #fff6e6;
-  font: inherit;
-  font-size: .75rem;
-  cursor: pointer;
-}
-.scene-motion[hidden] { display: none; }
-.scene-motion:disabled { cursor: default; }
-@media print { .scene-motion { display: none; } }
