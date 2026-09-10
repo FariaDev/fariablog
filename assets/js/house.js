@@ -110,7 +110,7 @@
     target.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth', block: 'start' });
   });
   if (!scene) return;
-  var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0, sceneScale = 1.04;
+  var x = 0, y = 0, targetX = 0, targetY = 0, frame = 0;
   var height = root.offsetHeight;
   var top = root.offsetTop;
   function tick() {
@@ -119,7 +119,7 @@
     x += (targetX - x) * .12;
     y += (targetY - y) * .12;
     var progress = Math.max(0, Math.min(1, (window.scrollY - top) / height));
-    scene.style.transform = 'translate(' + x.toFixed(2) + 'px,' + (y + progress * 4).toFixed(2) + 'px) scale(' + (sceneScale + progress * .02).toFixed(4) + ')';
+    scene.style.transform = 'translate(' + x.toFixed(2) + 'px,' + (y + progress * 4).toFixed(2) + 'px) scale(' + (1.04 + progress * .02).toFixed(4) + ')';
     if (Math.abs(x - targetX) > .05 || Math.abs(y - targetY) > .05) schedule();
   }
   function schedule() { if (!frame) frame = requestAnimationFrame(tick); }
@@ -130,72 +130,9 @@
     schedule();
   }, { passive: true });
   function reset() { targetX = targetY = 0; schedule(); }
-  root.addEventListener('pointerleave', function (event) {
-    if (pointer.matches && event.pointerType !== 'touch') reset();
-  });
-  motion.addEventListener('change', function () { x = y = 0; reset(); });
+  root.addEventListener('pointerleave', reset);
+  motion.addEventListener('change', reset);
   pointer.addEventListener('change', reset);
   window.addEventListener('scroll', function () { if (!motion.matches) schedule(); }, { passive: true });
   window.addEventListener('resize', function () { height = root.offsetHeight; top = root.offsetTop; schedule(); });
-
-  // Relative tilt keeps the room centred at the reader's natural holding angle.
-  var orientation = window.DeviceOrientationEvent;
-  var touch = window.matchMedia('(pointer: coarse)');
-  if (!orientation || !window.isSecureContext || !touch.matches) return;
-  var baseline = null, listening = false, allowed = typeof orientation.requestPermission !== 'function';
-  var control = null, pending = false;
-  function neutral() { baseline = null; x = y = 0; reset(); }
-  function tilt(event) {
-    if (motion.matches || document.hidden || window.scrollY > top + height ||
-        !Number.isFinite(event.beta) || !Number.isFinite(event.gamma)) return;
-    if (!baseline) baseline = { beta: event.beta, gamma: event.gamma };
-    var beta = (event.beta - baseline.beta + 540) % 360 - 180;
-    var gamma = (event.gamma - baseline.gamma + 540) % 360 - 180;
-    var angle = ((window.screen && window.screen.orientation && window.screen.orientation.angle) || window.orientation || 0) * Math.PI / 180;
-    var horizontal = gamma * Math.cos(angle) + beta * Math.sin(angle);
-    var vertical = beta * Math.cos(angle) - gamma * Math.sin(angle);
-    targetX = -Math.max(-1, Math.min(1, horizontal / 15)) * 18;
-    targetY = -Math.max(-1, Math.min(1, vertical / 15)) * 18;
-    schedule();
-  }
-  function syncTilt() {
-    var enabled = allowed && touch.matches && !motion.matches && !document.hidden;
-    if (enabled && !listening) window.addEventListener('deviceorientation', tilt, { passive: true });
-    if (!enabled && listening) window.removeEventListener('deviceorientation', tilt);
-    listening = enabled;
-    // Extra image coverage accommodates the stronger phone movement.
-    sceneScale = enabled ? 1.08 : 1.04;
-    if (control) control.hidden = allowed || !touch.matches || motion.matches;
-    neutral();
-  }
-  if (!allowed) {
-    var english = html.lang === 'en';
-    control = document.createElement('button');
-    control.type = 'button';
-    control.className = 'scene-motion';
-    control.textContent = english ? 'Enable motion' : 'Ativar movimento';
-    control.addEventListener('click', function () {
-      if (pending) return;
-      pending = true;
-      control.disabled = true;
-      // Invoke synchronously inside the click to preserve Safari's user activation.
-      var permission;
-      try { permission = orientation.requestPermission(); } catch (_) { permission = Promise.resolve('denied'); }
-      Promise.resolve(permission).then(function (state) {
-        allowed = state === 'granted';
-      }).catch(function () {}).finally(function () {
-        pending = false;
-        if (!allowed) control.textContent = english ? 'Motion unavailable' : 'Movimento indisponível';
-        syncTilt();
-      });
-    });
-    root.appendChild(control);
-  }
-  motion.addEventListener('change', syncTilt);
-  touch.addEventListener('change', syncTilt);
-  document.addEventListener('visibilitychange', syncTilt);
-  window.addEventListener('pageshow', syncTilt);
-  window.addEventListener('orientationchange', neutral);
-  if (window.screen && window.screen.orientation) window.screen.orientation.addEventListener('change', neutral);
-  syncTilt();
 })();
