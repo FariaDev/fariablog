@@ -214,8 +214,8 @@ function tiltFixture({ permission, reduced = false, secure = true } = {}) {
 test('phone tilt calibrates at the holding angle and bounds large movements', () => {
   const f = tiltFixture();
   f.tilt(60, 10); assert.deepEqual(f.values(), [0, 0]);
-  f.tilt(85, 35); const [x, y] = f.values(); assert.ok(x < -5.9 && x >= -6); assert.ok(y < -5.9 && y >= -6);
-  f.tilt(160, 85); const bounded = f.values(); assert.ok(bounded.every(v => v >= -6 && v < -5.9));
+  f.tilt(85, 35); const [x, y] = f.values(); assert.ok(x < -17.9 && x >= -18); assert.ok(y < -17.9 && y >= -18);
+  f.tilt(160, 85); const bounded = f.values(); assert.ok(bounded.every(v => v >= -18 && v < -17.9));
   f.tilt(null, NaN); assert.deepEqual(f.values(), bounded);
   f.root.emit('pointerleave', { pointerType: 'touch' }); assert.deepEqual(f.values(), bounded);
   assert.equal(f.controls.length, 0);
@@ -224,7 +224,7 @@ test('landscape maps tilt into screen axes and recalibrates on rotation', () => 
   const f = tiltFixture(); f.tilt(50, 0); f.drain();
   f.orientation.angle = 90; f.orientation.emit('change');
   f.tilt(60, 10); assert.deepEqual(f.values(), [0, 0]);
-  f.tilt(85, 10); const [x, y] = f.values(); assert.ok(x < -5.9); assert.ok(Math.abs(y) < .01);
+  f.tilt(85, 10); const [x, y] = f.values(); assert.ok(x < -17.9); assert.ok(Math.abs(y) < .01);
 });
 test('hidden pages and reduced motion stop sensors and reset the scene', () => {
   const f = tiltFixture(); f.tilt(40, 0); f.tilt(65, 25); f.drain();
@@ -252,4 +252,11 @@ test('insecure pages and reduced motion never start sensors', () => {
   assert.equal(tiltFixture({ secure: false }).window.count('deviceorientation'), 0);
   const f = tiltFixture({ reduced: true, permission: () => { throw new Error('must not request'); } });
   assert.equal(f.controls[0].hidden, true); assert.equal(f.window.count('deviceorientation'), 0);
+});
+
+test('a small phone tilt is visible and retains image coverage', () => {
+  const f = tiltFixture();
+  f.tilt(50, 0); f.tilt(57.5, 7.5);
+  assert.ok(f.values().every(v => v < -8.9 && v >= -9));
+  assert.ok(f.scene.style.transform.includes('scale(1.0800)'));
 });
