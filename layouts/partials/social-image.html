@@ -1,0 +1,19 @@
+{{- $page := .page -}}
+{{- $room := "window" -}}
+{{- if $page.IsHome -}}
+  {{- $room = "desk" -}}
+{{- else if eq $page.Layout "about" -}}
+  {{- $room = "about" -}}
+{{- else if eq $page.Layout "books" -}}
+  {{- $room = "shelf" -}}
+{{- end -}}
+{{- $font := resources.Get "fonts/LibreCaslonText.ttf" -}}
+{{- $scene := (resources.Get (printf "images/%s/dusk.jpg" $room)).Fill "1200x630 Center jpg q88" -}}
+{{- $frame := resources.Get "brand/social-base.png" -}}
+{{- $card := $scene.Filter
+  (images.Overlay $frame 0 0)
+  (images.Text "Faria Blog" (dict "x" 120 "y" 547 "font" $font "size" 44 "color" "#2a211c"))
+-}}
+{{- $card = $card.Process "jpg q88" -}}
+{{- $card = resources.Copy (printf "processed-images/share-%s.jpg" $room) $card | fingerprint "sha256" -}}
+{{- return $card -}}

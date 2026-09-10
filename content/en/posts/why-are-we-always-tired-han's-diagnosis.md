@@ -1,7 +1,8 @@
 +++
+description = "Notes on Byung-Chul Han’s The Burnout Society: achievement, self-exploitation, and the difficulty of resting."
+summary = "Notes on Byung-Chul Han’s The Burnout Society: achievement, self-exploitation, and the difficulty of resting."
 title = "Why Are We Always Tired: Han's Diagnosis"
 spine = "Tiredness"
-description = "Why are we always exhausted? Philosopher Byung-Chul Han explains how the achievement society has turned us into slaves of ourselves."
 date = "2025-04-21T15:15:02-03:00"
 author = "Lucas"
 tags = ["Neuroscience", "Philosophy"]

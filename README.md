@@ -1,82 +1,91 @@
 # FariaBlog
 
-![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)
-![Hugo](https://img.shields.io/badge/Hugo-v0.164.0-blue.svg)
-![Último Commit](https://img.shields.io/github/last-commit/FariaDev/fariablog.svg)
+**Uma casa para leitura.** Ensaios e notas de Lucas Faria sobre filosofia, literatura, neurociência e educação, acompanhados de uma estante de livros lidos.
 
-Blog pessoal estático construído com Hugo e uma casa para leitura: cenas de uma biblioteca que dão lugar ao papel. O projeto serve como arquivo de estudos, leituras e reflexões sobre filosofia, literatura, neurociência e educação.
+[Visitar o site](https://fariablog.com/pt-br/) · [Read in English](https://fariablog.com/en/)
 
-<p align="center">
-  <img src="https://fariablog.com/fariablog.webp" alt="FariaBlog" width="400"/>
-</p>
+![FariaBlog: papel claro, janela entreaberta e uma escrivaninha iluminada](static/og/fariablog.jpg)
 
-## Funcionalidades Principais
+## A casa
 
-- **Interface:** HTML direto, tipografia serifada, uma coluna editorial e iluminação da casa conforme a hora local.
-- **Internacionalização:** Suporte multilíngue (Português/Inglês).
-- **Navegação:** Busca indexada via Fuse.js, sumário interno, arquivo cronológico e taxonomia por assuntos.
-- **Performance:** SEO estruturado, assets fingerprintados e imagens WebP responsivas.
+Início, Textos, Livros e Sobre são vistas do mesmo lugar. As cenas acompanham a hora local; ao entrar em um ensaio ou na bibliografia, a casa dá lugar ao papel.
 
-## Tecnologias
+- **Leitura:** coluna editorial, tipografia serifada, sumário, notas e navegação entre ensaios.
+- **Navegação:** catálogo de textos, assuntos, arquivo e busca local com Fuse.js. `/` abre a busca; `Esc` fecha.
+- **Luminária:** clique na imagem no Início ou no Sobre para acender/apagar ao entardecer e à noite. A escolha acompanha a navegação na mesma sessão.
+- **Carregamento:** AVIF e WebP responsivos, prévias pequenas embutidas, prioridade para a cena ativa e aquecimento adiado das outras exposições.
+- **Acessibilidade:** teclado, foco visível, alvos de toque e respeito à preferência por movimento reduzido e à economia de dados.
+- **Compartilhamento:** banners com “Faria Blog”, a logo e a cena da casa; títulos e descrições próprios por página e idioma nos metadados.
 
-- **[Hugo](https://gohugo.io/):** Static Site Generator.
-- **Fuse.js:** busca local tolerante a erros.
+O site entrega HTML estático, sem banco de dados, painel administrativo, analytics ou scripts de rastreamento. As versões em português e inglês são mantidas em arquivos separados.
 
-## Interface
+## Desenvolvimento local
 
-Início, Textos, Livros e Sobre são espaços da mesma casa. Uma janela entreaberta, papel claro, oxblood e navegação tipográfica sustentam a identidade. Busca, taxonomias, imagens responsivas, SEO e internacionalização continuam integrados ao Hugo.
-
-A arquitetura está documentada em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) e o contrato do Cloudflare Pages em [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
-
-## Instalação e Execução
-
-### Pré-requisitos
-
-- [Git](https://git-scm.com/)
-- [Hugo Extended](https://gohugo.io/getting-started/installing/) 0.148.1 ou superior; 0.164.0 é a versão recomendada e testada;
-- [Python](https://www.python.org/) 3.11 ou superior, usado pelo gate de verificação;
-- [Node.js](https://nodejs.org/) 18 ou superior, com npm, usado para validar e testar o JavaScript.
-
-### Passos
-
-1. Clone o repositório:
-    ```bash
-    git clone https://github.com/FariaDev/fariablog.git
-    ```
-
-2. Acesse o diretório:
-    ```bash
-    cd fariablog
-    ```
-
-3. Execute o servidor local:
-    ```bash
-    hugo server -D
-    ```
-
-4. Acesse `http://localhost:1313/pt-br/`.
-
-## Verificação
-
-Instale as dependências usadas apenas pelos testes e execute o gate:
+Requisitos: Hugo **Extended 0.148.1 ou superior**, Python 3.11+ e Node.js 18+ com npm. O CI verifica Hugo 0.148.1 e 0.164.0; não valida individualmente todas as versões intermediárias.
 
 ```bash
+git clone https://github.com/FariaDev/fariablog.git
+cd fariablog
 npm ci
-./scripts/verify.sh
+hugo server -D
 ```
 
-O CI executa esse gate com Hugo Extended 0.148.1 e 0.164.0. As versões representam os limites testados; versões intermediárias não são verificadas individualmente.
+Abra <http://localhost:1313/pt-br/>. A opção `-D` inclui rascunhos na prévia local.
 
-## Estrutura do Projeto
+## Editar e publicar conteúdo
+
+| Conteúdo | Arquivo ou diretório |
+| --- | --- |
+| Artigos em português | `content/pt-br/posts/` |
+| Artigos em inglês | `content/en/posts/` |
+| Lista de livros | `content/pt-br/books.md` e `content/en/books.md` |
+| Sobre | `content/pt-br/about.md` e `content/en/about.md` |
+| Frases da interface | `i18n/pt-br.yaml` e `i18n/en.yaml` |
+
+Para um artigo novo, use um existente como referência. Preencha `title`, `description`, `summary`, `date`, `tags` e `translationKey`; `spine` é o título curto mostrado no catálogo. O gate atual exige um par PT/EN com o mesmo `translationKey`. Use `draft = true` enquanto prepara o texto.
+
+`description` resume a página para busca e compartilhamento; `summary` serve às listagens e feeds. O campo opcional `seoTitle` permite um título específico para os metadados sem mudar o título visível. Os banners são gerados automaticamente; não é preciso desenhar uma imagem para cada novo artigo.
+
+Antes de publicar:
+
+```bash
+bash scripts/verify.sh
+```
+
+Envie uma branch e abra um PR. Depois dos checks aprovados, o merge na `main` aciona a publicação pelo Cloudflare Pages. Confira a versão no domínio público.
+
+## Verificação e assets
+
+O gate constrói produção e desenvolvimento, confere HTML, links, JSON-LD, metadados, imagens sociais, sitemaps, política de cache e executa os testes JavaScript.
+
+Comandos de manutenção visual:
+
+```bash
+bash scripts/build-icons.sh          # favicon e assinaturas
+python3 scripts/build-house-avif.py  # AVIF e miniaturas das cenas
+node scripts/build-social-base.mjs   # moldura dos cartões
+bash scripts/update-readme-banner.sh # banner do README e URL histórica
+```
+
+A regeneração usa ImageMagick; os scripts Node usam o resvg fixado no lockfile. O CI confere os AVIFs já versionados sem precisar de um encoder. A fonte Libre Caslon Text, sob licença OFL em `assets/fonts/`, é usada apenas para rasterizar os banners no build; não é baixada pelo navegador.
+
+## Estrutura
 
 ```text
-.
-├── assets/         # CSS e JavaScript processados pelo Hugo
-├── content/        # Posts e páginas em português e inglês
-├── docs/           # Arquitetura e publicação
-├── i18n/           # Textos da interface
-├── layouts/        # Templates Hugo da apresentação principal
-├── scripts/        # Gate de verificação
-├── static/         # Imagens e políticas HTTP
-├── config.toml     # Configuração principal
-└── README.md
+assets/   # Cenas, AVIFs, marca, fonte dos banners, CSS e JavaScript
+content/  # Artigos e páginas em português e inglês
+data/     # Manifesto de imagens e miniaturas embutidas
+docs/     # Arquitetura, conteúdo visual, SEO e publicação
+i18n/     # Textos traduzidos da interface
+layouts/  # Templates Hugo e geração dos cartões sociais
+scripts/  # Validação e regeneração de assets
+tests/    # Testes de comportamento do JavaScript
+static/   # Ícones, imagens públicas e políticas HTTP
+```
+
+## Documentação
+
+- [Arquitetura e funcionamento](docs/ARCHITECTURE.md)
+- [SEO e compartilhamento](docs/SEO-SHARING.md)
+- [Cenas, formatos e referências visuais](docs/ABOUT-IMAGES.md)
+- [Publicação e rollback](docs/DEPLOYMENT.md)

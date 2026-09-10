@@ -1,7 +1,8 @@
 +++
+description = "Meet Lucas Faria and FariaBlog: a house for essays, reading notes, and reflections on philosophy, literature, neuroscience, and education."
+seoTitle = "About Lucas Faria"
 title = "About"
 layout = "about"
-description = "FariaBlog — essays and reading notes."
 date = "2026-09-07T00:00:00-03:00"
 lastmod = "2026-09-07T00:00:00-03:00"
 language = "en"

@@ -1,7 +1,8 @@
 +++
+description = "Reflexões a partir do prefácio da Gramática Latina, de Napoleão Mendes de Almeida, sobre linguagem, raciocínio e educação."
+summary = "Reflexões a partir do prefácio da Gramática Latina, de Napoleão Mendes de Almeida, sobre linguagem, raciocínio e educação."
 title = "Reflexões sobre o Prefácio de Napoleão Mendes de Almeida: Latim, Raciocínio e a Crise na Educação"
 spine = "Latim"
-description = "O estudo do latim desenvolve raciocínio e inteligência. Reflexões sobre a crise educacional brasileira inspiradas na Gramática Latina."
 date = "2025-04-27T15:20:00-03:00"
 author = "Lucas"
 tags = ["Educacao", "Leitura"]

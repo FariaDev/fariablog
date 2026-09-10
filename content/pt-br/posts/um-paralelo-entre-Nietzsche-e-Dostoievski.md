@@ -1,7 +1,8 @@
 +++
+description = "Um diálogo entre Crepúsculo dos ídolos e Memórias do subsolo: Nietzsche e Dostoiévski diante da razão, da moral e das contradições humanas."
+summary = "Um diálogo entre Crepúsculo dos ídolos e Memórias do subsolo: Nietzsche e Dostoiévski diante da razão, da moral e das contradições humanas."
 title = "Um paralelo entre Nietzsche e Dostoiévski."
 spine = "Nietzsche"
-description = "Nietzsche e Dostoiévski questionam o excesso de racionalidade. Descubra o que Crepúsculo dos Ídolos e Memórias do Subsolo têm em comum."
 date = "2025-02-01T13:49:00-03:00"
 author = "Lucas"
 tags = ["Leitura", "Filosofia"]
