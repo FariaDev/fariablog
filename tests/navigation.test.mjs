@@ -11,7 +11,7 @@ function fixture() {
   input.focus = () => { focused = input; };
   lens.focus = () => { focused = lens; };
   input.scrollIntoView = () => {};
-  vm.runInNewContext(source, { document, window: { setTimeout: f => f() }, Event: window.Event });
+  vm.runInNewContext(source, { document, window: { setTimeout: f => f(), clearTimeout() {}, matchMedia: () => ({ matches: false }) }, Event: window.Event });
   function key(target, value, extra = {}) {
     const event = new window.Event('keydown', { bubbles: true, cancelable: true });
     Object.assign(event, { key: value }, extra);
