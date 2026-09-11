@@ -9,8 +9,11 @@
   var desiredLamp = html.dataset.lamp === 'off' ? 'off' : 'on';
   var revision = 0, active = null, fadeTimer, lampPending = false;
   function hourFromClock() {
-    var hour = new Date().getHours();
-    return hour >= 10 && hour < 17 ? 'noon' : hour >= 17 && hour < 21 ? 'dusk' : 'midnight';
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    if (minutes >= 6 * 60 && minutes < 17 * 60 + 30) return 'noon';
+    if (minutes >= 17 * 60 + 30 && minutes < 19 * 60) return 'dusk';
+    return 'midnight';
   }
   function selected(hour) {
     return layers.find(function (img) {
