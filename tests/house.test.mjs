@@ -20,14 +20,16 @@ for (const hour of hours) test(`first paint requests only ${hour}, at high prior
 function fixture({ saveData = false } = {}) {
   const layers = hours.map(layer), listeners = {}, idle = [];
   const element = { dataset: { hour: 'noon' }, classList: { add() {} } };
-  let clockHour = 12;
+  let clockHour = 12, clockMinute = 0;
   const root = { classList: { add() {}, remove() {} }, dataset: {}, querySelector: () => null, querySelectorAll: () => layers };
   const window = { clearTimeout() {}, setTimeout() {}, matchMedia: () => ({ matches: false }), setInterval: f => { listeners.interval = f; },
     addEventListener: (name, f) => { listeners[name] = f; }, requestIdleCallback: f => idle.push(f) };
   const document = { readyState: 'interactive', documentElement: element, querySelector: () => root, addEventListener() {} };
   vm.runInNewContext(source, { window, document, navigator: { connection: { saveData, effectiveType: '4g' } },
-    Date: class { getHours() { return clockHour; } }, requestAnimationFrame: f => f() });
-  return { layers, listeners, idle, element, setHour: h => { clockHour = h; } };
+    Date: class { getHours() { return clockHour; } getMinutes() { return clockMinute; } }, requestAnimationFrame: f => f() });
+  return { layers, listeners, idle, element,
+    setHour: h => { clockHour = h; clockMinute = 0; },
+    setTime: (h, m) => { clockHour = h; clockMinute = m; } };
 }
 const flush = async () => { for(let i=0;i<5;i++) await Promise.resolve(); };
 test('invisible variants wait for load and idle', async () => {
@@ -45,6 +47,18 @@ test('save-data skips warming but a clock change loads the new scene', async () 
   f.setHour(18); f.listeners.interval(); await flush();
   assert.equal(f.element.dataset.hour, 'dusk');
   assert.equal(f.layers[2].src, '');
+});
+test('room lighting follows sunrise, dusk and night boundaries', async () => {
+  const f = fixture(); await flush();
+  for (const [hour, minute, expected] of [
+    [0, 0, 'midnight'], [5, 59, 'midnight'], [6, 0, 'noon'],
+    [17, 29, 'noon'], [17, 30, 'dusk'], [18, 59, 'dusk'],
+    [19, 0, 'midnight'], [21, 0, 'midnight'], [23, 59, 'midnight']
+  ]) {
+    f.setTime(hour, minute); f.listeners.interval(); await flush();
+    assert.equal(f.element.dataset.hour, expected,
+      `${hour}:${String(minute).padStart(2, '0')} should use ${expected}`);
+  }
 });
 test('a stale decode cannot change the current room lighting', async () => {
   const f = fixture(); await flush();
@@ -86,7 +100,7 @@ function lampFixture({ stored = 'on', reduced = false } = {}) {
   const window = { matchMedia: () => ({ matches: reduced }), setInterval: f => { events.interval = f; }, addEventListener: (n, f) => { events[n] = f; },
     clearTimeout() {}, setTimeout: f => { timers.push(f); }, requestIdleCallback: f => idle.push(f), sessionStorage: { getItem: k => k in storage ? storage[k] : stored, setItem: (k, v) => { storage[k] = v; } } };
   let clock = 23;
-  vm.runInNewContext(source, { window, document: { documentElement: html, readyState: 'interactive', querySelector: () => root, addEventListener() {} }, navigator: {}, Date: class { getHours() { return clock; } }, requestAnimationFrame: f => f() });
+  vm.runInNewContext(source, { window, document: { documentElement: html, readyState: 'interactive', querySelector: () => root, addEventListener() {} }, navigator: {}, Date: class { getHours() { return clock; } getMinutes() { return 0; } }, requestAnimationFrame: f => f() });
   return { layers, events, attrs, idle, storage, html, lamp, timers, setHour: h => { clock = h; } };
 }
 test('About initial paint selects exactly one lamp exposure, AVIF before WebP', () => {
