@@ -811,9 +811,16 @@ html.hours-armed img.home-layer {
   margin-right: .9rem;
   opacity: .65;
 }
-.threshold-link[aria-current="page"] span { text-decoration: underline; text-underline-offset: .35em; }
+.threshold-link[aria-current="page"] span,
+.threshold-link:hover span,
+.threshold-link:focus-visible span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .35em;
+}
 .search-lens { display: grid; place-items: center; width: 44px; height: 44px; color: inherit; }
-.threshold-nav.is-searching { width: min(28rem, calc(100% - 2rem)); }
+.search-lens:hover { opacity: .72; }
+.threshold-nav.is-searching { width: min(30rem, calc(100% - 2rem)); }
 .threshold-nav.is-searching .threshold-links,
 .threshold-nav.is-searching .search-lens { display: none; }
 .dock-search {
@@ -821,36 +828,67 @@ html.hours-armed img.home-layer {
   box-sizing: border-box;
   flex: 1 1 auto;
   align-items: center;
-  gap: .35rem;
+  gap: .65rem;
   width: 100%;
   min-width: 0;
-  padding: .18rem .35rem .18rem .75rem;
-  border: 1px solid rgb(42 33 28 / 18%);
+  min-height: 3rem;
+  padding: 0 .1rem 0 .15rem;
+  border: 0;
+  border-bottom: 1px solid rgb(42 33 28 / 55%);
   border-radius: 0;
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
-
 }
 
 .threshold-nav.is-searching .dock-search {
   display: flex;
 }
 
+.dock-search:focus-within {
+  border-bottom-color: var(--oxblood);
+  box-shadow: 0 1px 0 var(--oxblood);
+}
+
+.home-window .dock-search {
+  border-bottom-color: rgb(243 238 228 / 72%);
+  color: var(--house-ink);
+}
+
+.home-window .dock-search:focus-within {
+  border-bottom-color: var(--house-ink);
+  box-shadow: 0 1px 0 var(--house-ink);
+}
+
+.dock-search-icon {
+  flex: 0 0 auto;
+  opacity: .75;
+}
+
 .dock-search input[type="search"] {
-  min-height: 2rem;
-  padding: .2rem 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: .35rem 0;
   border: 0;
   border-radius: 0;
   background: transparent;
+  color: inherit;
+  caret-color: currentColor;
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 1rem;
+  font-size: .9375rem;
   box-shadow: none;
 }
 
-.dock-search input[type="search"]:focus {
+.dock-search input[type="search"]:focus,
+.dock-search input[type="search"]:focus-visible {
   border: 0;
+  outline: 0;
   box-shadow: none;
 }
+
+.dock-search input[type="search"]::placeholder { color: var(--muted); opacity: 1; }
+.home-window .dock-search input[type="search"]::placeholder { color: rgb(243 238 228 / 68%); }
+.dock-search input[type="search"]::-webkit-search-cancel-button { display: none; }
 
 .dock-search [data-clear-search] {
   flex: 0 0 auto;
@@ -864,18 +902,21 @@ html.hours-armed img.home-layer {
   cursor: pointer;
 }
 
+.home-window .dock-search [data-clear-search] { color: rgb(243 238 228 / 72%); }
+
 .dock-search-close {
   display: grid;
   flex: 0 0 auto;
   place-items: center;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   border: 0;
-  border-radius: 50%;
+  border-radius: 0;
   background: transparent;
-  color: var(--foreground);
-  font-size: 1.25rem;
+  color: inherit;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
 }
@@ -1316,7 +1357,7 @@ body.is-about .home-words {
 .footnotes li, [id^="fnref"], [id^="fn:"] { scroll-margin-top: 2rem; }
 .footnote-backref { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 .dock-search input[type="search"], .dock-search-close { min-height: 44px; }
-.dock-search input[type="search"]:focus-visible { outline: 2px solid var(--oxblood); outline-offset: 2px; }
+.dock-search input[type="search"]:focus-visible { outline: 0; }
 .home-scene { view-transition-name: house-scene; }
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
