@@ -811,19 +811,34 @@ html.hours-armed img.home-layer {
   margin-right: .9rem;
   opacity: .65;
 }
-.threshold-link[aria-current="page"] span,
-.threshold-link:hover span,
-.threshold-link:focus-visible span {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: .35em;
+.threshold-link span {
+  position: relative;
+  display: inline-block;
 }
-.search-lens { display: grid; place-items: center; width: 44px; height: 44px; color: inherit; }
-.search-lens:hover { opacity: .72; }
+.threshold-link span::after {
+  position: absolute;
+  right: 0;
+  bottom: .18rem;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .24s cubic-bezier(.22, .7, .25, 1);
+}
+.threshold-link[aria-current="page"] span::after,
+.threshold-link:hover span::after,
+.threshold-link:focus-visible span::after {
+  transform: scaleX(1);
+}
+.search-lens { display: grid; place-items: center; width: 44px; height: 44px; color: inherit; transition: opacity .18s ease, transform .18s ease; }
+.search-lens:hover { opacity: .72; transform: translateY(-1px); }
 .threshold-nav.is-searching { width: min(30rem, calc(100% - 2rem)); }
 .threshold-nav.is-searching .threshold-links,
 .threshold-nav.is-searching .search-lens { display: none; }
 .dock-search {
+  position: relative;
   display: none;
   box-sizing: border-box;
   flex: 1 1 auto;
@@ -842,11 +857,28 @@ html.hours-armed img.home-layer {
 
 .threshold-nav.is-searching .dock-search {
   display: flex;
+  animation: threshold-search-in .3s cubic-bezier(.22, .7, .25, 1) both;
 }
 
-.dock-search:focus-within {
-  border-bottom-color: var(--oxblood);
-  box-shadow: 0 1px 0 var(--oxblood);
+.threshold-nav.is-search-closing .dock-search {
+  animation: threshold-search-out .18s ease-in both;
+}
+
+.dock-search::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--oxblood);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s cubic-bezier(.22, .7, .25, 1);
+}
+
+.dock-search:focus-within::after {
+  transform: scaleX(1);
 }
 
 .home-window .dock-search {
@@ -854,9 +886,16 @@ html.hours-armed img.home-layer {
   color: var(--house-ink);
 }
 
-.home-window .dock-search:focus-within {
-  border-bottom-color: var(--house-ink);
-  box-shadow: 0 1px 0 var(--house-ink);
+.home-window .dock-search::after { background: var(--house-ink); }
+
+@keyframes threshold-search-in {
+  from { opacity: 0; transform: translateY(.4rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes threshold-search-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(.25rem); }
 }
 
 .dock-search-icon {
@@ -1368,6 +1407,11 @@ body.is-about .home-words {
 @media (prefers-reduced-motion: reduce) {
   html.hours-armed img.home-layer, .texts-row { transition: none; }
   .home-scene { transform: scale(1.04) !important; }
+  .threshold-link span::after,
+  .dock-search::after,
+  .search-lens { transition: none; }
+  .threshold-nav.is-searching .dock-search,
+  .threshold-nav.is-search-closing .dock-search { animation: none; }
   ::view-transition-group(*) { animation: none !important; }
   @view-transition { navigation: none; }
 }

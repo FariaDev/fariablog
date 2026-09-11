@@ -7,6 +7,8 @@
   var input = form && form.querySelector('[data-search-input]');
   var closeBtn = dock.querySelector('[data-search-close]');
   var clearBtn = dock.querySelector('[data-clear-search]');
+  var reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var closeTimer = 0;
   if (!openBtn || !form || !input) return;
 
   function isSearchPage() {
@@ -14,19 +16,30 @@
   }
 
   function open(focus) {
+    window.clearTimeout(closeTimer);
+    dock.classList.remove('is-search-closing');
+    form.hidden = false;
     dock.classList.add('is-searching');
     openBtn.setAttribute('aria-expanded', 'true');
-    form.hidden = false;
     if (focus !== false) {
       window.setTimeout(function () { input.focus(); }, 20);
     }
   }
 
-  function close() {
+  function finishClose() {
+    window.clearTimeout(closeTimer);
+    dock.classList.remove('is-search-closing');
     dock.classList.remove('is-searching');
-    openBtn.setAttribute('aria-expanded', 'false');
     form.hidden = true;
     openBtn.focus();
+  }
+
+  function close() {
+    openBtn.setAttribute('aria-expanded', 'false');
+    if (reducedMotion.matches) { finishClose(); return; }
+    dock.classList.add('is-search-closing');
+    window.clearTimeout(closeTimer);
+    closeTimer = window.setTimeout(finishClose, 180);
   }
 
   if (isSearchPage() || (input.value && input.value.trim())) open(false);
